@@ -10,17 +10,17 @@ export default function LoginTerminal() {
   const [password, setPassword] = useState('');
   const [bootText, setBootText] = useState<string[]>([]);
   const [isBooting, setIsBooting] = useState(true);
-  const { setMood, setIntensity } = useEnvironment();
-
-  const fullBootSequence = [
-    'INITIALIZING NEXUS PROTOCOL...',
-    'LOADING ADAPTIVE INTERFACE...',
-    'ESTABLISHING SECURE TUNNEL...',
-    'DECRYPTING ENVIRONMENTAL DATA...',
-    'READY FOR ACCESS.'
-  ];
+  const { setMood, setIntensity, login } = useEnvironment();
 
   useEffect(() => {
+    const fullBootSequence = [
+      'INITIALIZING NEXUS PROTOCOL...',
+      'LOADING ADAPTIVE INTERFACE...',
+      'ESTABLISHING SECURE TUNNEL...',
+      'DECRYPTING ENVIRONMENTAL DATA...',
+      'READY FOR ACCESS.'
+    ];
+
     let currentLine = 0;
     const interval = setInterval(() => {
       if (currentLine < fullBootSequence.length) {
@@ -39,8 +39,7 @@ export default function LoginTerminal() {
     if ((username === 'guest' && password === 'guest') || (username === 'admin' && password === 'admin')) {
       setMood('alert');
       setIntensity(0.5);
-      // In a real app, redirect or update auth state
-      alert('ACCESS GRANTED. SESSION INITIALIZED.');
+      login();
     } else {
       setMood('critical');
       setIntensity(0.8);
