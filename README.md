@@ -12,6 +12,8 @@ hidden mechanics and environmental storytelling.
 
 NEXUS VEIL is not designed as a traditional news portal, dashboard, or productivity platform.
 
+**Quick Start**: See [LOCAL_SETUP.md](./LOCAL_SETUP.md) for instructions on how to run and modify the environment on your local machine.
+
 The project is intended to feel like:
 
 a living digital ecosystem;
