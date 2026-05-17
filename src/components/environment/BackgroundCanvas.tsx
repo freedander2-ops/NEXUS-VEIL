@@ -14,28 +14,25 @@ function StarField() {
 
   const sphere = useMemo(() => {
     const positions = new Float32Array(params.particleDensity * 3);
-    // Use a simple seeded pseudo-random generator if needed for strict purity,
-    // but for now, we just want to bypass the lint error by acknowledging it's intentional
-    // or by using a method that the compiler accepts.
     for (let i = 0; i < params.particleDensity; i++) {
-      /* eslint-disable react-hooks/purity */
       positions[i * 3] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
-      /* eslint-enable react-hooks/purity */
     }
     return positions;
   }, [params.particleDensity]);
 
   useFrame((state, delta) => {
-    ref.current.rotation.x += delta * params.rotationSpeed * 0.1;
-    ref.current.rotation.y += delta * params.rotationSpeed * 0.15;
+    if (ref.current) {
+      ref.current.rotation.x += delta * params.rotationSpeed * 0.1;
+      ref.current.rotation.y += delta * params.rotationSpeed * 0.15;
 
-    // Add subtle glitch jump
-    if (Math.random() < params.glitchFrequency * 0.01) {
-      ref.current.position.x = (Math.random() - 0.5) * 0.1;
-    } else {
-      ref.current.position.x *= 0.9;
+      // Add subtle glitch jump
+      if (Math.random() < params.glitchFrequency * 0.01) {
+        ref.current.position.x = (Math.random() - 0.5) * 0.1;
+      } else {
+        ref.current.position.x *= 0.9;
+      }
     }
   });
 
