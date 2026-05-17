@@ -1,175 +1,306 @@
-System Architecture
-Architectural Goal
+NEXUS VEIL — SYSTEM ARCHITECTURE
+CORE ARCHITECTURAL PHILOSOPHY
 
-Create a modular adaptive web environment where:
+NEXUS VEIL is not a standard web application.
 
-visual atmosphere reacts to external signals;
-feeds dynamically affect UI states;
-sections maintain unique identities;
-the environment remains performant and scalable.
-High-Level Layers
-1. Presentation Layer
+It is:
 
-Responsibilities:
+a reactive environmental system;
+a cinematic digital ecosystem;
+a modular atmospheric platform.
 
-rendering UI;
-environmental transitions;
-animations;
-interactive atmosphere;
-section-specific aesthetics.
+Architecture decisions must prioritize:
 
-Technology:
+immersion;
+scalability;
+environmental consistency;
+visual evolution;
+dynamic adaptation.
+HIGH-LEVEL SYSTEM LAYERS
+1. ENVIRONMENT CORE
 
-Next.js;
-React;
-Three.js;
-Framer Motion.
-2. Environment Engine
-
-Core reactive system.
+Central reactive engine.
 
 Responsibilities:
 
 mood calculation;
-event weighting;
-environmental state generation;
-animation triggers;
-visual adaptation.
+atmosphere state management;
+dynamic transitions;
+environmental reactions;
+visual intensity scaling.
 
 Inputs:
 
-weather;
+weather APIs;
 time;
-cyber feeds;
+cybersecurity feeds;
 GitHub feeds;
-news intensity;
-anomaly events.
+geopolitical indicators;
+internal event systems.
 
 Outputs:
 
-UI theme;
-background state;
-transition intensity;
-ambient behavior.
-3. Feed Aggregation Layer
+color palettes;
+ambient intensity;
+motion behavior;
+shader states;
+section atmosphere.
+2. VISUAL RENDER LAYER
 
-Responsibilities:
+Purpose:
 
-fetching public feeds;
-caching;
-normalization;
-lightweight summarization.
+render cinematic environments;
+maintain immersive transitions;
+support procedural visuals.
+
+Preferred stack:
+
+Three.js;
+React Three Fiber;
+Framer Motion;
+GLSL shaders.
+
+Possible systems:
+
+particle simulations;
+fog layers;
+volumetric lighting;
+animated skies;
+environmental reflections;
+procedural geometry.
+3. EXPERIENCE ENGINE
+
+Controls:
+
+transitions;
+hidden events;
+environmental triggers;
+section transformations;
+easter egg logic.
+
+Examples:
+
+entering cybersecurity section changes world state;
+nighttime unlocks hidden overlays;
+rain changes reflection shaders.
+4. FEED AGGREGATION LAYER
+
+Purpose:
+
+normalize public information;
+collect external signals;
+cache feeds.
 
 Sources:
 
-RSS;
 GitHub API;
-CVE feeds;
-public cybersecurity feeds;
-weather APIs.
-4. Secret Event System
+RSS feeds;
+cybersecurity feeds;
+weather APIs;
+optional geopolitical APIs.
 
-Responsible for:
+Backend responsibilities ONLY:
 
-easter eggs;
-hidden routes;
-environmental triggers;
-timed events;
-rare states.
-
-Examples:
-
-hidden pages after midnight;
-special interface during storms;
-anomaly mode during high cyber activity.
-5. Ambient Audio Layer
-
-Optional subsystem.
-
-Responsibilities:
-
-atmospheric audio;
-environmental ambience;
-event-based sounds.
-
-Must remain subtle. Never intrusive.
-
-UI Philosophy
-
-Each section must feel like a different environment.
-
-Examples:
-
-Cybersecurity
-glitch;
-terminal overlays;
-threat pulse.
-GitHub
-cleaner visual structure;
-graph motion;
-technical atmosphere.
-OSINT
-map overlays;
-network graphs;
-exploration aesthetic.
-News
-mood-responsive intensity;
-tension visualization;
-geopolitical state effects.
-Performance Strategy
-
-Heavy rendering should:
-
-happen client-side;
-degrade gracefully;
-disable advanced shaders on weak devices.
-
-The backend should remain lightweight.
-
-Primary backend tasks:
-
-caching;
 aggregation;
-feed normalization.
-Security Principles
+normalization;
+caching;
+lightweight analysis.
 
-The project is NOT:
+Heavy rendering remains client-side.
 
-an exploit platform;
-a malware framework;
-an intrusion system.
+5. SECRET EVENT ENGINE
 
-The project MUST:
+Purpose:
 
-sanitize user input;
-isolate external content;
-avoid dangerous script execution;
-use secure headers;
-minimize tracking.
+create hidden experiences.
+
+Features:
+
+rare environmental states;
+hidden commands;
+temporal events;
+environmental anomalies;
+discoverable routes.
+
+Triggers:
+
+time;
+weather;
+navigation patterns;
+special dates;
+global events.
+6. LOCALIZATION SYSTEM
+
+Required languages:
+
+Russian;
+English.
+
+Architecture must support:
+
+scalable localization;
+section-specific translations;
+dynamic environmental text.
 
 Recommended:
 
-CSP headers;
-rate limiting;
-API isolation;
-token-based admin access.
-Privacy Principles
+i18next
+OR
+next-intl.
+7. USER CONSENT SYSTEM
 
-Minimal data collection.
+If data collection exists:
 
-No invasive tracking. No fingerprint abuse. No unnecessary analytics.
+user MUST explicitly consent before entering full environment.
 
-Prefer:
+Possible collected data:
 
-anonymous metrics;
-local storage;
-edge caching.
-Future Expansion
+settings;
+preferences;
+optional analytics;
+session state.
 
-Possible future systems:
+If declined:
 
-adaptive AI summaries;
-real-time internet weather;
-anomaly clustering;
-dynamic procedural environments;
-collaborative exploration layers.
+limited mode only;
+OR
+deny immersive mode access.
+
+Consent system MUST:
+
+remain transparent;
+avoid manipulation;
+comply with international privacy standards.
+8. AUDIO SYSTEM
+
+Optional but recommended.
+
+Purpose:
+
+enhance immersion.
+
+Examples:
+
+rain ambience;
+low cyber hum;
+distant radio noise;
+subtle environmental transitions.
+
+Requirements:
+
+optional;
+lightweight;
+non-intrusive.
+9. MEMORY STRUCTURE
+
+Repository memory structure:
+
+/memory
+/memory/design
+/memory/environment
+/memory/transitions
+/memory/secrets
+/memory/feeds
+/memory/architecture
+
+Purpose:
+
+preserve long-term consistency;
+avoid atmosphere degradation;
+maintain hidden systems continuity.
+10. UI/UX PHILOSOPHY
+
+The environment MUST:
+
+feel layered;
+contain depth;
+contain movement;
+react naturally.
+
+Avoid:
+
+simple dashboard layouts;
+flat navigation;
+static sections.
+
+The environment should feel:
+
+exploratory;
+cinematic;
+reactive;
+partially unpredictable.
+RECOMMENDED TECH STACK
+
+Frontend:
+
+Next.js
+React
+TypeScript
+TailwindCSS
+Three.js
+React Three Fiber
+Framer Motion
+
+Backend:
+
+Node.js
+lightweight API aggregation
+Redis optional
+SQLite or PostgreSQL optional
+
+Deployment:
+
+Docker
+docker-compose
+Ubuntu Server LTS
+DEPLOYMENT REQUIREMENTS
+
+The system MUST:
+
+deploy easily on Ubuntu;
+support local Windows development;
+minimize backend complexity;
+support incremental expansion.
+
+Preferred deployment:
+
+single-command startup;
+containerized services;
+environment variable configuration.
+SECURITY & LEGAL PRINCIPLES
+
+The platform MUST NOT:
+
+provide exploit deployment;
+automate attacks;
+collect unnecessary personal data;
+bypass laws;
+enable unauthorized surveillance.
+
+The platform MUST:
+
+sanitize inputs;
+isolate feeds;
+secure APIs;
+respect privacy laws;
+clearly disclose data usage.
+
+OSINT systems are:
+
+informational;
+exploratory;
+lawful-public-data only.
+LONG-TERM VISION
+
+Transform NEXUS VEIL into:
+
+a living digital environment;
+an adaptive internet atmosphere;
+a cinematic cyber ecosystem;
+an experiential exploration platform.
+
+NOT:
+
+another dashboard;
+another social platform;
+another generic cyberpunk website.
