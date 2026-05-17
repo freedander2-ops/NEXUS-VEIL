@@ -1,237 +1,228 @@
 NEXUS VEIL
 
-Adaptive digital environment focused on:
+NEXUS VEIL is an experimental atmospheric web environment.
 
-atmospheric interaction;
-reactive cyber aesthetics;
-adaptive information streams;
-dynamic visual states;
-OSINT-inspired exploration;
-GitHub and cybersecurity feeds;
-hidden mechanics and environmental storytelling.
+It is not a normal website.
 
-NEXUS VEIL is not designed as a traditional news portal, dashboard, or productivity platform.
+The goal of the project is to create a living digital space that reacts to:
 
-**Quick Start**: See [LOCAL_SETUP.md](./LOCAL_SETUP.md) for instructions on how to run and modify the environment on your local machine.
-
-The project is intended to feel like:
-
-a living digital ecosystem;
-a cybernetic observation room;
-a responsive internet atmosphere;
-a layered exploratory environment.
-Core Philosophy
-
-Most modern websites are:
-
-static;
-predictable;
-overloaded with SEO content;
-optimized for retention metrics instead of atmosphere.
-
-NEXUS VEIL intentionally moves in the opposite direction.
-
-The environment should:
-
-react to time;
-react to weather;
-react to global digital events;
-visually adapt to information intensity;
-encourage exploration;
-reward curiosity.
-
-The website should feel different depending on:
-
-time of day;
-cyber threat activity;
+time;
+weather;
+internet events;
+cybersecurity activity;
 GitHub ecosystem changes;
-geopolitical tension;
-network instability;
-atmospheric conditions.
-Main Sections
-ENTRY TERMINAL
+global tension;
+user exploration.
 
-Retro-inspired authentication screen.
+The project combines:
 
-Purpose:
+cinematic interfaces;
+reactive environments;
+cyber aesthetics;
+dynamic information layers;
+hidden mechanics;
+environmental storytelling.
 
-create atmosphere;
-establish mystery;
-introduce interaction.
+Instead of feeling like:
 
-The login is intentionally symbolic and easy to guess.
-
-Example:
-
-Login: guest
-Password: guest
-
-Alternative fallback combinations:
-
-Login: admin
-Password: admin
-
-This screen is atmospheric only. It is NOT intended to provide real security.
-
-DIGITAL WEATHER
-
-Dynamic environmental homepage.
-
-Features:
-
-adaptive background;
-procedural visuals;
-ambient transitions;
-real weather synchronization;
-time-based atmosphere;
-cyber activity pulse.
-
-Examples:
-
-rain outside -> rain particles and muted audio atmosphere;
-nighttime -> darker interface and hidden nodes;
-elevated cyber incidents -> red warning overlays and glitch effects.
-CYBERSECURITY
-
-Cyber threat environment.
-
-Possible integrations:
-
-CVE feeds;
-GitHub security advisories;
-exploit trend monitoring;
-public threat intelligence;
-vulnerability dashboards;
-attack visualizations.
-
-Visual identity:
-
-terminal aesthetics;
-reactive grids;
-glitch overlays;
-neon pulse states.
-GITHUB SIGNALS
-
-Dynamic GitHub ecosystem monitoring.
-
-Features:
-
-trending repositories;
-unusual commits;
-security tools;
-emerging projects;
-AI tooling;
-infrastructure updates.
-
-Visual identity:
-
-clean technical UI;
-graph-based motion;
-repository pulse effects.
-OSINT LAYER
-
-Exploration environment.
-
-Possible features:
-
-public-source aggregation;
-map overlays;
-social graph visualization;
-metadata exploration;
-link analysis;
-internet anomaly tracking.
-
-IMPORTANT: The project must only support lawful and ethical OSINT usage. No illegal access. No credential abuse. No unauthorized surveillance. No doxxing. No personal data exploitation.
-
-SECRET SYSTEM
-
-Hidden mechanics and easter eggs.
-
-Examples:
-
-hidden routes;
-hidden UI states;
-time-based events;
-weather-based interface changes;
-rare environmental modes;
-discoverable terminal commands;
-secret pages.
-
-The goal is to create:
-
-depth;
-replayability;
-curiosity;
-exploration.
-Design Principles
-The interface should:
-feel alive;
-avoid static layouts;
-avoid excessive corporate minimalism;
-preserve atmosphere;
-preserve readability.
-The environment should:
-react smoothly;
-avoid visual chaos;
-maintain immersion.
-Mobile support:
-
-Desktop-first. High-end devices prioritized. Legacy or weak devices are not a primary target.
-
-Suggested Tech Stack
-
-Frontend:
-
-Next.js;
-React;
-TypeScript;
-Three.js;
-Framer Motion;
-TailwindCSS.
-
-Backend:
-
-Node.js;
-lightweight aggregation APIs;
-feed parsers;
-caching layer.
-
-Optional:
-
-WebSockets;
-Redis;
-Supabase.
-International Legal & Ethical Principles
-
-The project must:
-
-comply with international privacy principles;
-avoid storing unnecessary personal information;
-avoid dark patterns;
-clearly separate public information from private data;
-avoid unauthorized access functionality;
-avoid malware-related functionality;
-avoid exploit deployment features;
-respect intellectual property;
-support responsible cybersecurity awareness.
-
-OSINT-related sections must:
-
-rely on lawful public sources;
-avoid illegal surveillance;
-avoid personal targeting.
-
-The project should remain:
-
-informational;
-atmospheric;
-educational;
-exploratory.
-Vision
+a dashboard;
+a blog;
+a news portal;
+a feed reader;
 
 NEXUS VEIL should feel like:
 
+entering a living system;
 opening a hidden terminal inside the internet;
-observing the digital atmosphere in real time;
-entering a reactive cyber environment;
-exploring a living system instead of a static website.
+observing a changing digital atmosphere.
+Philosophy
+
+Modern websites often feel:
+
+static;
+disposable;
+overloaded with SEO content;
+visually identical.
+
+NEXUS VEIL moves in the opposite direction.
+
+The environment should:
+
+evolve over time;
+visually react to real-world events;
+create curiosity;
+reward exploration;
+feel different depending on context.
+
+Every visit should feel slightly different.
+
+The project is built around:
+
+atmosphere;
+immersion;
+motion;
+layered interaction;
+environmental design.
+Main Concepts
+Reactive Atmosphere
+
+The interface changes depending on:
+
+weather;
+time of day;
+cyber threat activity;
+geopolitical tension;
+GitHub ecosystem activity;
+environmental events.
+
+Examples:
+
+rain outside may create rain effects and reflective surfaces;
+nighttime may unlock darker visual states;
+elevated cyber activity may trigger warning aesthetics and glitch effects.
+Section Identity
+
+Every section should feel like its own environment.
+
+Cybersecurity
+darker tactical atmosphere;
+network pulse effects;
+anomaly visualizations;
+threat overlays.
+GitHub
+cleaner technical environment;
+graph motion;
+repository pulse systems;
+structured procedural visuals.
+OSINT
+investigative atmosphere;
+layered information systems;
+node maps;
+exploration-focused UI.
+News
+reactive emotional intensity;
+world-state influenced visuals;
+dynamic environmental mood.
+Hidden Systems
+
+NEXUS VEIL includes:
+
+hidden routes;
+secret environmental states;
+discoverable interactions;
+time-based events;
+rare visual modes;
+easter eggs.
+
+The goal is to make the environment feel deep and alive.
+
+Entry Terminal
+
+The project starts with a retro-inspired terminal login.
+
+The login screen exists for:
+
+atmosphere;
+immersion;
+interaction;
+mystery.
+
+Example credentials:
+
+guest / guest
+admin / admin
+
+This system is atmospheric only and should not be considered real security.
+
+Data & Privacy
+
+Some systems may require:
+
+environmental preferences;
+session settings;
+optional analytics;
+personalization data.
+
+Before entering the full environment:
+
+users must receive clear notice;
+users must explicitly agree to data usage.
+
+If the user refuses:
+
+limited access mode may be used;
+OR
+access to immersive systems may be restricted.
+
+The project aims to:
+
+minimize tracking;
+respect privacy;
+avoid invasive analytics;
+follow international privacy principles.
+Legal & Ethical Principles
+
+NEXUS VEIL is not intended for:
+
+illegal access;
+malware distribution;
+exploit deployment;
+unlawful surveillance;
+credential abuse;
+personal targeting.
+
+OSINT systems must rely only on lawful public information.
+
+The project should remain:
+
+exploratory;
+atmospheric;
+educational;
+lawful.
+Technical Direction
+
+Frontend:
+
+Next.js
+React
+TypeScript
+TailwindCSS
+Three.js
+Framer Motion
+React Three Fiber
+
+Backend:
+
+lightweight aggregation systems;
+caching;
+environmental state management;
+feed normalization.
+
+Primary target:
+
+desktop experience;
+cinematic rendering;
+immersive transitions.
+Deployment
+
+Primary deployment target:
+
+Ubuntu Server LTS.
+
+Development/testing:
+
+Windows 10 compatible.
+
+Preferred deployment:
+
+Docker;
+docker-compose.
+Vision
+
+NEXUS VEIL is an attempt to create:
+
+a living internet atmosphere;
+a cinematic cyber environment;
+an adaptive digital ecosystem;
+a space people return to not only for information,
+but for the feeling of the environment itself.
