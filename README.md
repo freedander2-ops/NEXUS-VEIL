@@ -1,220 +1,202 @@
 # 🌌 NEXUS VEIL
 
 > Not a website.
-> A living digital atmosphere.
+> Not a dashboard.
+> Not a cyberpunk template.
+
+# 🧠 A living atmospheric cyber-environment.
 
 ---
 
-# 🧠 What is NEXUS VEIL?
+# ⚡ What is NEXUS VEIL?
 
-NEXUS VEIL is an experimental atmospheric ecosystem that combines:
+NEXUS VEIL is an experimental interactive ecosystem that combines:
 
-* 🌧 reactive environments
+* 🌧 reactive atmospheres
 * 🛰 OSINT-inspired exploration
-* 🛡 cybersecurity spaces
-* 🧬 GitHub ecosystem visualization
-* 🌍 world-state reactions
-* 🎭 hidden systems & anomalies
-* 🧩 editable digital environments
-* ⚡ cinematic UI systems
+* 🛡 cybersecurity environments
+* ⚙ GitHub ecosystem visualization
+* 🎛 tactile interaction systems
+* 🌫 cinematic motion language
+* 👁 hidden anomaly systems
+* 🔊 environmental audio
+* 🧩 editable digital worlds
 
-The goal is NOT to build:
+The goal is NOT:
+to build another web platform.
 
-* another dashboard;
-* another feed reader;
-* another cyberpunk clone;
-* another productivity tool.
+The goal IS:
 
-The goal is to create:
-
-# 🌐 A living digital habitat.
+# creating a living responsive digital habitat.
 
 ---
 
-# ⚠️ Core Philosophy
+# 🌍 Core Philosophy
 
-Most websites today feel:
+Most modern websites feel:
 
 * flat;
 * disposable;
-* predictable;
-* overloaded with noise.
+* repetitive;
+* emotionally dead.
 
 NEXUS VEIL moves in the opposite direction.
 
-This ecosystem should feel:
+The ecosystem should feel:
 
 * alive;
 * atmospheric;
-* layered;
 * reactive;
-* mysterious;
-* exploratory.
+* cinematic;
+* immersive;
+* partially unpredictable.
 
-The platform should not feel like:
+The user should not feel:
 
-> “opening a website”
+> “I opened a website.”
 
-It should feel like:
+The user SHOULD feel:
 
-> “entering a digital world”.
+> “I entered a digital dimension.”
 
 ---
 
-# 🌦 Reactive Environment System
+# 🖱 Reactive Interaction System
 
-The ecosystem reacts to:
+The environment reacts to:
 
-* 🕒 time
-* 🌧 weather
-* 🌐 internet events
-* 🛡 cyber activity
-* 📡 anomaly states
-* 🌍 geopolitical tension
-* 🧠 user interaction
+* cursor movement;
+* hover behavior;
+* interaction rhythm;
+* navigation flow;
+* environmental focus.
+
+The cursor itself becomes:
+
+# an atmospheric disturbance source.
 
 Examples:
 
-* rain outside → reflective surfaces + ambient particles
-* nighttime → darker hidden states
-* cyber threat spikes → unstable environmental behavior
-* high GitHub activity → intensified technical motion
+* particles react to movement;
+* lighting shifts dynamically;
+* shadows respond subtly;
+* environments pulse differently;
+* interfaces drift and breathe.
 
-The environment should NEVER feel identical between visits.
-
----
-
-# 🧬 Digital Environments
-
-Every section is treated as:
-
-# a different reality.
-
-Not:
-
-* pages;
-* tabs;
-* dashboard sections.
-
-Each environment has:
-
-* unique visual identity;
-* unique motion language;
-* unique atmosphere;
-* unique interaction philosophy.
+The ecosystem should feel:
+aware of the user.
 
 ---
 
-# 🛡 Cybersecurity Environment
+# 🎛 Tactile Interface Philosophy
 
-Mood:
+Buttons and windows are NOT:
+flat UI elements.
 
-* unstable
-* tactical
-* reactive
-* cinematic
+They should feel:
+
+* dimensional;
+* floating;
+* reactive;
+* pressurized;
+* semi-physical.
+
+Features include:
+
+* cinematic shadows;
+* hover elevation;
+* reactive glow;
+* inertia-based motion;
+* environmental reflections;
+* layered depth systems.
+
+Every interaction should create:
+feedback and atmosphere.
+
+---
+
+# 🌫 Motion Language
+
+Motion is part of storytelling.
+
+Every environment has:
+
+* unique pacing;
+* unique movement;
+* unique interaction rhythm.
+
+---
+
+## 🛡 Cybersecurity Environment
+
+Feeling:
+
+* unstable;
+* tactical;
+* reactive;
+* dangerous.
 
 Features:
 
-* anomaly systems
-* pulse overlays
-* network structures
-* tactical atmosphere
-* reactive instability
-
-NOT:
-❌ fake hacker UI spam
+* corruption pulses;
+* anomaly overlays;
+* unstable geometry;
+* tactical environmental systems.
 
 ---
 
-# 🛰 OSINT Environment
+## 🛰 OSINT Environment
 
-Mood:
+Feeling:
 
-* exploratory
-* investigative
-* layered
-* mysterious
+* exploratory;
+* investigative;
+* layered;
+* mysterious.
 
 Features:
 
-* signal mapping
-* node ecosystems
-* layered intelligence
-* interactive relationships
-* atmospheric discovery systems
-
-The user should feel:
-
-> like navigating hidden structures beneath the internet.
+* relationship-space navigation;
+* node ecosystems;
+* atmospheric signal systems;
+* drifting intelligence layers.
 
 ---
 
-# ⚙ GitHub Signals
+## ⚙ GitHub Signals
 
-Mood:
+Feeling:
 
-* intelligent
-* engineered
-* precise
-* futuristic
+* intelligent;
+* engineered;
+* futuristic;
+* precise.
 
 Features:
 
-* repository constellations
-* dependency ecosystems
-* commit pulse systems
-* procedural technical visuals
-* evolving code environments
-
-The user should feel:
-
-> like observing a living engineering ecosystem.
+* repository constellations;
+* dependency galaxies;
+* structured motion systems;
+* procedural technical geometry.
 
 ---
 
-# 🧩 Creator System
+# 🔊 Environmental Audio
 
-NEXUS VEIL is evolving into:
+The ecosystem supports:
 
-# an editable ecosystem.
+* ambient atmospheres;
+* subtle interaction sounds;
+* cyber resonance;
+* environmental hums;
+* anomaly echoes;
+* spatial audio feedback.
 
-The user should eventually be able to:
+Every environment should sound different.
 
-* 🎨 modify environments
-* 🌫 change atmosphere
-* 🧠 create knowledge objects
-* 🔗 attach repositories
-* 🛰 add OSINT tools
-* 📰 build information worlds
-* 🧬 customize environmental behavior
-* ⚡ modify transitions & visual logic
-
----
-
-# 📦 Knowledge Objects
-
-A repository should NOT appear as:
-
-* a simple link;
-* a flat card.
-
-Instead:
-repositories become:
-
-* interactive entities;
-* visual objects;
-* expandable systems;
-* atmospheric knowledge nodes.
-
-Each object may contain:
-
-* explanations
-* relationships
-* visuals
-* dependencies
-* environmental reactions
-* linked systems
+Audio should:
+enhance immersion,
+not overwhelm it.
 
 ---
 
@@ -222,108 +204,106 @@ Each object may contain:
 
 NEXUS VEIL contains:
 
-* hidden routes
-* anomaly events
-* environmental mutations
-* discoverable interactions
-* rare visual states
-* hidden commands
-* temporal events
+* hidden routes;
+* anomaly states;
+* rare environmental events;
+* discoverable commands;
+* temporal interactions;
+* hidden atmospheric layers.
+
+The ecosystem should NEVER feel fully understood.
 
 Secrets should feel:
-
-* subtle
-* intentional
-* partially unexplained
-
-The ecosystem should reward curiosity.
+organic,
+rare,
+and partially unexplained.
 
 ---
 
-# 🌍 Privacy & Data Philosophy
+# 🧩 Creator System
 
-If environmental systems collect:
+NEXUS VEIL is evolving toward:
 
-* preferences
-* session states
-* atmosphere settings
-* analytics
-* personalization data
+# a runtime-editable ecosystem.
+
+The user should eventually be able to:
+
+* customize atmosphere;
+* alter motion behavior;
+* modify shaders;
+* create environments;
+* inject knowledge systems;
+* build environmental worlds.
+
+This project is slowly becoming:
+
+# a cyber-environment creation platform.
+
+---
+
+# 🛰 Knowledge Objects
+
+Repositories, investigations, tools, and feeds should NOT appear as:
+
+* cards;
+* simple links;
+* flat entries.
+
+Instead:
+they become:
+
+# atmospheric interactive entities.
+
+Each object may contain:
+
+* relationships;
+* visual identity;
+* environmental behavior;
+* contextual depth;
+* linked ecosystems.
+
+Information should feel:
+spatial and alive.
+
+---
+
+# 🌦 Reactive Ecosystem
+
+The environment reacts to:
+
+* 🕒 time
+* 🌧 weather
+* 🌍 world tension
+* 🛡 cyber activity
+* ⚙ GitHub activity
+* 👁 anomaly states
+* 🧠 interaction behavior
+
+The ecosystem should continuously evolve.
+
+No two visits should feel identical.
+
+---
+
+# ⚖ Privacy & Ethics
+
+If the ecosystem collects:
+
+* preferences;
+* session state;
+* environmental settings;
+* personalization data;
 
 the user MUST:
 
 * receive clear notice;
-* explicitly agree before entering full immersive mode.
+* explicitly agree before full immersive access.
 
 The project aims to:
 
 * minimize invasive tracking;
 * avoid surveillance behavior;
 * respect international privacy principles.
-
----
-
-# ⚖ Legal & Ethical Direction
-
-NEXUS VEIL is NOT:
-
-* malware software
-* exploit infrastructure
-* surveillance tooling
-* credential abuse tooling
-* illegal OSINT platform
-
-The ecosystem must remain:
-
-* lawful
-* exploratory
-* atmospheric
-* educational
-
----
-
-# 🧠 Architecture Direction
-
-The project is evolving toward:
-
-## 🌌 Environment Engine
-
-Controls:
-
-* mood
-* atmosphere
-* transitions
-* world states
-
----
-
-## 🧩 Creator Layer
-
-Allows:
-
-* runtime editing
-* environmental customization
-* modular scene composition
-
----
-
-## 🛰 Knowledge System
-
-Transforms information into:
-
-* interactive entities
-* atmospheric objects
-* layered ecosystems
-
----
-
-## ⚡ Reactive World Layer
-
-Controls:
-
-* anomaly propagation
-* ecosystem reactions
-* environmental synchronization
 
 ---
 
@@ -344,21 +324,21 @@ Backend:
 * lightweight aggregation systems
 * environmental logic
 * modular APIs
-* caching layers
+* world-state systems
 
 ---
 
 # 🐳 Deployment
 
-Primary target:
+Primary deployment:
 
 * Ubuntu Server LTS
 
-Development:
+Development/testing:
 
 * Windows 10 supported
 
-Preferred deployment:
+Preferred:
 
 * Docker
 * docker-compose
@@ -368,9 +348,8 @@ Preferred deployment:
 # 🎯 Long-Term Vision
 
 The final goal is NOT:
-to create a website.
+creating a website.
 
-The final goal is:
+The final goal IS:
 
-# creating a living atmospheric digital ecosystem people return to because it feels alive.
-
+# building a living atmospheric digital ecosystem people return to because it feels alive.
