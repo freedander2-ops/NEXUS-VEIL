@@ -1,273 +1,130 @@
 # 🧠 NEXUS VEIL — AGENTS.md
 
-> Behavioral directives for building a living atmospheric digital ecosystem.
+> Behavioral directives for building a tactile living cyber-environment.
 
 ---
 
-# 🌌 Core Identity
+# 🌌 CORE EVOLUTION
 
-NEXUS VEIL is NOT:
+NEXUS VEIL is no longer:
 
 * a dashboard;
-* a generic cyberpunk site;
-* a productivity platform;
-* a feed reader;
-* a static web application.
+* a cinematic website;
+* a reactive feed system.
 
-NEXUS VEIL IS:
+The project is evolving into:
 
-# a living atmospheric ecosystem.
+# a sensory atmospheric digital habitat.
 
-Agents must preserve:
+The ecosystem must feel:
 
-* immersion;
-* atmosphere;
-* mystery;
-* environmental depth;
-* visual identity;
-* systemic consistency.
-
-The platform should feel closer to:
-
-* a digital habitat;
-* an interactive atmospheric installation;
-* a reactive cyber ecosystem;
-* a living internet layer.
-
----
-
-# ⚠️ Most Important Rule
-
-Do NOT think:
-
-* page-first;
-* component-first;
-* dashboard-first.
-
-Think:
-
-# environment-first.
-
-Every system should contribute to:
-
-* atmosphere;
-* immersion;
-* environmental storytelling;
-* world-building.
-
----
-
-# 🌍 ENVIRONMENT PHILOSOPHY
-
-Each section is:
-
-# a different digital reality.
-
-Different environments MUST have:
-
-* different motion language;
-* different structure;
-* different pacing;
-* different atmosphere;
-* different interaction logic.
-
-NOT:
-same UI + different colors.
-
----
-
-# 🛡 CYBERSECURITY ENVIRONMENT
-
-Feeling:
-
-* unstable;
-* tactical;
+* alive;
+* tactile;
+* responsive;
+* cinematic;
 * reactive;
-* dangerous;
-* cinematic.
-
-Visual language:
-
-* anomaly pulses;
-* tactical overlays;
-* environmental corruption;
-* unstable geometry;
-* layered signals;
-* reactive lighting.
-
-Avoid:
-
-* fake “movie hacker” spam;
-* matrix clichés;
-* random terminal noise.
-
----
-
-# 🛰 OSINT ENVIRONMENT
-
-Feeling:
-
-* investigative;
-* layered;
-* exploratory;
-* atmospheric.
-
-Visual language:
-
-* signal webs;
-* node ecosystems;
-* relationship mapping;
-* layered information depth;
-* ambient discovery systems.
+* physical.
 
 The user should feel:
-
-> like navigating hidden structures beneath the internet.
-
----
-
-# ⚙ GITHUB SIGNALS ENVIRONMENT
-
-Feeling:
-
-* engineered;
-* intelligent;
-* futuristic;
-* stable;
-* precise.
-
-Visual language:
-
-* procedural geometry;
-* repository constellations;
-* dependency ecosystems;
-* technical pulse systems;
-* structured motion.
-
-Avoid:
-
-* aggressive glitching;
-* excessive neon;
-* tactical instability.
+that the environment notices their presence.
 
 ---
 
-# 🌦 ENVIRONMENT ENGINE RULES
+# ⚠️ MOST IMPORTANT RULE
 
-The ecosystem MUST react to:
+The interface MUST NEVER feel:
 
-* time;
-* weather;
-* cyber activity;
-* GitHub ecosystem activity;
-* anomaly states;
-* world tension;
-* exploration patterns.
+* flat;
+* static;
+* motionless;
+* UI-like.
 
-The environment should NEVER feel static.
+Every interaction should create:
 
----
-
-# 👁 SECRET SYSTEM RULES
-
-Secrets are CRITICAL.
-
-The ecosystem MUST contain:
-
-* hidden routes;
-* anomaly states;
-* rare events;
-* temporal interactions;
-* hidden commands;
-* environmental mutations.
-
-Secrets should:
-
-* remain partially unexplained;
-* reward curiosity;
-* feel organic;
-* avoid game-like mechanics.
-
-The user should occasionally wonder:
-
-> “was that intentional?”
+* response;
+* motion;
+* atmosphere;
+* feedback;
+* environmental change.
 
 ---
 
-# 🧩 CREATOR SYSTEM PHILOSOPHY
+# 🖱 INTERACTION PHILOSOPHY
 
-NEXUS VEIL is evolving into:
+The cursor is NOT:
+just a pointer.
 
-# an editable atmospheric ecosystem.
+The cursor is:
 
-Users should eventually be able to:
+# an environmental disturbance source.
 
-* modify atmosphere;
-* create environments;
-* alter world states;
-* inject knowledge objects;
-* customize transitions;
-* manipulate visual logic.
+The ecosystem should react to:
 
-Agents should design systems with:
-
-* modularity;
-* runtime editing;
-* extensibility;
-* environmental composition.
-
-in mind.
-
----
-
-# 🧠 KNOWLEDGE OBJECT PHILOSOPHY
-
-Information is NOT:
-
-* cards;
-* tables;
-* simple links.
-
-Information IS:
-
-# interactive environmental entities.
+* hover;
+* movement;
+* velocity;
+* interaction rhythm;
+* focus behavior.
 
 Examples:
 
-* repositories;
-* investigations;
-* OSINT tools;
-* threat objects;
-* anomaly reports.
+* particles react to cursor movement;
+* light bends subtly around interaction;
+* hidden motion trails appear;
+* environments ripple slightly;
+* overlays shift depth dynamically.
 
-Each object should support:
-
-* atmosphere;
-* relationships;
-* visual identity;
-* contextual linking;
-* environmental interaction.
+The environment should feel:
+aware.
 
 ---
 
-# ⚡ INTERACTION PHILOSOPHY
+# 🎛 TACTILE UI RULES
 
-The platform should feel:
+Buttons MUST NOT feel:
+flat.
 
-* exploratory;
-* cinematic;
-* layered;
-* partially unpredictable.
+Buttons should feel:
+
+* pressurized;
+* floating;
+* reactive;
+* dimensional.
+
+Required behaviors:
+
+* depth shifting;
+* hover elevation;
+* reactive shadows;
+* glow diffusion;
+* environmental reflections;
+* soft physical movement;
+* inertia-based transitions.
+
+The user should FEEL:
+interaction weight.
+
+---
+
+# 🪟 WINDOW SYSTEM RULES
+
+Windows and panels should:
+
+* float in space;
+* contain depth;
+* cast cinematic shadows;
+* react to nearby cursor movement;
+* slightly reposition dynamically;
+* contain layered glass/reflection systems.
 
 Avoid:
 
-* static navigation;
-* flat layouts;
-* repetitive interaction patterns.
+* flat rectangles;
+* standard web cards;
+* dashboard panels.
 
-Navigation should feel like:
-
-# moving through realities.
+The UI should feel:
+semi-physical.
 
 ---
 
@@ -275,135 +132,180 @@ Navigation should feel like:
 
 Motion should:
 
-* communicate atmosphere;
-* reinforce emotion;
-* guide immersion.
+* feel cinematic;
+* contain inertia;
+* preserve elegance;
+* avoid robotic movement.
 
-Avoid:
-
-* random animations;
-* unnecessary effects;
-* constant movement everywhere.
-
-Every movement should feel:
-
-* intentional;
-* environmental;
-* meaningful.
+Movement types should vary:
+between environments.
 
 ---
 
-# 🌌 TRANSITION PHILOSOPHY
+# 🛡 CYBERSECURITY MOTION
 
-Transitions between sections should feel like:
+Movement:
 
-# environmental transformation.
+* unstable;
+* reactive;
+* tactical;
+* aggressive.
 
 Examples:
 
-* Cybersecurity destabilizes the interface;
-* OSINT deepens spatial perception;
-* GitHub sharpens geometry and precision.
-
-The environment should morph,
-not simply navigate.
+* jitter instability;
+* tactical pulse waves;
+* threat ripple effects;
+* corrupted motion trails.
 
 ---
 
-# 🧠 MEMORY SYSTEM RULES
+# 🛰 OSINT MOTION
 
-Agents MAY create and maintain:
+Movement:
 
-```txt id="7v8i8u"
-/memory
-│
-├── environment_rules
-├── visual_identity
-├── atmosphere_rules
-├── interaction_logic
-├── transition_language
-├── anomaly_systems
-├── world_states
-├── secret_design
-└── knowledge_objects
-```
+* layered;
+* exploratory;
+* drifting;
+* investigative.
 
-Purpose:
+Examples:
 
-* preserve consistency;
-* prevent atmosphere degradation;
-* maintain long-term ecosystem identity.
+* deep parallax;
+* expanding node relationships;
+* ambient map drifting;
+* subtle environmental flow.
 
 ---
 
-# ⚖ LEGAL & ETHICAL RULES
+# ⚙ GITHUB SIGNALS MOTION
 
-The ecosystem MUST NOT:
+Movement:
 
-* deploy malware;
-* automate attacks;
-* perform unlawful surveillance;
-* collect excessive personal data;
-* enable credential abuse;
-* violate international privacy principles.
+* precise;
+* engineered;
+* mathematical;
+* elegant.
 
-OSINT systems MUST rely only on:
+Examples:
 
-* lawful;
-* public;
-* ethical sources.
-
----
-
-# 🔐 PRIVACY RULES
-
-If the ecosystem collects:
-
-* preferences;
-* analytics;
-* environmental state;
-* personalization data;
-
-the user MUST:
-
-* receive clear notice;
-* explicitly agree before full access.
-
-If declined:
-
-* limited mode
-  OR
-* restricted immersive mode.
+* orbital geometry;
+* pulse synchronization;
+* structured transitions;
+* procedural alignment systems.
 
 ---
 
-# 🐳 DEPLOYMENT RULES
+# 🎨 ART DIRECTION
 
-Primary deployment target:
+The ecosystem should evolve toward:
 
-* Ubuntu Server LTS.
+# atmospheric cyber-stylepunk.
 
-Development:
+Meaning:
 
-* Windows 10 compatible.
+* cinematic cyber aesthetics;
+* artistic environmental composition;
+* stylized lighting;
+* layered visual storytelling.
 
-Preferred deployment:
+NOT:
+generic cyberpunk spam.
 
-* Docker
-* docker-compose
+Avoid:
 
-Agents should prioritize:
-
-* reproducibility;
-* modularity;
-* maintainability.
+* random neon overload;
+* pure black backgrounds everywhere;
+* matrix clichés;
+* fake terminal spam.
 
 ---
 
-# 🎯 FINAL GOAL
+# 🌌 ENVIRONMENTAL FEEDBACK
 
-The goal is NOT:
-to create a website.
+Every action should create:
+environmental reaction.
+
+Examples:
+
+* hovering a section alters nearby lighting;
+* opening windows changes atmospheric pulse;
+* navigation shifts depth perception;
+* active environments influence ambient motion.
+
+The environment should feel:
+continuously reactive.
+
+---
+
+# 🔊 AUDIO PHILOSOPHY
+
+Sound is CRITICAL.
+
+The ecosystem should support:
+
+* ambient environmental audio;
+* soft interaction sounds;
+* atmospheric pulses;
+* reactive hover tones;
+* distant environmental hums;
+* glitch resonance;
+* spatial interaction feedback.
+
+Audio should:
+
+* enhance immersion;
+* remain subtle;
+* avoid annoyance.
+
+Every environment should sound different.
+
+---
+
+# 👁 SECRET SYSTEM PHILOSOPHY
+
+Secrets should affect:
+
+* visuals;
+* audio;
+* motion;
+* atmosphere;
+* interaction behavior.
+
+Hidden states should feel:
+almost supernatural.
+
+The user should occasionally feel:
+that the ecosystem is evolving on its own.
+
+---
+
+# 🧠 CREATOR SYSTEM DIRECTION
+
+The ecosystem should eventually support:
+
+* live visual editing;
+* motion customization;
+* atmosphere creation;
+* audio layering;
+* environmental scripting;
+* shader editing;
+* interaction tuning.
+
+The platform is evolving toward:
+
+# a cyber-environment creation system.
+
+---
+
+# ⚡ FINAL EXPERIENCE TARGET
+
+The user should NOT feel:
+they opened a website.
+
+The user SHOULD feel:
+they entered a living responsive digital dimension.
+
 
 The goal IS:
 
