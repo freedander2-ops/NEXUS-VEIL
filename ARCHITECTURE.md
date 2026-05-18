@@ -1,305 +1,577 @@
-NEXUS VEIL — SYSTEM ARCHITECTURE
-CORE ARCHITECTURAL PHILOSOPHY
+# 🧠 NEXUS VEIL — ARCHITECTURE
 
-NEXUS VEIL is not a standard web application.
+> Architecture for a living atmospheric digital ecosystem.
 
-It is:
+---
 
-a reactive environmental system;
-a cinematic digital ecosystem;
-a modular atmospheric platform.
+# 🌌 Core Philosophy
 
-Architecture decisions must prioritize:
+NEXUS VEIL is NOT built like:
 
-immersion;
-scalability;
-environmental consistency;
-visual evolution;
-dynamic adaptation.
-HIGH-LEVEL SYSTEM LAYERS
-1. ENVIRONMENT CORE
+* a standard website;
+* a dashboard;
+* a feed reader;
+* a traditional SPA.
 
-Central reactive engine.
+The project is architected as:
 
-Responsibilities:
+# a reactive environmental system.
 
-mood calculation;
-atmosphere state management;
-dynamic transitions;
-environmental reactions;
-visual intensity scaling.
+The architecture must support:
 
-Inputs:
+* dynamic atmospheres;
+* cinematic transitions;
+* runtime world changes;
+* editable environments;
+* layered interaction;
+* environmental storytelling;
+* interactive knowledge systems.
 
-weather APIs;
-time;
-cybersecurity feeds;
-GitHub feeds;
-geopolitical indicators;
-internal event systems.
+The ecosystem should feel:
 
-Outputs:
+* alive;
+* reactive;
+* partially unpredictable;
+* immersive.
 
-color palettes;
-ambient intensity;
-motion behavior;
-shader states;
-section atmosphere.
-2. VISUAL RENDER LAYER
+---
 
-Purpose:
+# ⚠️ Most Important Architectural Rule
 
-render cinematic environments;
-maintain immersive transitions;
-support procedural visuals.
+Do NOT think in:
 
-Preferred stack:
+* pages;
+* tabs;
+* components only.
 
-Three.js;
-React Three Fiber;
-Framer Motion;
-GLSL shaders.
+Think in:
 
-Possible systems:
+# environments
 
-particle simulations;
-fog layers;
-volumetric lighting;
-animated skies;
-environmental reflections;
-procedural geometry.
-3. EXPERIENCE ENGINE
+# realities
+
+# atmospheric systems
+
+# interactive spaces
+
+Each major section should behave like:
+a different digital dimension.
+
+---
+
+# 🌐 High-Level Architecture
+
+```txt id="q0yzv1"
+NEXUS VEIL
+│
+├── 🌌 Environment Engine
+├── 🧩 Creator Layer
+├── 🛰 Knowledge System
+├── ⚡ Reactive World Layer
+├── 👁 Secret Systems
+├── 🌍 Environmental Rendering
+├── 📡 Feed Aggregation
+├── 🧠 Interaction Engine
+└── 🔐 Consent & Privacy Layer
+```
+
+---
+
+# 🌌 1. Environment Engine
+
+The heart of the ecosystem.
 
 Controls:
 
-transitions;
-hidden events;
-environmental triggers;
-section transformations;
-easter egg logic.
+* mood
+* atmosphere
+* transitions
+* environmental intensity
+* world-state reactions
+* visual instability
+* anomaly propagation
+
+Inputs:
+
+* weather
+* time
+* cyber activity
+* GitHub activity
+* anomaly triggers
+* geopolitical state
+* user interaction patterns
+
+Outputs:
+
+* color systems
+* motion intensity
+* environmental shaders
+* transition behavior
+* atmospheric effects
+
+---
+
+# 🌦 Environmental States
 
 Examples:
 
-entering cybersecurity section changes world state;
-nighttime unlocks hidden overlays;
-rain changes reflection shaders.
-4. FEED AGGREGATION LAYER
+* calm
+* unstable
+* anomaly
+* cyber threat
+* deep night
+* storm mode
+* ghost state
+* signal corruption
 
-Purpose:
+The ecosystem should continuously shift between states.
 
-normalize public information;
-collect external signals;
-cache feeds.
+---
 
-Sources:
+# 🌍 2. Environmental Rendering Layer
 
-GitHub API;
-RSS feeds;
-cybersecurity feeds;
-weather APIs;
-optional geopolitical APIs.
+Responsible for:
 
-Backend responsibilities ONLY:
+* cinematic visuals;
+* atmosphere rendering;
+* environmental depth;
+* procedural scenes.
 
-aggregation;
-normalization;
-caching;
-lightweight analysis.
+Preferred stack:
 
-Heavy rendering remains client-side.
+* Three.js
+* React Three Fiber
+* GLSL shaders
+* Framer Motion
 
-5. SECRET EVENT ENGINE
+---
 
-Purpose:
+# ✨ Rendering Features
 
-create hidden experiences.
+Possible systems:
 
-Features:
+* volumetric fog
+* procedural particles
+* animated skies
+* reflective surfaces
+* dynamic shadows
+* ambient lighting
+* environmental distortion
+* cinematic transitions
+* layered parallax
 
-rare environmental states;
-hidden commands;
-temporal events;
-environmental anomalies;
-discoverable routes.
+---
 
-Triggers:
-
-time;
-weather;
-navigation patterns;
-special dates;
-global events.
-6. LOCALIZATION SYSTEM
-
-Required languages:
-
-Russian;
-English.
-
-Architecture must support:
-
-scalable localization;
-section-specific translations;
-dynamic environmental text.
-
-Recommended:
-
-i18next
-OR
-next-intl.
-7. USER CONSENT SYSTEM
-
-If data collection exists:
-
-user MUST explicitly consent before entering full environment.
-
-Possible collected data:
-
-settings;
-preferences;
-optional analytics;
-session state.
-
-If declined:
-
-limited mode only;
-OR
-deny immersive mode access.
-
-Consent system MUST:
-
-remain transparent;
-avoid manipulation;
-comply with international privacy standards.
-8. AUDIO SYSTEM
-
-Optional but recommended.
-
-Purpose:
-
-enhance immersion.
-
-Examples:
-
-rain ambience;
-low cyber hum;
-distant radio noise;
-subtle environmental transitions.
-
-Requirements:
-
-optional;
-lightweight;
-non-intrusive.
-9. MEMORY STRUCTURE
-
-Repository memory structure:
-
-/memory
-/memory/design
-/memory/environment
-/memory/transitions
-/memory/secrets
-/memory/feeds
-/memory/architecture
-
-Purpose:
-
-preserve long-term consistency;
-avoid atmosphere degradation;
-maintain hidden systems continuity.
-10. UI/UX PHILOSOPHY
-
-The environment MUST:
-
-feel layered;
-contain depth;
-contain movement;
-react naturally.
+# ⚠️ Rendering Philosophy
 
 Avoid:
 
-simple dashboard layouts;
-flat navigation;
-static sections.
+* generic neon overload;
+* fake hacker spam;
+* static dashboard backgrounds.
 
 The environment should feel:
 
-exploratory;
-cinematic;
-reactive;
-partially unpredictable.
-RECOMMENDED TECH STACK
+* intelligent;
+* cinematic;
+* atmospheric;
+* layered.
 
-Frontend:
+---
 
-Next.js
-React
-TypeScript
-TailwindCSS
-Three.js
-React Three Fiber
-Framer Motion
+# 🧩 3. Creator Layer
 
-Backend:
+One of the most important future systems.
 
-Node.js
-lightweight API aggregation
-Redis optional
-SQLite or PostgreSQL optional
+Purpose:
+allow runtime modification of the ecosystem.
 
-Deployment:
+The user should eventually be able to:
 
-Docker
-docker-compose
-Ubuntu Server LTS
-DEPLOYMENT REQUIREMENTS
+* modify atmosphere;
+* customize environments;
+* rearrange modules;
+* create world states;
+* alter visual logic;
+* build custom scenes;
+* inject personal knowledge systems.
 
-The system MUST:
+---
 
-deploy easily on Ubuntu;
-support local Windows development;
-minimize backend complexity;
-support incremental expansion.
+# 🎨 Creator Features
+
+Examples:
+
+* shader editor
+* atmosphere editor
+* transition editor
+* environment composer
+* visual layering tools
+* ambient controls
+* custom anomaly systems
+
+---
+
+# ⚡ Runtime Editing
+
+The ecosystem should support:
+
+* live visual editing;
+* modular environment composition;
+* dynamic scene replacement;
+* runtime theme injection.
+
+The platform should evolve toward:
+
+# a world-building system.
+
+---
+
+# 🛰 4. Knowledge System
+
+Traditional websites treat information as:
+
+* cards;
+* posts;
+* tables;
+* links.
+
+NEXUS VEIL treats information as:
+
+# interactive entities.
+
+---
+
+# 🧠 Knowledge Objects
+
+Examples:
+
+* repositories
+* OSINT tools
+* cybersecurity feeds
+* anomaly reports
+* videos
+* articles
+* investigations
+
+Each object may contain:
+
+* atmosphere;
+* relationships;
+* visual identity;
+* linked systems;
+* dependencies;
+* environmental reactions.
+
+---
+
+# 🌐 Knowledge Graph
+
+The ecosystem should eventually support:
+
+* relationship mapping;
+* signal tracing;
+* dependency visualization;
+* ecosystem linking;
+* layered exploration.
+
+Information should feel:
+
+# spatial.
+
+---
+
+# ⚡ 5. Reactive World Layer
+
+Controls:
+
+* ecosystem-wide reactions;
+* world-state synchronization;
+* anomaly spread;
+* cross-environment influence.
+
+Examples:
+
+* cyberattack affects multiple environments;
+* geopolitical tension alters motion behavior;
+* GitHub activity changes environmental pulse;
+* anomaly events spread across sections.
+
+---
+
+# 🌧 Reactive Input Sources
+
+Possible inputs:
+
+* weather APIs
+* RSS feeds
+* GitHub API
+* cybersecurity feeds
+* public event systems
+* anomaly generators
+
+---
+
+# 👁 6. Secret Systems
+
+Purpose:
+create depth and mystery.
+
+---
+
+# Secret System Features
+
+Examples:
+
+* hidden routes
+* temporal events
+* discoverable commands
+* environmental mutations
+* hidden overlays
+* ghost states
+* anomaly events
+* impossible environmental behavior
+
+---
+
+# ⚠️ Secret Philosophy
+
+Secrets should:
+
+* feel rare;
+* remain partially unexplained;
+* reward curiosity;
+* avoid game-like achievement systems.
+
+The user should occasionally wonder:
+
+> “was that intentional?”
+
+---
+
+# 🧠 7. Interaction Engine
+
+Controls:
+
+* motion language;
+* navigation behavior;
+* environmental interaction;
+* transition philosophy.
+
+---
+
+# ⚠️ Critical Rule
+
+Different environments MUST:
+
+* navigate differently;
+* move differently;
+* react differently;
+* feel structurally different.
+
+NOT:
+same layout + different colors.
+
+---
+
+# Examples
+
+## Cybersecurity
+
+* unstable motion
+* tactical overlays
+* aggressive transitions
+
+## OSINT
+
+* layered exploration
+* node navigation
+* investigative flow
+
+## GitHub
+
+* structured precision
+* engineered movement
+* stable geometry
+
+---
+
+# 📡 8. Feed Aggregation Layer
+
+Purpose:
+
+* collect public data;
+* normalize feeds;
+* cache information;
+* provide environmental signals.
+
+---
+
+# Backend Philosophy
+
+Backend should remain:
+
+* lightweight;
+* modular;
+* scalable;
+* API-oriented.
+
+Heavy rendering happens:
+client-side.
+
+---
+
+# Possible Sources
+
+* GitHub API
+* RSS
+* cybersecurity feeds
+* weather APIs
+* public intelligence feeds
+
+---
+
+# 🔐 9. Consent & Privacy Layer
+
+If the ecosystem collects:
+
+* preferences
+* session state
+* analytics
+* personalization
+* environmental memory
+
+the user MUST:
+
+* receive clear notice;
+* explicitly agree.
+
+If declined:
+
+* limited mode
+  OR
+* restricted immersive access.
+
+---
+
+# ⚖ Privacy Philosophy
+
+Avoid:
+
+* invasive tracking;
+* fingerprint abuse;
+* surveillance behavior.
+
+Respect:
+
+* international privacy principles;
+* transparency;
+* user control.
+
+---
+
+# 🧠 10. Memory Architecture
+
+Repository memory structure:
+
+```txt id="czczsg"
+/memory
+│
+├── environment_rules
+├── visual_identity
+├── interaction_logic
+├── transition_language
+├── anomaly_systems
+├── world_states
+├── secret_design
+├── atmosphere_rules
+└── knowledge_objects
+```
+
+Purpose:
+preserve long-term consistency.
+
+Without memory systems:
+the atmosphere will eventually degrade.
+
+---
+
+# 🌍 Localization Architecture
+
+Required:
+
+* 🇷🇺 Russian
+* 🇬🇧 English
+
+The system should support:
+
+* runtime language switching;
+* environment-aware translations;
+* dynamic atmospheric text.
+
+Recommended:
+
+* next-intl
+  OR
+* i18next
+
+---
+
+# 🐳 Deployment Architecture
+
+Primary target:
+
+* Ubuntu Server LTS
+
+Development:
+
+* Windows 10 compatible
 
 Preferred deployment:
 
-single-command startup;
-containerized services;
-environment variable configuration.
-SECURITY & LEGAL PRINCIPLES
+* Docker
+* docker-compose
 
-The platform MUST NOT:
+---
 
-provide exploit deployment;
-automate attacks;
-collect unnecessary personal data;
-bypass laws;
-enable unauthorized surveillance.
+# 🖥 Recommended Tech Stack
 
-The platform MUST:
+Frontend:
 
-sanitize inputs;
-isolate feeds;
-secure APIs;
-respect privacy laws;
-clearly disclose data usage.
+* Next.js
+* React
+* TypeScript
+* TailwindCSS
+* Three.js
+* React Three Fiber
+* Framer Motion
 
-OSINT systems are:
+Backend:
 
-informational;
-exploratory;
-lawful-public-data only.
-LONG-TERM VISION
+* Node.js
+* lightweight APIs
+* Redis optional
+* PostgreSQL optional
 
-Transform NEXUS VEIL into:
+---
 
-a living digital environment;
-an adaptive internet atmosphere;
-a cinematic cyber ecosystem;
-an experiential exploration platform.
+# 🎯 Long-Term Architectural Goal
+
+The final architecture should support:
 
 NOT:
+
+* a website.
+
+BUT:
+
+# a living atmospheric digital ecosystem
+
+# a modular cyber environment
+
+# a runtime-editable digital world
+
+# an interactive knowledge habitat
 
 another dashboard;
 another social platform;
