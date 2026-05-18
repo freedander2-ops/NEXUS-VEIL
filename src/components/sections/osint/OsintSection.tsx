@@ -5,32 +5,21 @@ import { motion } from "framer-motion";
 import { useEnvironment } from "@/lib/environment/state";
 import { OsintMap } from "./OsintMap";
 import { AtmosphericPanel } from "@/components/common/AtmosphericPanel";
+import { DynamicEntity } from "@/components/common/DynamicEntity";
+import { useContent } from "@/lib/content/ContentEngine";
 import { useWorldState } from "@/lib/environment/WorldStateContext";
 import { useI18n } from "@/lib/i18n/I18nContext";
 
-const DataNode = ({ label, value, status, onClick }: { label: string, value: string, status: string, onClick?: () => void }) => (
-  <div
-    onClick={onClick}
-    className="border-l border-blue-500/20 pl-4 py-2 bg-blue-900/5 hover:bg-blue-800/10 transition-colors cursor-crosshair group relative overflow-hidden"
-  >
-    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
-    <div className="relative z-10">
-      <div className="text-[10px] uppercase tracking-widest text-blue-400/40 mb-1 group-hover:text-blue-300 transition-colors">
-        {label}
-      </div>
-      <div className="font-mono text-sm text-blue-100/90 flex justify-between items-center">
-        <span>{value}</span>
-        <span className="text-[10px] text-blue-500/30 italic group-hover:text-blue-400/60">{status}</span>
-      </div>
-    </div>
-  </div>
-);
-
 export const OsintSection = () => {
   const { intensity } = useEnvironment();
+  const { objects } = useContent();
   const { state: worldState, mutateWorldState, emitWorldEvent } = useWorldState();
   const { t } = useI18n();
 
+  const osintObjects = objects.filter(obj => obj.environmentAffinity === 'osint' || obj.environmentAffinity === 'global');
+
+  // Triggering global mutation via manual interaction if needed
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const triggerAnomaly = (type: 'minor' | 'major') => {
     if (type === 'major') {
       emitWorldEvent({ type: 'anomaly', payload: { origin: 'OSINT_NODE' } });
@@ -64,30 +53,12 @@ export const OsintSection = () => {
         <div className="col-span-4 flex flex-col gap-8">
           <AtmosphericPanel title={t.sections.osint.title} intensity={0.5} className="border-blue-900/30">
             <div className="space-y-4">
-              <DataNode
-                label="Target ID"
-                value="SIG-X-992-B"
-                status="MONITORING"
-                onClick={() => triggerAnomaly('minor')}
-              />
-              <DataNode
-                label="Origin"
-                value="AS-7712 // HK-CLUSTER"
-                status="VERIFIED"
-                onClick={() => triggerAnomaly('minor')}
-              />
-              <DataNode
-                label="Signal Type"
-                value="ENCRYPTED_BURST"
-                status="DECRYPTING"
-                onClick={() => triggerAnomaly('major')}
-              />
-              <DataNode
-                label="Confidence"
-                value="94.2%"
-                status="HIGH"
-                onClick={() => triggerAnomaly('major')}
-              />
+              {osintObjects.map(obj => (
+                <DynamicEntity key={obj.id} object={obj} />
+              ))}
+              {osintObjects.length === 0 && (
+                <div className="text-[10px] text-blue-500/30 font-mono italic">No active signals detected.</div>
+              )}
             </div>
           </AtmosphericPanel>
 
@@ -156,25 +127,27 @@ export const OsintSection = () => {
             <div className="flex flex-col items-center justify-center h-full">
               <div className="text-[10px] text-blue-500/30 uppercase tracking-[0.3em] mb-4">{t.sections.osint.resonance}</div>
               <div className="flex gap-1.5 items-end h-8">
-                 {[...Array(32)].map((_, i) => (
+                 {[...Array(32)].map((_, i) => {
+                   const seed = i * 1.5;
+                   return (
                    <motion.div
                     key={i}
                     animate={{
                       height: [
-                        Math.random()*10 + 2,
-                        Math.random()*32 + 5,
-                        Math.random()*10 + 2
+                        (Math.sin(seed) * 5 + 7),
+                        (Math.cos(seed) * 15 + 20),
+                        (Math.sin(seed) * 5 + 7)
                       ],
                       opacity: [0.2, 0.5, 0.2]
                     }}
                     transition={{
-                      duration: 3 + Math.random() * 2,
+                      duration: 3 + (i % 5) * 0.4,
                       repeat: Infinity,
                       delay: i * 0.05
                     }}
                     className="w-1 bg-blue-500/40 rounded-t-sm"
                    />
-                 ))}
+                 )})}
               </div>
             </div>
           </AtmosphericPanel>

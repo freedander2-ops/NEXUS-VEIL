@@ -17,16 +17,11 @@ export const DimensionalMorph = ({ isActive }: { isActive: boolean }) => {
         >
           <motion.div
             animate={{
-              clipPath: [
-                'inset(0 0 0 0)',
-                'inset(40% 0 50% 0)',
-                'inset(10% 0 80% 0)',
-                'inset(0 0 0 0)'
-              ],
-              x: [-10, 10, -5, 0]
+              opacity: [0, 0.4, 0.2, 0.6, 0],
+              x: [-2, 2, -1, 0]
             }}
-            transition={{ duration: 0.4, repeat: 2 }}
-            className="absolute inset-0 bg-cyber-cyan/20"
+            transition={{ duration: 0.4, ease: "linear" }}
+            className="absolute inset-0 bg-cyber-cyan/10"
           />
         </motion.div>
       )}

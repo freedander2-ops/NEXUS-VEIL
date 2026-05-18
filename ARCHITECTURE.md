@@ -24,34 +24,41 @@ Next.js;
 React;
 Three.js;
 Framer Motion.
-2. Environment Engine
+2. Environment Engine (World-State Engine)
 
-Core reactive system.
+Core reactive system managed via `WorldStateContext`.
 
 Responsibilities:
 
-mood calculation;
-event weighting;
-environmental state generation;
-animation triggers;
-visual adaptation.
+- **State Calculation**: Managing global variables (`tension`, `entropy`, `stability`, `anomalyLevel`, `corruption`).
+- **Equilibrium Logic**: State variables naturally decay toward neutral values over time.
+- **Event Propagation**: `emitWorldEvent` allows decoupled components to trigger global mutations.
+- **Visual Adaptation**: Translating raw state values into UI jitter, motion speed, and atmospheric fog.
 
 Inputs:
 
-weather;
-time;
-cyber feeds;
-GitHub feeds;
-news intensity;
-anomaly events.
+- manual Operator overrides;
+- KnowledgeObject influence;
+- user interactions;
+- temporal/weather signals.
 
 Outputs:
 
-UI theme;
-background state;
-transition intensity;
-ambient behavior.
-3. Feed Aggregation Layer
+- real-time visual parameters;
+- navigation permissions (hidden routes);
+- entity rendering modifiers.
+
+3. Content Engine (Ecosystem Infrastructure)
+
+Registry-driven entity management.
+
+Responsibilities:
+
+- **Schema Enforcement**: Managing `KnowledgeObjects` (entities with distinct Cyber/OSINT/GitHub render profiles).
+- **Influence Cycles**: Entities periodically pulse their metadata into the World-State.
+- **Persistence**: Synchronization between `registry.json` and `localStorage` for session continuity.
+- **Dynamic Rendering**: `DynamicEntity` component for polymorphic visualization based on the active dimension.
+4. Feed Aggregation Layer
 
 Responsibilities:
 
@@ -67,7 +74,7 @@ GitHub API;
 CVE feeds;
 public cybersecurity feeds;
 weather APIs.
-4. Secret Event System
+5. Secret Event System
 
 Responsible for:
 
@@ -82,7 +89,7 @@ Examples:
 hidden pages after midnight;
 special interface during storms;
 anomaly mode during high cyber activity.
-5. Ambient Audio Layer
+6. Ambient Audio Layer
 
 Optional subsystem.
 

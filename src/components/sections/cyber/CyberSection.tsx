@@ -6,12 +6,16 @@ import { ShieldAlert, Zap } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { CyberNetwork } from './CyberNetwork';
 import { useI18n } from '@/lib/i18n/I18nContext';
-import { cn } from '@/lib/utils';
 import { UnstableGrid } from './TacticalLayers';
 import { AtmosphericPanel } from '@/components/common/AtmosphericPanel';
+import { useContent } from '@/lib/content/ContentEngine';
+import { DynamicEntity } from '@/components/common/DynamicEntity';
 
 export default function CyberSection() {
   const { t } = useI18n();
+  const { objects } = useContent();
+
+  const cyberObjects = objects.filter(obj => obj.environmentAffinity === 'cyber' || obj.environmentAffinity === 'global');
   return (
     <div className="relative min-h-screen w-full bg-cyber-black overflow-hidden perspective-[1200px]">
       <UnstableGrid />
@@ -86,16 +90,12 @@ export default function CyberSection() {
 
               <AtmosphericPanel title={t.sections.cyber.anomaly} intensity={1.5} className="border-cyber-red/20 bg-cyber-red/5">
                 <div className="space-y-3">
-                   {[
-                     { id: 'ERR_INT_OVERFLOW', status: 'CRITICAL', color: 'text-cyber-red' },
-                     { id: 'GHOST_PKT_DETECTED', status: 'PENDING', color: 'text-orange-500' },
-                     { id: 'SYNC_MISMATCH', status: 'STABLE', color: 'text-cyber-red/40' },
-                   ].map((item, i) => (
-                     <div key={i} className="flex justify-between items-center p-3 border border-cyber-red/20 bg-cyber-black/60 group hover:border-cyber-red transition-all duration-300 hover:scale-[1.02]">
-                        <span className="text-[10px] font-mono">{item.id}</span>
-                        <span className={cn("text-[9px] font-bold px-2 py-0.5 border border-current", item.color)}>{item.status}</span>
-                     </div>
+                   {cyberObjects.map((obj) => (
+                     <DynamicEntity key={obj.id} object={obj} />
                    ))}
+                   {cyberObjects.length === 0 && (
+                     <div className="text-[10px] text-cyber-red/40 font-mono italic">NO THREAT OBJECTS REGISTERED.</div>
+                   )}
                 </div>
               </AtmosphericPanel>
             </div>
