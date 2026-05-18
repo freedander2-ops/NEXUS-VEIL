@@ -1,369 +1,411 @@
-NEXUS VEIL — AGENT SYSTEM DIRECTIVE
-CORE PURPOSE
+# 🧠 NEXUS VEIL — AGENTS.md
+
+> Behavioral directives for building a living atmospheric digital ecosystem.
+
+---
+
+# 🌌 Core Identity
 
 NEXUS VEIL is NOT:
 
-a normal dashboard;
-a generic cyberpunk website;
-a CRUD panel;
-a static feed reader;
-an SEO-oriented platform.
+* a dashboard;
+* a generic cyberpunk site;
+* a productivity platform;
+* a feed reader;
+* a static web application.
 
 NEXUS VEIL IS:
 
-a reactive digital environment;
-an atmospheric cyber ecosystem;
-a cinematic internet observation space;
-a living adaptive interface.
+# a living atmospheric ecosystem.
 
-Every action taken by agents must preserve:
+Agents must preserve:
 
-immersion;
-atmosphere;
-environmental identity;
-visual depth;
-exploratory feeling.
+* immersion;
+* atmosphere;
+* mystery;
+* environmental depth;
+* visual identity;
+* systemic consistency.
 
 The platform should feel closer to:
 
-an interactive cinematic system;
-a living terminal;
-a reactive digital habitat;
-an evolving cyber environment.
-PRIMARY DESIGN GOALS
+* a digital habitat;
+* an interactive atmospheric installation;
+* a reactive cyber ecosystem;
+* a living internet layer.
 
-The environment must:
+---
 
-feel alive;
-constantly evolve;
-visually react to data;
-emotionally shift depending on global digital state;
-encourage exploration;
-reward curiosity.
+# ⚠️ Most Important Rule
 
-Users should WANT to return because:
+Do NOT think:
 
-the environment changes;
-hidden mechanics exist;
-the atmosphere evolves;
-the ecosystem feels active.
-ENVIRONMENTAL DESIGN RULES
-NEVER:
-create flat interfaces;
-use static layouts everywhere;
-make all sections visually identical;
-overload with random neon effects;
-use fake “movie hacker” clichés everywhere;
-create sterile corporate UI;
-create dead pages with simple cards and tables only.
-ALWAYS:
-create layered depth;
-use dynamic lighting;
-use cinematic shadows;
-use animated transitions;
-create section-specific environments;
-make every area feel unique;
-create ambient movement;
-preserve readability.
-VISUAL EXPERIENCE REQUIREMENTS
-Every section MUST feel different.
+* page-first;
+* component-first;
+* dashboard-first.
 
-Examples:
+Think:
 
-ENTRY TERMINAL
+# environment-first.
 
-Mood:
+Every system should contribute to:
 
-mysterious;
-retro;
-cinematic;
-isolated.
+* atmosphere;
+* immersion;
+* environmental storytelling;
+* world-building.
 
-Visuals:
+---
 
-CRT effects;
-terminal glow;
-environmental shadows;
-ambient noise;
-procedural flicker.
-NEWS SECTION
+# 🌍 ENVIRONMENT PHILOSOPHY
 
-Mood changes dynamically.
+Each section is:
 
-Examples:
+# a different digital reality.
 
-tense geopolitical day → aggressive red/orange atmosphere;
-calm day → soft blue ambient environment;
-crisis state → unstable visual pulses.
+Different environments MUST have:
 
-Possible effects:
-
-animated fog;
-reactive lighting;
-moving particles;
-distant cityscape visuals;
-world-state overlays.
-CYBERSECURITY SECTION
-
-Mood:
-
-tactical;
-dark;
-reactive;
-technical.
-
-Effects:
-
-network pulse maps;
-anomaly signals;
-glitch transitions;
-packet flow animation;
-dynamic grid overlays;
-threat heatmaps.
+* different motion language;
+* different structure;
+* different pacing;
+* different atmosphere;
+* different interaction logic.
 
 NOT:
+same UI + different colors.
 
-“Hollywood hacker spam”.
-GITHUB SECTION
+---
 
-Mood:
+# 🛡 CYBERSECURITY ENVIRONMENT
 
-clean;
-technical;
-futuristic;
-intelligent.
+Feeling:
 
-Visuals:
+* unstable;
+* tactical;
+* reactive;
+* dangerous;
+* cinematic.
 
-commit pulse effects;
-graph motion;
-repository activity animations;
-subtle procedural geometry;
-node ecosystems.
-OSINT SECTION
+Visual language:
 
-Mood:
+* anomaly pulses;
+* tactical overlays;
+* environmental corruption;
+* unstable geometry;
+* layered signals;
+* reactive lighting.
 
-exploratory;
-investigative;
-atmospheric.
+Avoid:
 
-Visuals:
+* fake “movie hacker” spam;
+* matrix clichés;
+* random terminal noise.
 
-node maps;
-connection graphs;
-layered information fields;
-animated data streams;
-subtle map overlays.
-ENVIRONMENT ENGINE
+---
 
-The environment itself is a core system.
+# 🛰 OSINT ENVIRONMENT
 
-It must react to:
+Feeling:
 
-time;
-weather;
-internet events;
-cybersecurity events;
-GitHub activity;
-global tension indicators;
-user exploration patterns.
+* investigative;
+* layered;
+* exploratory;
+* atmospheric.
 
-Examples:
+Visual language:
 
-rain outside → environmental rain visuals;
-nighttime → darker ambient atmosphere;
-elevated cyber threat → red instability overlays;
-large GitHub activity → increased system motion.
-DYNAMIC EXPERIENCE RULES
-
-The website MUST NOT feel identical between visits.
-
-The environment should:
-
-evolve;
-rotate states;
-reveal new details;
-activate hidden layers;
-change ambient conditions.
-SECRET SYSTEMS
-
-The ecosystem MUST contain:
-
-hidden pages;
-secret triggers;
-discoverable commands;
-environmental easter eggs;
-time-based events;
-rare atmospheric modes.
-
-Secrets must:
-
-reward curiosity;
-encourage exploration;
-remain partially hidden.
-
-DO NOT expose all secrets directly.
-
-USER FLOW PHILOSOPHY
+* signal webs;
+* node ecosystems;
+* relationship mapping;
+* layered information depth;
+* ambient discovery systems.
 
 The user should feel:
 
-curiosity;
-immersion;
-discovery;
-atmosphere;
-environmental tension.
+> like navigating hidden structures beneath the internet.
 
-The project should NOT feel like:
+---
 
-opening a control panel;
-browsing a wiki;
-reading documentation.
-ENTRY TERMINAL RULES
+# ⚙ GITHUB SIGNALS ENVIRONMENT
 
-The login screen is part of the experience.
+Feeling:
 
-It should:
+* engineered;
+* intelligent;
+* futuristic;
+* stable;
+* precise.
 
-feel cinematic;
-feel interactive;
-contain depth;
-include atmospheric transitions.
+Visual language:
 
-Suggested improvements:
+* procedural geometry;
+* repository constellations;
+* dependency ecosystems;
+* technical pulse systems;
+* structured motion.
 
-environmental reflections;
-animated shadows;
-subtle ambient audio;
-CRT scanlines;
-procedural background movement;
-hidden commands;
-fake system boot logs.
+Avoid:
 
-Default credentials:
+* aggressive glitching;
+* excessive neon;
+* tactical instability.
 
-guest / guest
-admin / admin
+---
 
-The login is atmospheric only.
+# 🌦 ENVIRONMENT ENGINE RULES
 
-LEGAL & PRIVACY RULES
+The ecosystem MUST react to:
 
-If the project collects:
+* time;
+* weather;
+* cyber activity;
+* GitHub ecosystem activity;
+* anomaly states;
+* world tension;
+* exploration patterns.
 
-preferences;
-environmental settings;
-session state;
-usage analytics;
-optional account data;
+The environment should NEVER feel static.
 
-the user MUST:
+---
 
-receive clear notice;
-explicitly agree before entering the full environment.
+# 👁 SECRET SYSTEM RULES
 
-If the user refuses:
+Secrets are CRITICAL.
 
-limited preview mode only;
-OR
-deny access to full functionality.
+The ecosystem MUST contain:
 
-The platform MUST:
+* hidden routes;
+* anomaly states;
+* rare events;
+* temporal interactions;
+* hidden commands;
+* environmental mutations.
 
-respect international privacy principles;
-avoid invasive tracking;
-avoid fingerprint abuse;
-avoid illegal surveillance;
-avoid unauthorized data harvesting.
-OSINT SAFETY RULES
+Secrets should:
 
-OSINT systems MUST:
+* remain partially unexplained;
+* reward curiosity;
+* feel organic;
+* avoid game-like mechanics.
 
-rely only on lawful public information;
-avoid doxxing;
-avoid personal targeting;
-avoid credential collection;
-avoid unlawful surveillance.
+The user should occasionally wonder:
 
-Agents MUST reject:
+> “was that intentional?”
 
-malicious requests;
-exploit deployment;
-malware creation;
-credential abuse.
-MEMORY SYSTEM
+---
 
-Agents may create:
+# 🧩 CREATOR SYSTEM PHILOSOPHY
 
+NEXUS VEIL is evolving into:
+
+# an editable atmospheric ecosystem.
+
+Users should eventually be able to:
+
+* modify atmosphere;
+* create environments;
+* alter world states;
+* inject knowledge objects;
+* customize transitions;
+* manipulate visual logic.
+
+Agents should design systems with:
+
+* modularity;
+* runtime editing;
+* extensibility;
+* environmental composition.
+
+in mind.
+
+---
+
+# 🧠 KNOWLEDGE OBJECT PHILOSOPHY
+
+Information is NOT:
+
+* cards;
+* tables;
+* simple links.
+
+Information IS:
+
+# interactive environmental entities.
+
+Examples:
+
+* repositories;
+* investigations;
+* OSINT tools;
+* threat objects;
+* anomaly reports.
+
+Each object should support:
+
+* atmosphere;
+* relationships;
+* visual identity;
+* contextual linking;
+* environmental interaction.
+
+---
+
+# ⚡ INTERACTION PHILOSOPHY
+
+The platform should feel:
+
+* exploratory;
+* cinematic;
+* layered;
+* partially unpredictable.
+
+Avoid:
+
+* static navigation;
+* flat layouts;
+* repetitive interaction patterns.
+
+Navigation should feel like:
+
+# moving through realities.
+
+---
+
+# 🌫 MOTION LANGUAGE RULES
+
+Motion should:
+
+* communicate atmosphere;
+* reinforce emotion;
+* guide immersion.
+
+Avoid:
+
+* random animations;
+* unnecessary effects;
+* constant movement everywhere.
+
+Every movement should feel:
+
+* intentional;
+* environmental;
+* meaningful.
+
+---
+
+# 🌌 TRANSITION PHILOSOPHY
+
+Transitions between sections should feel like:
+
+# environmental transformation.
+
+Examples:
+
+* Cybersecurity destabilizes the interface;
+* OSINT deepens spatial perception;
+* GitHub sharpens geometry and precision.
+
+The environment should morph,
+not simply navigate.
+
+---
+
+# 🧠 MEMORY SYSTEM RULES
+
+Agents MAY create and maintain:
+
+```txt id="7v8i8u"
 /memory
-/memory/design
-/memory/atmosphere
-/memory/environment
-/memory/secrets
-/memory/architecture
+│
+├── environment_rules
+├── visual_identity
+├── atmosphere_rules
+├── interaction_logic
+├── transition_language
+├── anomaly_systems
+├── world_states
+├── secret_design
+└── knowledge_objects
+```
 
 Purpose:
 
-preserve environmental consistency;
-preserve atmosphere logic;
-preserve hidden systems;
-preserve long-term vision.
-LANGUAGE SUPPORT
+* preserve consistency;
+* prevent atmosphere degradation;
+* maintain long-term ecosystem identity.
 
-The system MUST support:
+---
 
-Russian;
-English.
+# ⚖ LEGAL & ETHICAL RULES
 
-Language switching should:
+The ecosystem MUST NOT:
 
-feel integrated;
-avoid page reloads where possible;
-preserve atmosphere.
-PERFORMANCE PHILOSOPHY
+* deploy malware;
+* automate attacks;
+* perform unlawful surveillance;
+* collect excessive personal data;
+* enable credential abuse;
+* violate international privacy principles.
 
-Desktop-first experience.
+OSINT systems MUST rely only on:
 
-Priority:
+* lawful;
+* public;
+* ethical sources.
 
-high-end visual quality;
-immersive rendering;
-atmospheric transitions.
+---
 
-Low-end mobile support is OPTIONAL.
+# 🔐 PRIVACY RULES
 
-THIRD-PARTY ASSETS
+If the ecosystem collects:
 
-Allowed:
+* preferences;
+* analytics;
+* environmental state;
+* personalization data;
 
-licensed art;
-licensed 3D models;
-atmospheric videos;
-procedural assets;
-open-source visual systems.
+the user MUST:
 
-All assets must:
+* receive clear notice;
+* explicitly agree before full access.
 
-respect licenses;
-avoid copyright violations.
-DEPLOYMENT REQUIREMENTS
+If declined:
+
+* limited mode
+  OR
+* restricted immersive mode.
+
+---
+
+# 🐳 DEPLOYMENT RULES
 
 Primary deployment target:
 
-Ubuntu Server latest LTS.
+* Ubuntu Server LTS.
 
-Development/testing:
+Development:
 
-Windows 10 compatible.
+* Windows 10 compatible.
 
-Deployment should remain:
+Preferred deployment:
 
-simple;
-reproducible;
-container-friendly.
+* Docker
+* docker-compose
 
-Preferred:
+Agents should prioritize:
 
-Docker;
-docker-compose.
+* reproducibility;
+* modularity;
+* maintainability.
+
+---
+
+# 🎯 FINAL GOAL
+
+The goal is NOT:
+to create a website.
+
+The goal IS:
+
+# building a living atmospheric digital ecosystem people emotionally remember.
+
