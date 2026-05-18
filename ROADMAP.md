@@ -1,25 +1,25 @@
 # 🗺 NEXUS VEIL — ROADMAP
 
-> Evolution roadmap for a living atmospheric digital ecosystem.
+> Evolution roadmap for a living atmospheric cyber-environment.
 
 ---
 
-# 🌌 PHASE 0 — FOUNDATIONS
+# 🌌 PHASE 0 — WORLD FOUNDATIONS
 
 Goal:
-define the ecosystem identity.
+define ecosystem identity.
 
 Focus:
 
 * atmosphere philosophy;
 * environmental behavior;
 * motion language;
+* sensory interaction rules;
 * visual identity;
-* interaction philosophy;
-* ecosystem structure.
+* cyber-stylepunk direction.
 
 Result:
-clear world-building direction.
+a unified world-building foundation.
 
 ---
 
@@ -30,54 +30,74 @@ create immersive first contact.
 
 Features:
 
-* retro terminal interface;
+* retro cinematic terminal;
 * CRT effects;
-* boot sequence;
-* atmospheric login;
-* procedural flicker;
-* ambient transitions;
+* atmospheric boot sequence;
+* procedural flickering;
+* ambient shadows;
 * hidden commands;
-* symbolic credentials.
+* symbolic credentials;
+* environmental transitions.
 
 Result:
-the user feels they entered a system,
+the user enters a system,
 not a website.
 
 ---
 
-# 🌦 PHASE 2 — ENVIRONMENT ENGINE
+# 🌦 PHASE 2 — ENVIRONMENT CORE
 
 Goal:
-create a reactive atmospheric foundation.
+create a reactive atmospheric engine.
 
 Systems:
 
-* weather reactions;
-* time-based states;
+* weather synchronization;
 * environmental moods;
-* atmospheric transitions;
 * anomaly intensity;
-* shader control;
-* environmental pulse logic.
+* time-based states;
+* atmospheric transitions;
+* shader control systems;
+* ecosystem pulse logic.
 
 Possible states:
 
-* calm;
-* unstable;
-* cyber threat;
-* anomaly mode;
-* deep night;
-* ghost state.
+* calm
+* unstable
+* deep night
+* cyber threat
+* anomaly mode
+* ghost state
 
 Result:
-the ecosystem begins reacting to the world.
+the ecosystem begins reacting to reality.
 
 ---
 
-# 🌍 PHASE 3 — ENVIRONMENT IDENTITY
+# 🖱 PHASE 3 — TACTILE INTERACTION SYSTEM
 
 Goal:
-make every section feel like a different reality.
+make the ecosystem feel physically responsive.
+
+Systems:
+
+* cursor-reactive environments;
+* hover disturbance systems;
+* dynamic shadows;
+* inertia-based UI;
+* cinematic button depth;
+* environmental motion reactions;
+* floating spatial panels.
+
+Result:
+the interface begins feeling alive.
+
+---
+
+# 🌍 PHASE 4 — ENVIRONMENT DIFFERENTIATION
+
+Goal:
+transform sections into realities.
 
 ---
 
@@ -85,11 +105,11 @@ make every section feel like a different reality.
 
 Features:
 
-* tactical overlays;
-* unstable motion;
-* anomaly systems;
-* environmental corruption;
-* reactive threat atmosphere.
+* tactical instability;
+* corruption systems;
+* threat-space atmosphere;
+* reactive pulse layers;
+* environmental aggression.
 
 ---
 
@@ -97,11 +117,10 @@ Features:
 
 Features:
 
-* layered information worlds;
-* node ecosystems;
-* investigation spaces;
-* relationship mapping;
-* atmospheric discovery systems.
+* relationship-space exploration;
+* layered intelligence maps;
+* drifting signal systems;
+* atmospheric node ecosystems.
 
 ---
 
@@ -110,180 +129,182 @@ Features:
 Features:
 
 * repository constellations;
-* dependency ecosystems;
-* procedural geometry;
-* technical pulse systems;
-* engineered motion language.
+* dependency galaxies;
+* procedural technical geometry;
+* engineered motion systems.
 
 Result:
-sections become environments,
-not pages.
+the ecosystem stops feeling like pages.
 
 ---
 
-# 👁 PHASE 4 — SECRET SYSTEMS
+# 🔊 PHASE 5 — ENVIRONMENTAL AUDIO
 
 Goal:
-create mystery and environmental depth.
+bind atmosphere to sound.
 
-Features:
+Systems:
+
+* ambient cyber resonance;
+* environmental hums;
+* hover audio feedback;
+* anomaly echoes;
+* spatial atmosphere systems.
+
+Every environment receives:
+its own sound identity.
+
+Result:
+immersion deepens dramatically.
+
+---
+
+# 👁 PHASE 6 — SECRET SYSTEMS
+
+Goal:
+create mystery and replayability.
+
+Systems:
 
 * hidden routes;
 * anomaly events;
-* rare visual states;
-* discoverable commands;
 * environmental mutations;
 * temporal interactions;
-* hidden overlays;
-* ghost states.
+* hidden atmospheric states;
+* discoverable commands;
+* ghost events.
 
-Examples:
-
-* midnight-only events;
-* weather-triggered anomalies;
-* unstable environmental corruption;
-* hidden atmospheric states.
+Secrets should feel:
+rare,
+organic,
+and partially unexplained.
 
 Result:
-the ecosystem feels alive and partially unknowable.
+the ecosystem feels unknowable.
 
 ---
 
-# ⚡ PHASE 5 — REACTIVE WORLD LAYER
+# ⚡ PHASE 7 — REACTIVE WORLD LAYER
 
 Goal:
-connect all environments into a living ecosystem.
+connect all environments into a living organism.
 
-Features:
+Systems:
 
+* world-state synchronization;
 * ecosystem-wide reactions;
 * anomaly propagation;
-* world-state synchronization;
-* cross-environment influence;
+* cyber escalation systems;
 * internet mood engine;
-* environmental escalation.
+* cross-environment influence.
 
 Examples:
 
-* cyber events destabilize multiple environments;
-* GitHub activity affects motion behavior;
-* geopolitical tension alters atmosphere.
+* cyberattacks destabilize environments;
+* weather alters reflections and sound;
+* GitHub activity changes pulse intensity.
 
 Result:
-the ecosystem behaves like a connected digital organism.
+the ecosystem becomes globally reactive.
 
 ---
 
-# 🧩 PHASE 6 — CREATOR SYSTEM
+# 🧩 PHASE 8 — CREATOR SYSTEM
 
 Goal:
-allow runtime ecosystem modification.
+allow runtime ecosystem editing.
+
+Future tools:
+
+* atmosphere editor;
+* shader controls;
+* environment composer;
+* transition editor;
+* interaction tuning;
+* motion behavior editor.
 
 Users should eventually be able to:
-
-* modify atmosphere;
-* create custom environments;
-* edit transitions;
-* build visual worlds;
-* customize shaders;
-* alter environmental logic.
-
-Possible tools:
-
-* environment editor;
-* atmosphere composer;
-* transition editor;
-* shader controls;
-* anomaly configurator.
+create their own atmospheric worlds.
 
 Result:
-NEXUS VEIL evolves into a world-building platform.
+NEXUS VEIL evolves into:
+
+# a cyber-environment creation platform.
 
 ---
 
-# 🧠 PHASE 7 — KNOWLEDGE OBJECT SYSTEM
+# 🛰 PHASE 9 — KNOWLEDGE OBJECT SYSTEM
 
 Goal:
-transform information into interactive entities.
+transform information into interactive environmental entities.
 
 Objects:
 
 * repositories;
 * investigations;
-* OSINT tools;
-* threat systems;
-* videos;
-* articles;
-* anomaly reports.
+* feeds;
+* tools;
+* anomaly reports;
+* intelligence structures.
 
-Each object should support:
+Objects should support:
 
-* relationships;
-* environmental integration;
 * visual identity;
-* contextual interaction.
+* relationships;
+* environmental reactions;
+* contextual expansion;
+* atmospheric integration.
 
 Result:
 information becomes spatial and alive.
 
 ---
 
-# 🌌 PHASE 8 — ADVANCED IMMERSION
+# 🌌 PHASE 10 — ADVANCED IMMERSION
 
 Goal:
-push cinematic atmosphere further.
+push cinematic atmosphere beyond traditional web experiences.
 
 Possible systems:
 
 * volumetric lighting;
 * procedural environments;
+* reactive fog;
+* environmental reflections;
+* cinematic camera systems;
 * advanced shaders;
-* reactive reflections;
-* layered parallax;
-* ambient audio ecosystems;
-* environmental storytelling.
+* layered parallax worlds.
 
 Result:
-the ecosystem feels less like software
-and more like a digital habitat.
+the ecosystem starts feeling like a digital dimension.
 
 ---
 
-# 🧠 PHASE 9 — ENVIRONMENTAL MEMORY
+# 🧠 PHASE 11 — ENVIRONMENTAL MEMORY
 
 Goal:
 make the ecosystem feel persistent.
 
 Features:
 
-* remembered anomalies;
-* evolving atmosphere;
-* recurring environmental changes;
-* adaptive environmental behavior;
-* long-term state continuity.
+* remembered anomaly states;
+* evolving environmental behavior;
+* recurring atmospheric changes;
+* adaptive world continuity.
 
-The ecosystem should subtly remember the user.
+The environment should subtly remember:
+past interaction history.
 
 NOT invasive tracking.
-Environmental continuity.
+Environmental persistence.
 
 ---
 
-# 🌍 PHASE 10 — LIVING DIGITAL ECOSYSTEM
-
-Final vision:
-
-* reactive;
-* editable;
-* atmospheric;
-* exploratory;
-* cinematic;
-* modular;
-* partially unpredictable.
+# 🎯 FINAL VISION
 
 The final goal is NOT:
 creating a website.
 
 The final goal IS:
 
-# building a living atmospheric digital ecosystem people return to because it feels alive.
+# building a living atmospheric cyber-environment people emotionally remember and continuously return to.
