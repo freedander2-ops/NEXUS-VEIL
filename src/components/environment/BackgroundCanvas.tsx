@@ -6,12 +6,16 @@ import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { useEnvironment } from '@/lib/environment/state';
 import { useCreator } from '@/lib/environment/creatorState';
+import { useInteraction } from '@/lib/environment/InteractionReactor';
+import { useWorldState } from '@/lib/environment/WorldStateContext';
 import { getMoodParameters } from '@/lib/environment/moodLogic';
 
 function StarField() {
   const ref = useRef<THREE.Points>(null!);
   const { mood, weather, intensity } = useEnvironment();
+  const { state: worldState } = useWorldState();
   const { activeDimension } = useCreator();
+  const { cursor, disturbance } = useInteraction();
   const params = useMemo(() => getMoodParameters(mood, weather, intensity), [mood, weather, intensity]);
 
   const sphere = useMemo(() => {
@@ -26,12 +30,18 @@ function StarField() {
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x += delta * params.rotationSpeed * 0.1;
-      ref.current.rotation.y += delta * params.rotationSpeed * 0.15;
+      const speedMult = (1 + disturbance * 5) * (0.5 + worldState.tension);
+      ref.current.rotation.x += delta * params.rotationSpeed * 0.1 * speedMult;
+      ref.current.rotation.y += delta * params.rotationSpeed * 0.15 * speedMult;
 
-      // Add subtle glitch jump
-      if (Math.random() < params.glitchFrequency * 0.01) {
-        ref.current.position.x = (Math.random() - 0.5) * 0.1;
+      // React to cursor position
+      ref.current.position.x = (cursor.x - 0.5) * 0.2;
+      ref.current.position.y = (0.5 - cursor.y) * 0.2;
+
+      // Add subtle glitch jump influenced by world entropy and anomaly level
+      const glitchChance = (params.glitchFrequency * 0.01 * (1 + disturbance)) + (worldState.anomalyLevel * 0.05);
+      if (Math.random() < glitchChance) {
+        ref.current.position.x = (Math.random() - 0.5) * (0.1 + worldState.entropy * 0.5);
       } else {
         ref.current.position.x *= 0.9;
       }

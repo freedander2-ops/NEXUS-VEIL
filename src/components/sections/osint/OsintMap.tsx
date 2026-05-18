@@ -2,12 +2,14 @@
 
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Line } from "@react-three/drei";
+import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useEnvironment } from "@/lib/environment/state";
+import { useWorldState } from "@/lib/environment/WorldStateContext";
 
 const OsintNodes = () => {
   const { intensity } = useEnvironment();
+  const { state } = useWorldState();
   const ref = useRef<THREE.Points>(null);
 
   // Generate some nodes in a circular/geospatial pattern
@@ -23,19 +25,30 @@ const OsintNodes = () => {
     positions[i * 3 + 2] = r * Math.cos(phi);
   }
 
-  useFrame((state) => {
+  useFrame((stateObj) => {
     if (ref.current) {
-      ref.current.rotation.y += 0.001 * intensity;
+      const time = stateObj.clock.getElapsedTime();
+      // Drift speed influenced by global entropy and local intensity
+      const driftSpeed = 0.001 * intensity * (1 + state.entropy);
+      ref.current.rotation.y += driftSpeed;
+
+      // Add chaotic wobble if signal noise is high
+      if (state.signalNoise > 0.4) {
+        ref.current.position.x = Math.sin(time * 2) * state.signalNoise * 0.1;
+        ref.current.position.z = Math.cos(time * 2) * state.signalNoise * 0.1;
+      }
     }
   });
+
+  const nodeColor = state.corruption > 0.5 ? "#4c1d95" : "#1e40af";
 
   return (
     <group>
       <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#1e40af"
-          size={0.12}
+          color={nodeColor}
+          size={0.12 * (1 + state.anomalyLevel)}
           sizeAttenuation={true}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
@@ -44,8 +57,13 @@ const OsintNodes = () => {
       </Points>
       {/* Add some "orbital" rings to suggest geospatial planes */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[15, 15.05, 64]} />
-        <meshBasicMaterial color="#1e3a8a" transparent opacity={0.15} side={THREE.DoubleSide} />
+        <ringGeometry args={[15, 15.05 + state.signalNoise * 0.2, 64]} />
+        <meshBasicMaterial
+          color={state.tension > 0.7 ? "#991b1b" : "#1e3a8a"}
+          transparent
+          opacity={0.15 * (1 - state.entropy * 0.5)}
+          side={THREE.DoubleSide}
+        />
       </mesh>
       <mesh rotation={[Math.PI / 2, 0.1, 0]}>
         <ringGeometry args={[25, 25.05, 64]} />
