@@ -13,21 +13,26 @@ import {
   X
 } from 'lucide-react';
 import { useEnvironment } from '@/lib/environment/state';
+import { useI18n } from '@/lib/i18n/I18nContext';
 import { cn } from '@/lib/utils';
 import SectionPlaceholder from '@/components/sections/SectionPlaceholder';
+import CyberSection from '@/components/sections/cyber/CyberSection';
+import { OsintSection } from '@/components/sections/osint/OsintSection';
+import { GithubSection } from '@/components/sections/github/GithubSection';
 
 type Section = 'weather' | 'cyber' | 'github' | 'osint';
 
 export default function MainInterface() {
   const { logout, mood, intensity } = useEnvironment();
+  const { t, language, setLanguage } = useI18n();
   const [activeSection, setActiveSection] = useState<Section>('weather');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const navItems = [
-    { id: 'weather', label: 'Digital Weather', icon: Cloud },
-    { id: 'cyber', label: 'Cybersecurity', icon: ShieldAlert },
-    { id: 'github', label: 'GitHub Signals', icon: GitBranch },
-    { id: 'osint', label: 'OSINT Layer', icon: LocateFixed },
+    { id: 'weather', label: t.nav.weather, icon: Cloud },
+    { id: 'cyber', label: t.nav.cyber, icon: ShieldAlert },
+    { id: 'github', label: t.nav.github, icon: GitBranch },
+    { id: 'osint', label: t.nav.osint, icon: LocateFixed },
   ];
 
   return (
@@ -98,7 +103,7 @@ export default function MainInterface() {
             <Activity size={14} className="text-cyber-cyan animate-pulse" />
             {isSidebarOpen && (
               <div className="text-[8px] uppercase tracking-tighter opacity-40">
-                Pulse: {(intensity * 100).toFixed(0)}% // {mood}
+                {t.common.pulse}: {(intensity * 100).toFixed(0)}% // {t.common[mood as keyof typeof t.common]}
               </div>
             )}
           </div>
@@ -107,7 +112,7 @@ export default function MainInterface() {
             className="w-full flex items-center gap-4 p-3 text-cyber-red/60 hover:bg-cyber-red/10 hover:text-cyber-red transition-all"
           >
             <LogOut size={20} />
-            {isSidebarOpen && <span className="text-[10px] uppercase tracking-widest font-bold">Disconnect</span>}
+            {isSidebarOpen && <span className="text-[10px] uppercase tracking-widest font-bold">{t.nav.disconnect}</span>}
           </button>
         </div>
       </motion.aside>
@@ -120,9 +125,33 @@ export default function MainInterface() {
               Environment // <span className="text-cyber-blue">{navItems.find(i => i.id === activeSection)?.label}</span>
             </h2>
           </div>
-          <div className="flex items-center gap-6 text-[10px] font-mono opacity-40 uppercase">
-            <span>Lat: 55.75 // Lon: 37.61</span>
-            <span>Uptime: 00:04:12</span>
+
+          <div className="flex items-center gap-8">
+            <div className="flex border border-cyber-blue/20 rounded overflow-hidden">
+              <button
+                onClick={() => setLanguage('en')}
+                className={cn(
+                  "px-2 py-1 text-[8px] font-bold transition-colors",
+                  language === 'en' ? "bg-cyber-blue/20 text-cyber-cyan" : "text-cyber-blue/40 hover:text-cyber-blue"
+                )}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLanguage('ru')}
+                className={cn(
+                  "px-2 py-1 text-[8px] font-bold transition-colors",
+                  language === 'ru' ? "bg-cyber-blue/20 text-cyber-cyan" : "text-cyber-blue/40 hover:text-cyber-blue"
+                )}
+              >
+                RU
+              </button>
+            </div>
+
+            <div className="flex items-center gap-6 text-[10px] font-mono opacity-40 uppercase">
+              <span>Lat: 55.75 // Lon: 37.61</span>
+              <span>Uptime: 00:04:12</span>
+            </div>
           </div>
         </header>
 
@@ -137,27 +166,18 @@ export default function MainInterface() {
             >
               {activeSection === 'weather' && (
                 <SectionPlaceholder
-                  title="Digital Weather"
-                  description="Real-time atmospheric synchronization and environmental mood parameters. Monitoring planetary digital pulse and network instability."
+                  title={t.nav.weather}
+                  description={t.nav.weather_desc}
                 />
               )}
               {activeSection === 'cyber' && (
-                <SectionPlaceholder
-                  title="Cybersecurity"
-                  description="Threat landscape monitoring, CVE feed aggregation, and proactive anomaly detection in the global network infrastructure."
-                />
+                <CyberSection />
               )}
               {activeSection === 'github' && (
-                <SectionPlaceholder
-                  title="GitHub Signals"
-                  description="Pulse monitoring of the open-source ecosystem. Tracking trending repositories, security advisories, and emergent tech patterns."
-                />
+                <GithubSection />
               )}
               {activeSection === 'osint' && (
-                <SectionPlaceholder
-                  title="OSINT Layer"
-                  description="Public information exploration and network graph visualization. Lawful observation of internet nodes and metadata clusters."
-                />
+                <OsintSection />
               )}
             </motion.div>
           </AnimatePresence>
