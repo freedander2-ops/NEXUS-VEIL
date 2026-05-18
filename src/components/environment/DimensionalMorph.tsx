@@ -13,7 +13,7 @@ export const DimensionalMorph = ({ isActive }: { isActive: boolean }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, times: [0, 0.5, 1] }}
           className="fixed inset-0 z-[100] pointer-events-none bg-white"
-          style={{ mixBlendingMode: 'exclusion' }}
+          style={{ mixBlendMode: 'exclusion' }}
         >
           <motion.div
             animate={{

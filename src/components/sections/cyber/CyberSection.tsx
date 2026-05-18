@@ -2,17 +2,18 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldAlert, Activity, Cpu, AlertTriangle, Zap } from 'lucide-react';
+import { ShieldAlert, Zap } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { CyberNetwork } from './CyberNetwork';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { cn } from '@/lib/utils';
-import { TacticalLayer, UnstableGrid } from './TacticalLayers';
+import { UnstableGrid } from './TacticalLayers';
+import { AtmosphericPanel } from '@/components/common/AtmosphericPanel';
 
 export default function CyberSection() {
   const { t } = useI18n();
   return (
-    <div className="relative min-h-screen w-full bg-cyber-black overflow-hidden perspective-[1000px]">
+    <div className="relative min-h-screen w-full bg-cyber-black overflow-hidden perspective-[1200px]">
       <UnstableGrid />
 
       {/* 3D Background specifically for this section */}
@@ -41,7 +42,7 @@ export default function CyberSection() {
                   {t.sections.cyber.title}
                 </h1>
                 <p className="text-xs text-cyber-red/60 font-mono tracking-[0.5em] uppercase">
-                  {t.sections.cyber.subtitle} // 0xCC_ANOMALY_DETECTED
+                  {t.sections.cyber.subtitle} {"//"} 0xCC_ANOMALY_DETECTED
                 </p>
               </div>
             </div>
@@ -60,7 +61,7 @@ export default function CyberSection() {
           <div className="grid grid-cols-12 gap-8 items-start">
             {/* Left Column: Real-time Telemetry */}
             <div className="col-span-12 lg:col-span-4 flex flex-col gap-8">
-              <TacticalLayer title="HEURISTIC_PULSE_FEED">
+              <AtmosphericPanel title="HEURISTIC_PULSE_FEED" intensity={2} className="border-cyber-red/20 bg-cyber-red/5">
                 <div className="h-48 relative bg-cyber-black/40 border border-cyber-red/10 overflow-hidden">
                   <div className="absolute inset-0 opacity-20">
                     <svg width="100%" height="100%" className="overflow-visible">
@@ -81,27 +82,27 @@ export default function CyberSection() {
                     SIGNAL_VARIANCE_ELEVATED
                   </div>
                 </div>
-              </TacticalLayer>
+              </AtmosphericPanel>
 
-              <TacticalLayer title={t.sections.cyber.anomaly}>
+              <AtmosphericPanel title={t.sections.cyber.anomaly} intensity={1.5} className="border-cyber-red/20 bg-cyber-red/5">
                 <div className="space-y-3">
                    {[
                      { id: 'ERR_INT_OVERFLOW', status: 'CRITICAL', color: 'text-cyber-red' },
                      { id: 'GHOST_PKT_DETECTED', status: 'PENDING', color: 'text-orange-500' },
                      { id: 'SYNC_MISMATCH', status: 'STABLE', color: 'text-cyber-red/40' },
                    ].map((item, i) => (
-                     <div key={i} className="flex justify-between items-center p-3 border border-cyber-red/20 bg-cyber-black/60 group hover:border-cyber-red transition-colors">
+                     <div key={i} className="flex justify-between items-center p-3 border border-cyber-red/20 bg-cyber-black/60 group hover:border-cyber-red transition-all duration-300 hover:scale-[1.02]">
                         <span className="text-[10px] font-mono">{item.id}</span>
                         <span className={cn("text-[9px] font-bold px-2 py-0.5 border border-current", item.color)}>{item.status}</span>
                      </div>
                    ))}
                 </div>
-              </TacticalLayer>
+              </AtmosphericPanel>
             </div>
 
             {/* Right Column: Central Intelligence */}
             <div className="col-span-12 lg:col-span-8">
-              <TacticalLayer title={t.sections.cyber.terminal_title} className="h-full">
+              <AtmosphericPanel title={t.sections.cyber.terminal_title} intensity={1} className="h-full border-cyber-red/20 bg-cyber-red/5">
                 <div className="space-y-6">
                   <div className="flex justify-between items-center opacity-40 text-[10px] font-mono">
                     <div className="flex items-center gap-2">
@@ -121,9 +122,9 @@ export default function CyberSection() {
                       >
                         <span className="text-cyber-red opacity-30 mr-4">0{i}</span>
                         <span className="text-cyber-red/80">[{new Date().toLocaleTimeString()}]</span>
-                        <span className="mx-4 text-cyber-red/40">//</span>
+                        <span className="mx-4 text-cyber-red/40">{"//"}</span>
                         <span className="text-white/80">{t.sections.cyber.packet}</span>
-                        <span className="ml-4 text-cyber-red/40">>></span>
+                        <span className="ml-4 text-cyber-red/40">{">>"}</span>
                         <span className="text-cyber-red ml-2 font-bold italic">ISOLATED</span>
                       </motion.div>
                     ))}
@@ -140,7 +141,7 @@ export default function CyberSection() {
                     />
                   </div>
                 </div>
-              </TacticalLayer>
+              </AtmosphericPanel>
             </div>
           </div>
         </div>

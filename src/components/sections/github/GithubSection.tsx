@@ -2,11 +2,14 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { GitBranch, GitCommit, GitPullRequest, Database, Cpu, Activity } from "lucide-react";
+import { GitBranch, GitCommit, Database, Cpu, Activity, LucideIcon } from "lucide-react";
 import { useEnvironment } from "@/lib/environment/state";
 import { GithubVisuals } from "./GithubVisuals";
+import { AtmosphericPanel } from "@/components/common/AtmosphericPanel";
+import { TactileButton } from "@/components/common/TactileButton";
+import { useI18n } from "@/lib/i18n/I18nContext";
 
-const MetricNode = ({ icon: Icon, label, value, trend }: { icon: any, label: string, value: string, trend?: string }) => (
+const MetricNode = ({ icon: Icon, label, value, trend }: { icon: LucideIcon, label: string, value: string, trend?: string }) => (
   <div className="p-4 border border-slate-800 bg-slate-900/40 backdrop-blur-md group hover:border-slate-600 transition-colors">
     <div className="flex items-center gap-3 mb-3">
       <Icon size={14} className="text-slate-400 group-hover:text-white transition-colors" />
@@ -39,7 +42,7 @@ const CommitStream = () => (
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex justify-between items-center mb-1">
-            <span className="text-[9px] font-mono text-slate-500 uppercase tracking-tighter">{commit.repo} // {commit.id}</span>
+            <span className="text-[9px] font-mono text-slate-500 uppercase tracking-tighter">{commit.repo} {"//"} {commit.id}</span>
             <span className="text-[9px] text-slate-600 italic">{commit.time}</span>
           </div>
           <p className="text-xs text-slate-300 truncate font-light leading-relaxed group-hover:text-white transition-colors">
@@ -53,6 +56,7 @@ const CommitStream = () => (
 
 export const GithubSection = () => {
   const { intensity } = useEnvironment();
+  const { t } = useI18n();
 
   return (
     <div className="relative h-full w-full overflow-hidden flex flex-col bg-[#0a0a0c] text-slate-300">
@@ -70,8 +74,8 @@ export const GithubSection = () => {
               <GitBranch className="text-white" size={24} />
             </div>
             <div>
-              <h2 className="text-2xl font-light tracking-[0.3em] text-white uppercase">Technical Ecosystem</h2>
-              <p className="text-[10px] text-slate-500 font-mono tracking-widest mt-1">GITSIGNAL // GLOBAL_REPOSYNC_ACTIVE</p>
+              <h2 className="text-2xl font-light tracking-[0.3em] text-white uppercase">{t.sections.github.title}</h2>
+              <p className="text-[10px] text-slate-500 font-mono tracking-widest mt-1">{t.sections.github.subtitle}</p>
             </div>
           </div>
           <div className="flex gap-8 text-[10px] font-mono text-slate-500 uppercase tracking-widest pb-1">
@@ -88,59 +92,33 @@ export const GithubSection = () => {
           {/* Left Column: Metrics & Architecture */}
           <div className="col-span-12 lg:col-span-8 flex flex-col gap-8">
              <div className="grid grid-cols-3 gap-6">
-                <MetricNode icon={Database} label="System Objects" value="1.2M+" trend="+12.4k" />
-                <MetricNode icon={Cpu} label="Processing Load" value="22.4%" trend="-2.1%" />
-                <MetricNode icon={Activity} label="Active Threads" value="8,442" trend="+412" />
+                <MetricNode icon={Database} label={t.sections.github.objects} value="1.2M+" trend="+12.4k" />
+                <MetricNode icon={Cpu} label={t.sections.github.load} value="22.4%" trend="-2.1%" />
+                <MetricNode icon={Activity} label={t.sections.github.threads} value="8,442" trend="+412" />
              </div>
 
-             <motion.div
-               initial={{ opacity: 0, y: 20 }}
-               animate={{ opacity: 1, y: 0 }}
-               className="flex-1 border border-slate-800 bg-slate-900/30 backdrop-blur-sm relative overflow-hidden group"
-             >
-                <div className="absolute top-0 left-0 p-4 border-b border-r border-slate-800 text-[9px] uppercase tracking-widest text-slate-500 font-bold bg-slate-950/80 z-10">
-                  Infrastructure Logic Map
-                </div>
-
-                {/* Space for the 3D visual to peek through or additional 2D graphs */}
+             <AtmosphericPanel title="Infrastructure Logic Map" intensity={0.2} className="flex-1 border-slate-800">
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                    <div className="w-[80%] h-[1px] bg-slate-800 opacity-20" />
                    <div className="h-[80%] w-[1px] bg-slate-800 opacity-20" />
                 </div>
-
-                {/* Corner Markers */}
-                <div className="absolute top-2 right-2 w-4 h-4 border-t border-r border-slate-700 opacity-40" />
-                <div className="absolute bottom-2 left-2 w-4 h-4 border-b border-l border-slate-700 opacity-40" />
-             </motion.div>
+             </AtmosphericPanel>
           </div>
 
           {/* Right Column: Activity Stream */}
-          <div className="col-span-12 lg:col-span-4 flex flex-col gap-6">
-             <motion.div
-               initial={{ opacity: 0, x: 20 }}
-               animate={{ opacity: 1, x: 0 }}
-               className="flex-1 border border-slate-800 bg-slate-900/60 backdrop-blur-xl p-6 shadow-2xl"
-             >
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white/80">Signal Stream</h3>
-                  <div className="flex gap-2">
-                    <div className="w-1 h-1 bg-slate-500" />
-                    <div className="w-1 h-1 bg-slate-700" />
-                    <div className="w-1 h-1 bg-slate-800" />
-                  </div>
-                </div>
-
+          <div className="col-span-12 lg:col-span-4 flex flex-col gap-8">
+             <AtmosphericPanel title={t.sections.github.stream_title} intensity={0.4} className="flex-1 border-slate-800">
                 <CommitStream />
 
                 <div className="mt-8 pt-6 border-t border-slate-800">
-                  <button className="w-full py-3 border border-slate-700 text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400 hover:bg-white hover:text-black hover:border-white transition-all duration-300">
-                    Access Documentation
-                  </button>
+                  <TactileButton className="w-full">
+                    {t.sections.github.documentation}
+                  </TactileButton>
                 </div>
-             </motion.div>
+             </AtmosphericPanel>
 
-             <div className="h-24 border border-slate-800/50 bg-slate-900/20 flex items-center justify-center p-4">
-                <div className="text-center">
+             <AtmosphericPanel intensity={0.1} className="h-24 border-slate-800/50">
+                <div className="flex flex-col items-center justify-center h-full">
                   <div className="text-[8px] uppercase tracking-widest text-slate-600 mb-2 font-mono">System Integrity Verified</div>
                   <div className="flex gap-1">
                      {[...Array(12)].map((_, i) => (
@@ -148,7 +126,7 @@ export const GithubSection = () => {
                      ))}
                   </div>
                 </div>
-             </div>
+             </AtmosphericPanel>
           </div>
         </div>
       </div>

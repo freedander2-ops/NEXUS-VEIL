@@ -1,10 +1,15 @@
 # Interaction Logic
 
-## Dimensional Feedback
-- **Cybersecurity**: Violent, jittery, rewarding aggressive exploration. Input triggers glitches or tactical data bursts.
-- **OSINT**: Slow, deliberate, discovery-based. Hovering reveals hidden data strata; clicking "dives" deeper.
-- **GitHub**: High precision, sharp, efficient. Feedback is logical and mathematically satisfying.
+## Environmental Disturbance
+- The cursor is not a pointer; it is a source of environmental disturbance.
+- The ecosystem must react continuously to cursor position, velocity, and interaction rhythm.
+- Particles, lighting, and panel positions drift or pulse based on this disturbance.
 
-## Spatial Interaction
-- Interactions should feel like manipulating a world, not clicking a button.
-- Support for "Hidden Interaction" sequences that trigger dimensional shifts or anomalies.
+## Tactical Feedback
+- **Cybersecurity**: Jittery, pressurized, rewarding aggressive exploration. Input triggers glitches or tactical data bursts.
+- **OSINT**: Drifting, layered, discovery-based. Hovering reveals data strata; clicking "dives" into context.
+- **GitHub**: Precise, rhythmic, efficient. Feedback is mathematically satisfying and clean.
+
+## Tactile Componentry
+- Buttons and panels must contain inertia, weight, and dimensional depth.
+- Support for hover elevation, dynamic shadow response, and layered reflections.

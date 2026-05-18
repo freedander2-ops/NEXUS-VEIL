@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { EnvironmentProvider } from "@/lib/environment/state";
 import { CreatorProvider } from "@/lib/environment/creatorState";
+import { InteractionProvider } from "@/lib/environment/InteractionReactor";
+import { WorldStateProvider } from "@/lib/environment/WorldStateContext";
+import { AudioEngineProvider } from "@/lib/audio/AudioEngine";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
 import BackgroundCanvas from "@/components/environment/BackgroundCanvas";
 
@@ -30,14 +33,20 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <I18nProvider>
-          <CreatorProvider>
+          <WorldStateProvider>
             <EnvironmentProvider>
-              <BackgroundCanvas />
-              <main className="relative z-0">
-                {children}
-              </main>
+              <InteractionProvider>
+                <CreatorProvider>
+                  <BackgroundCanvas />
+                  <AudioEngineProvider>
+                  <main className="relative z-0">
+                    {children}
+                  </main>
+                  </AudioEngineProvider>
+                </CreatorProvider>
+              </InteractionProvider>
             </EnvironmentProvider>
-          </CreatorProvider>
+          </WorldStateProvider>
         </I18nProvider>
       </body>
     </html>

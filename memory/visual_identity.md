@@ -1,14 +1,13 @@
 # Visual Identity
 
-## Beyond the Dashboard
-- Move away from "cards and panels".
-- Use spatial entities, floating tactical layers, and atmospheric volumes.
+## Cyber-Stylepunk Aesthetics
+- Move beyond matrix clichés and neon spam toward cinematic lighting and layered depth.
+- Artistic visual composition using atmospheric volumes and reactive materials.
 
-## Dimensional Characteristics
-- **Cybersecurity**: Glitch-active, unstable geometry, procedural threat-space overlays. High-contrast red/black.
-- **OSINT**: Deep ocean blues, map-depth, signal triangulation visuals, layered connection webs.
-- **GitHub**: Cold monochrome, graphite, steel. Precise lattice structures, dependency galaxies, intelligent rhythm.
+## Dimensionality
+- Use of spatial entities, floating tactical layers, and perspective-shifting panels.
+- Surfaces react to the digital climate (e.g., rain reflections, storm-induced opacity shifts).
 
-## Materiality
-- Surfaces should reflect the digital climate (e.g., rain creates reflections, storms trigger opacity instability).
-- Knowledge objects are interactive atmospheric entities, not just links.
+## Knowledge Entities
+- Knowledge objects are interactive atmospheric entities with relationships and contextual depth.
+- They are integrated into the environmental visuals, not rendered as flat cards.

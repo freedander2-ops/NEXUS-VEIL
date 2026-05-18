@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Shield, ChevronRight } from 'lucide-react';
 import { useEnvironment } from '@/lib/environment/state';
+import { useWorldState } from '@/lib/environment/WorldStateContext';
 import { useI18n } from '@/lib/i18n/I18nContext';
 
 export default function LoginTerminal() {
@@ -12,6 +13,7 @@ export default function LoginTerminal() {
   const [bootText, setBootText] = useState<string[]>([]);
   const [isBooting, setIsBooting] = useState(true);
   const { setMood, setIntensity, login } = useEnvironment();
+  const { state: worldState, mutateWorldState, emitWorldEvent } = useWorldState();
   const { t } = useI18n();
 
   useEffect(() => {
@@ -26,19 +28,32 @@ export default function LoginTerminal() {
         setIsBooting(false);
         clearInterval(interval);
       }
-    }, 600);
+    }, 10);
     return () => clearInterval(interval);
-  }, []);
+  }, [t.terminal.boot]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if ((username === 'guest' && password === 'guest') || (username === 'admin' && password === 'admin')) {
       setMood('alert');
       setIntensity(0.5);
+
+      // Mutate world state on successful login
+      emitWorldEvent({ type: 'system_sync' });
+      mutateWorldState({ synchronization: worldState.synchronization + 0.1 });
+
       login();
     } else {
       setMood('critical');
       setIntensity(0.8);
+
+      // Failed login increases tension and entropy
+      emitWorldEvent({ type: 'security_breach' });
+      mutateWorldState({
+        tension: worldState.tension + 0.1,
+        entropy: worldState.entropy + 0.05
+      });
+
       setTimeout(() => {
         setMood('calm');
         setIntensity(0.2);
