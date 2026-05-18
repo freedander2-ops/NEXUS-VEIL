@@ -5,11 +5,13 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { useEnvironment } from '@/lib/environment/state';
+import { useCreator } from '@/lib/environment/creatorState';
 import { getMoodParameters } from '@/lib/environment/moodLogic';
 
 function StarField() {
   const ref = useRef<THREE.Points>(null!);
   const { mood, weather, intensity } = useEnvironment();
+  const { activeDimension } = useCreator();
   const params = useMemo(() => getMoodParameters(mood, weather, intensity), [mood, weather, intensity]);
 
   const sphere = useMemo(() => {
@@ -41,11 +43,12 @@ function StarField() {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color={params.accentColor}
-          size={0.02}
+          color={activeDimension.id === 'cyber' ? '#ef4444' : params.accentColor}
+          size={0.02 * activeDimension.motion.speed}
           sizeAttenuation={true}
           depthWrite={false}
           blending={THREE.AdditiveBlending}
+          opacity={activeDimension.atmosphere.density}
         />
       </Points>
     </group>
@@ -53,13 +56,24 @@ function StarField() {
 }
 
 export default function BackgroundCanvas() {
+  const { activeDimension } = useCreator();
+
   return (
-    <div className="fixed inset-0 -z-10 bg-cyber-black">
+    <div className="fixed inset-0 -z-10 bg-cyber-black transition-colors duration-1000" style={{ backgroundColor: activeDimension.atmosphere.color }}>
       <Canvas camera={{ position: [0, 0, 1] }}>
         <StarField />
       </Canvas>
-      <div className="noise" />
+      <div className="noise" style={{ opacity: activeDimension.atmosphere.grain }} />
       <div className="scanline" />
+
+      {/* Dimensional Fog */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-1000"
+        style={{
+          background: `radial-gradient(circle at 50% 50%, transparent, ${activeDimension.atmosphere.color})`,
+          opacity: activeDimension.atmosphere.fog
+        }}
+      />
     </div>
   );
 }

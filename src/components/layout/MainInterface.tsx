@@ -13,19 +13,24 @@ import {
   X
 } from 'lucide-react';
 import { useEnvironment } from '@/lib/environment/state';
+import { useCreator } from '@/lib/environment/creatorState';
 import { useI18n } from '@/lib/i18n/I18nContext';
 import { cn } from '@/lib/utils';
-import SectionPlaceholder from '@/components/sections/SectionPlaceholder';
+import WeatherSection from '@/components/sections/WeatherSection';
 import CyberSection from '@/components/sections/cyber/CyberSection';
 import { OsintSection } from '@/components/sections/osint/OsintSection';
 import { GithubSection } from '@/components/sections/github/GithubSection';
+import { CreatorPanel } from '@/components/environment/CreatorPanel';
+import { DimensionalMorph } from '@/components/environment/DimensionalMorph';
 
 type Section = 'weather' | 'cyber' | 'github' | 'osint';
 
 export default function MainInterface() {
   const { logout, mood, intensity } = useEnvironment();
+  const { setDimension } = useCreator();
   const { t, language, setLanguage } = useI18n();
   const [activeSection, setActiveSection] = useState<Section>('weather');
+  const [isMorphing, setIsMorphing] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const navItems = [
@@ -35,13 +40,24 @@ export default function MainInterface() {
     { id: 'osint', label: t.nav.osint, icon: LocateFixed },
   ];
 
+  const isCyberDimension = activeSection === 'cyber';
+
   return (
-    <div className="flex h-screen overflow-hidden text-cyber-blue">
+    <div className={cn(
+      "flex h-screen overflow-hidden transition-colors duration-1000",
+      isCyberDimension ? "text-cyber-red bg-cyber-black" : "text-cyber-blue"
+    )}>
       {/* Sidebar Navigation */}
       <motion.aside
         initial={false}
-        animate={{ width: isSidebarOpen ? 260 : 80 }}
-        className="relative z-20 flex flex-col bg-cyber-dark/40 border-r border-cyber-blue/10 backdrop-blur-xl"
+        animate={{
+          width: isSidebarOpen ? 260 : 80,
+          borderColor: isCyberDimension ? 'rgba(239, 68, 68, 0.2)' : 'rgba(59, 130, 246, 0.1)'
+        }}
+        className={cn(
+          "relative z-20 flex flex-col border-r backdrop-blur-xl transition-colors duration-1000",
+          isCyberDimension ? "bg-cyber-red/5" : "bg-cyber-dark/40"
+        )}
       >
         <div className="p-6 flex items-center justify-between">
           <AnimatePresence mode="wait">
@@ -68,16 +84,29 @@ export default function MainInterface() {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveSection(item.id as Section)}
+                onClick={() => {
+                  if (activeSection === item.id) return;
+                  setIsMorphing(true);
+                  setTimeout(() => {
+                    setActiveSection(item.id as Section);
+                    setDimension(item.id);
+                  }, 400);
+                  setTimeout(() => setIsMorphing(false), 800);
+                }}
                 className={cn(
                   "w-full flex items-center gap-4 p-3 rounded-sm transition-all group relative overflow-hidden",
-                  isActive ? "bg-cyber-blue/10 text-cyber-cyan" : "hover:bg-cyber-blue/5 text-cyber-blue/60"
+                  isActive
+                    ? (isCyberDimension ? "bg-cyber-red/20 text-cyber-red" : "bg-cyber-blue/10 text-cyber-cyan")
+                    : (isCyberDimension ? "hover:bg-cyber-red/10 text-cyber-red/40" : "hover:bg-cyber-blue/5 text-cyber-blue/60")
                 )}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute left-0 w-1 h-full bg-cyber-cyan"
+                    className={cn(
+                      "absolute left-0 w-1 h-full",
+                      isCyberDimension ? "bg-cyber-red shadow-[0_0_10px_rgba(239,68,68,0.8)]" : "bg-cyber-cyan"
+                    )}
                   />
                 )}
                 <Icon size={20} className={cn("shrink-0", isActive ? "text-cyber-cyan" : "group-hover:text-cyber-blue")} />
@@ -119,10 +148,16 @@ export default function MainInterface() {
 
       {/* Main Content Area */}
       <main className="flex-1 relative overflow-auto">
-        <header className="h-16 flex items-center px-8 border-b border-cyber-blue/5 bg-cyber-dark/20 backdrop-blur-sm sticky top-0 z-10">
+        <header className={cn(
+          "h-16 flex items-center px-8 border-b backdrop-blur-sm sticky top-0 z-10 transition-colors duration-1000",
+          isCyberDimension ? "border-cyber-red/10 bg-cyber-red/5" : "border-cyber-blue/5 bg-cyber-dark/20"
+        )}>
           <div className="flex-1">
-            <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold text-cyber-blue/40">
-              Environment // <span className="text-cyber-blue">{navItems.find(i => i.id === activeSection)?.label}</span>
+            <h2 className={cn(
+              "text-[10px] uppercase tracking-[0.4em] font-bold transition-colors duration-1000",
+              isCyberDimension ? "text-cyber-red/40" : "text-cyber-blue/40"
+            )}>
+              Environment // <span className={isCyberDimension ? "text-cyber-red" : "text-cyber-blue"}>{navItems.find(i => i.id === activeSection)?.label}</span>
             </h2>
           </div>
 
@@ -165,7 +200,7 @@ export default function MainInterface() {
               transition={{ duration: 0.2 }}
             >
               {activeSection === 'weather' && (
-                <SectionPlaceholder
+                <WeatherSection
                   title={t.nav.weather}
                   description={t.nav.weather_desc}
                 />
@@ -183,6 +218,9 @@ export default function MainInterface() {
           </AnimatePresence>
         </div>
       </main>
+
+      <DimensionalMorph isActive={isMorphing} />
+      <CreatorPanel />
     </div>
   );
 }
