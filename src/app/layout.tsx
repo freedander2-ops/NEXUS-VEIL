@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { EnvironmentProvider } from "@/lib/environment/state";
+import { I18nProvider } from "@/lib/i18n/I18nContext";
 import BackgroundCanvas from "@/components/environment/BackgroundCanvas";
 
 const geistSans = Geist({
@@ -27,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <EnvironmentProvider>
-          <BackgroundCanvas />
-          <main className="relative z-0">
-            {children}
-          </main>
-        </EnvironmentProvider>
+        <I18nProvider>
+          <EnvironmentProvider>
+            <BackgroundCanvas />
+            <main className="relative z-0">
+              {children}
+            </main>
+          </EnvironmentProvider>
+        </I18nProvider>
       </body>
     </html>
   );
