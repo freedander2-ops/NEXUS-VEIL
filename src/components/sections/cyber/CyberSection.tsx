@@ -2,121 +2,147 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldAlert, Activity, Cpu, AlertTriangle } from 'lucide-react';
+import { ShieldAlert, Activity, Cpu, AlertTriangle, Zap } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { CyberNetwork } from './CyberNetwork';
 import { useI18n } from '@/lib/i18n/I18nContext';
+import { cn } from '@/lib/utils';
+import { TacticalLayer, UnstableGrid } from './TacticalLayers';
 
 export default function CyberSection() {
   const { t } = useI18n();
   return (
-    <div className="relative min-h-[calc(100vh-8rem)] w-full overflow-hidden">
+    <div className="relative min-h-screen w-full bg-cyber-black overflow-hidden perspective-[1000px]">
+      <UnstableGrid />
+
       {/* 3D Background specifically for this section */}
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 4] }}>
+      <div className="absolute inset-0 z-0 opacity-40">
+        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
           <CyberNetwork />
         </Canvas>
       </div>
 
-      {/* Content Overlay */}
-      <div className="relative z-10 grid grid-cols-12 gap-6 p-4">
-        {/* Tactical Header */}
-        <div className="col-span-12 flex items-center justify-between border-b border-cyber-red/20 pb-4 mb-4">
-          <div className="flex items-center gap-4">
-            <div className="p-2 bg-cyber-red/10 border border-cyber-red/30">
-              <ShieldAlert className="text-cyber-red animate-pulse" size={24} />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold tracking-[0.2em] text-cyber-red uppercase">{t.sections.cyber.title}</h1>
-              <p className="text-[10px] text-cyber-red/50 font-mono tracking-widest uppercase">{t.sections.cyber.subtitle}</p>
-            </div>
-          </div>
-          <div className="text-right font-mono text-[10px] text-cyber-red/60 space-y-1">
-            <div>{t.sections.cyber.signal}: 98.4%</div>
-            <div>{t.sections.cyber.threat_level}: ELEVATED</div>
-          </div>
-        </div>
+      {/* Dimensional Content */}
+      <div className="relative z-10 p-12">
+        <div className="flex flex-col gap-12 max-w-7xl mx-auto">
 
-        {/* Unstable UI Layers */}
-        <div className="col-span-12 md:col-span-4 space-y-6">
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            className="p-4 bg-cyber-red/5 border border-cyber-red/20 backdrop-blur-md"
+          {/* Unstable Tactical Header */}
+          <motion.header
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="flex items-start justify-between border-l-4 border-cyber-red p-8 bg-cyber-red/5 backdrop-blur-xl"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <Activity size={14} className="text-cyber-red" />
-              <h3 className="text-xs font-bold uppercase tracking-widest">Real-time Pulse</h3>
-            </div>
-            <div className="h-32 border-l border-b border-cyber-red/10 relative overflow-hidden">
-              <motion.div
-                animate={{ x: [0, 100], opacity: [0, 1, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-cyber-red/10 to-transparent"
-              />
-              <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                 <div className="w-full h-[1px] bg-cyber-red" />
+            <div className="flex items-center gap-8">
+              <div className="p-4 bg-cyber-red/20 border border-cyber-red/50 shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                <ShieldAlert className="text-cyber-red animate-pulse" size={48} />
+              </div>
+              <div className="space-y-2">
+                <h1 className="text-5xl font-black tracking-tighter text-cyber-red uppercase italic">
+                  {t.sections.cyber.title}
+                </h1>
+                <p className="text-xs text-cyber-red/60 font-mono tracking-[0.5em] uppercase">
+                  {t.sections.cyber.subtitle} // 0xCC_ANOMALY_DETECTED
+                </p>
               </div>
             </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="p-4 bg-cyber-black/80 border border-cyber-red/40"
-          >
-            <div className="flex items-center gap-2 mb-4">
-              <Cpu size={14} className="text-cyber-red" />
-              <h3 className="text-xs font-bold uppercase tracking-widest">{t.sections.cyber.anomaly}</h3>
+            <div className="flex gap-12 font-mono text-sm text-cyber-red/80">
+              <div className="space-y-1">
+                <div className="text-[10px] opacity-40">STRENGTH</div>
+                <div className="font-bold">98.4%</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-[10px] opacity-40">VECTOR</div>
+                <div className="font-bold text-white bg-cyber-red px-2">INBOUND</div>
+              </div>
             </div>
-            <div className="space-y-2 text-[10px] font-mono">
-               <div className="flex justify-between p-2 bg-cyber-red/10 border border-cyber-red/20">
-                 <span>ERR_INT_OVERFLOW</span>
-                 <span className="text-cyber-red">ACTIVE</span>
-               </div>
-               <div className="flex justify-between p-2 bg-cyber-red/5 border border-cyber-red/10 opacity-60">
-                 <span>GHOST_PKT_DETECTED</span>
-                 <span>CLEAR</span>
-               </div>
-            </div>
-          </motion.div>
-        </div>
+          </motion.header>
 
-        <div className="col-span-12 md:col-span-8">
-           <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="h-full min-h-[400px] border border-cyber-red/20 bg-cyber-red/5 backdrop-blur-sm relative"
-          >
-            <div className="absolute top-4 right-4 flex items-center gap-2 text-cyber-red text-[10px] font-mono">
-              <AlertTriangle size={12} className="animate-bounce" />
-              {t.sections.cyber.instability}
+          <div className="grid grid-cols-12 gap-8 items-start">
+            {/* Left Column: Real-time Telemetry */}
+            <div className="col-span-12 lg:col-span-4 flex flex-col gap-8">
+              <TacticalLayer title="HEURISTIC_PULSE_FEED">
+                <div className="h-48 relative bg-cyber-black/40 border border-cyber-red/10 overflow-hidden">
+                  <div className="absolute inset-0 opacity-20">
+                    <svg width="100%" height="100%" className="overflow-visible">
+                      <motion.path
+                        d="M 0 50 Q 50 10 100 50 T 200 50 T 300 50 T 400 50"
+                        fill="none"
+                        stroke="red"
+                        strokeWidth="1"
+                        animate={{ d: [
+                          "M 0 50 Q 50 10 100 50 T 200 50 T 300 50 T 400 50",
+                          "M 0 50 Q 50 90 100 50 T 200 50 T 300 50 T 400 50"
+                        ]}}
+                        transition={{ duration: 0.2, repeat: Infinity }}
+                      />
+                    </svg>
+                  </div>
+                  <div className="absolute bottom-4 left-4 text-[10px] font-mono text-cyber-red animate-pulse">
+                    SIGNAL_VARIANCE_ELEVATED
+                  </div>
+                </div>
+              </TacticalLayer>
+
+              <TacticalLayer title={t.sections.cyber.anomaly}>
+                <div className="space-y-3">
+                   {[
+                     { id: 'ERR_INT_OVERFLOW', status: 'CRITICAL', color: 'text-cyber-red' },
+                     { id: 'GHOST_PKT_DETECTED', status: 'PENDING', color: 'text-orange-500' },
+                     { id: 'SYNC_MISMATCH', status: 'STABLE', color: 'text-cyber-red/40' },
+                   ].map((item, i) => (
+                     <div key={i} className="flex justify-between items-center p-3 border border-cyber-red/20 bg-cyber-black/60 group hover:border-cyber-red transition-colors">
+                        <span className="text-[10px] font-mono">{item.id}</span>
+                        <span className={cn("text-[9px] font-bold px-2 py-0.5 border border-current", item.color)}>{item.status}</span>
+                     </div>
+                   ))}
+                </div>
+              </TacticalLayer>
             </div>
 
-            <div className="p-8">
-               <div className="text-6xl font-black text-cyber-red/5 select-none pointer-events-none absolute bottom-8 right-8">
-                 0xDE
-               </div>
-               <div className="space-y-4">
-                 <div className="text-xs font-bold text-cyber-red/80 tracking-widest uppercase">{t.sections.cyber.terminal_title}</div>
-                 <div className="space-y-2 max-w-lg">
-                    {[1, 2, 3].map(i => (
-                      <div key={i} className="p-3 bg-cyber-black/40 border-l-2 border-cyber-red/60 text-[10px] font-mono leading-relaxed">
-                        [TIMESTAMP: {new Date().toLocaleTimeString()}] // {t.sections.cyber.packet} // HEURISTIC MATCH: 89% // THREAT_ISOLATED
-                      </div>
+            {/* Right Column: Central Intelligence */}
+            <div className="col-span-12 lg:col-span-8">
+              <TacticalLayer title={t.sections.cyber.terminal_title} className="h-full">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center opacity-40 text-[10px] font-mono">
+                    <div className="flex items-center gap-2">
+                      <Zap size={10} /> {t.sections.cyber.instability}
+                    </div>
+                    <div>FILTER_ACTIVE: INTRUSION_DETECTION</div>
+                  </div>
+
+                  <div className="space-y-4">
+                    {[1, 2, 3, 4, 5].map(i => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="p-4 bg-cyber-red/5 border-l-2 border-cyber-red/40 text-xs font-mono group hover:bg-cyber-red/10 transition-colors"
+                      >
+                        <span className="text-cyber-red opacity-30 mr-4">0{i}</span>
+                        <span className="text-cyber-red/80">[{new Date().toLocaleTimeString()}]</span>
+                        <span className="mx-4 text-cyber-red/40">//</span>
+                        <span className="text-white/80">{t.sections.cyber.packet}</span>
+                        <span className="ml-4 text-cyber-red/40">>></span>
+                        <span className="text-cyber-red ml-2 font-bold italic">ISOLATED</span>
+                      </motion.div>
                     ))}
-                 </div>
-               </div>
-            </div>
+                  </div>
 
-            {/* Tactical Grid Overlay */}
-            <div className="absolute inset-0 pointer-events-none grid grid-cols-6 grid-rows-6 opacity-10">
-              {Array.from({length: 36}).map((_, i) => (
-                <div key={i} className="border border-cyber-red/30" />
-              ))}
+                  <div className="h-32 border border-cyber-red/10 flex items-center justify-center relative group">
+                    <div className="text-[10px] font-mono text-cyber-red/20 group-hover:text-cyber-red/50 transition-colors tracking-[1em]">
+                      SCANNING_VULNERABILITY_SURFACE
+                    </div>
+                    <motion.div
+                      animate={{ left: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                      className="absolute top-0 bottom-0 w-[2px] bg-cyber-red shadow-[0_0_15px_red]"
+                    />
+                  </div>
+                </div>
+              </TacticalLayer>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

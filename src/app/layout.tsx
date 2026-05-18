@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { EnvironmentProvider } from "@/lib/environment/state";
+import { CreatorProvider } from "@/lib/environment/creatorState";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
 import BackgroundCanvas from "@/components/environment/BackgroundCanvas";
 
@@ -29,12 +30,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <I18nProvider>
-          <EnvironmentProvider>
-            <BackgroundCanvas />
-            <main className="relative z-0">
-              {children}
-            </main>
-          </EnvironmentProvider>
+          <CreatorProvider>
+            <EnvironmentProvider>
+              <BackgroundCanvas />
+              <main className="relative z-0">
+                {children}
+              </main>
+            </EnvironmentProvider>
+          </CreatorProvider>
         </I18nProvider>
       </body>
     </html>
