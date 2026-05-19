@@ -12,18 +12,21 @@ const OsintNodes = () => {
   const { state } = useWorldState();
   const ref = useRef<THREE.Points>(null);
 
-  // Generate some nodes in a circular/geospatial pattern
-  const count = 200;
-  const positions = new Float32Array(count * 3);
-  for (let i = 0; i < count; i++) {
-    const r = 10 + Math.random() * 20;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
+  // Memoize node positions to avoid regeneration on every render
+  const { positions } = React.useMemo(() => {
+    const count = 200;
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const r = 10 + Math.random() * 20;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
 
-    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.2; // Flattened
-    positions[i * 3 + 2] = r * Math.cos(phi);
-  }
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.2; // Flattened
+      positions[i * 3 + 2] = r * Math.cos(phi);
+    }
+    return { positions };
+  }, []);
 
   useFrame((stateObj) => {
     if (ref.current) {

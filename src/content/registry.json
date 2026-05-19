@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "objects": [
+    {
+      "id": "osint-target-01",
+      "label": "Target ID",
+      "value": "SIG-X-992-B",
+      "status": "MONITORING",
+      "environmentAffinity": "osint",
+      "lastObserved": 1715974677000,
+      "influence": {
+        "entropy": 0.02
+      },
+      "metadata": {
+        "cluster": "HK-CLUSTER",
+        "reliability": 0.94
+      }
+    },
+    {
+      "id": "osint-target-02",
+      "label": "Signal Type",
+      "value": "ENCRYPTED_BURST",
+      "status": "DECRYPTING",
+      "environmentAffinity": "osint",
+      "lastObserved": 1715974677000,
+      "influence": {
+        "tension": 0.1,
+        "anomaly": 0.15
+      },
+      "metadata": {
+        "encryption": "AES-X-2048",
+        "origin": "AS-7712"
+      }
+    },
+    {
+      "id": "cyber-threat-01",
+      "label": "Threat Vector",
+      "value": "CVE-2024-X91",
+      "status": "CRITICAL",
+      "environmentAffinity": "cyber",
+      "lastObserved": 1715974677000,
+      "influence": {
+        "tension": 0.2,
+        "entropy": 0.1
+      },
+      "metadata": {
+        "severity": "high",
+        "vector": "network"
+      }
+    },
+    {
+      "id": "github-repo-01",
+      "label": "Emerging Tool",
+      "value": "NEXUS-SDK",
+      "status": "ACTIVE",
+      "environmentAffinity": "github",
+      "lastObserved": 1715974677000,
+      "influence": {
+        "entropy": -0.05
+      },
+      "metadata": {
+        "stars": 1240,
+        "language": "TypeScript"
+      }
+    }
+  ]
+}

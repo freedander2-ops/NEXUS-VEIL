@@ -40,6 +40,9 @@ export function CyberNetwork() {
   useFrame((state, delta) => {
     pointsRef.current.rotation.y += delta * 0.1;
     pointsRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+    // Add subtle scale jitter on render
+    const jitter = 1 + Math.sin(state.clock.elapsedTime * 20) * 0.005;
+    pointsRef.current.scale.set(jitter, jitter, jitter);
   });
 
   return (

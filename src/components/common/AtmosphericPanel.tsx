@@ -21,14 +21,14 @@ export const AtmosphericPanel = ({ children, title, className, intensity = 1 }: 
   const effectiveIntensity = intensity * (0.5 + state.tension * 1.5);
   const stabilityFactor = 1.0 - (state.entropy * 0.5);
 
-  // Calculate perspective shift based on cursor and world state
-  const rotateX = (cursor.y - 0.5) * -10 * effectiveIntensity * stabilityFactor;
-  const rotateY = (cursor.x - 0.5) * 10 * effectiveIntensity * stabilityFactor;
+  // Reduced perspective shift for atmospheric restraint
+  const rotateX = (cursor.y - 0.5) * -4 * effectiveIntensity * stabilityFactor;
+  const rotateY = (cursor.x - 0.5) * 4 * effectiveIntensity * stabilityFactor;
 
   return (
     <motion.div
       style={{
-        perspective: '1200px',
+        perspective: '2000px', // Increased perspective for more subtle shift
       }}
       className={cn("group", className)}
     >
@@ -37,7 +37,8 @@ export const AtmosphericPanel = ({ children, title, className, intensity = 1 }: 
           rotateX,
           rotateY,
         }}
-        transition={{ type: 'spring', stiffness: 100 * stabilityFactor, damping: 30 }}
+        // Smooth transition for reduced jitter
+        transition={{ type: 'spring', stiffness: 40 * stabilityFactor, damping: 20 }}
         className={cn(
           "relative border transition-colors duration-1000 overflow-hidden h-full",
           state.tension > 0.6 ? "border-red-500/20 bg-red-950/10" : "border-white/10 bg-black/40",
@@ -61,13 +62,8 @@ export const AtmosphericPanel = ({ children, title, className, intensity = 1 }: 
           {children}
         </div>
 
-        {/* Dynamic Shadow Depth */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-1000 opacity-20"
-          style={{
-            boxShadow: `inset ${(cursor.x - 0.5) * -20}px ${(cursor.y - 0.5) * -20}px 30px rgba(0,0,0,0.5)`
-          }}
-        />
+        {/* Static Subtle Shadow - Removing dynamic box-shadow for better performance and restraint */}
+        <div className="absolute inset-0 pointer-events-none opacity-20 shadow-[inset_0_0_40px_rgba(0,0,0,0.4)]" />
       </motion.div>
     </motion.div>
   );

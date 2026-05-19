@@ -7,6 +7,7 @@ import { InteractionProvider } from "@/lib/environment/InteractionReactor";
 import { WorldStateProvider } from "@/lib/environment/WorldStateContext";
 import { AudioEngineProvider } from "@/lib/audio/AudioEngine";
 import { I18nProvider } from "@/lib/i18n/I18nContext";
+import { ContentProvider } from "@/lib/content/ContentEngine";
 import BackgroundCanvas from "@/components/environment/BackgroundCanvas";
 
 const geistSans = Geist({
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <I18nProvider>
           <WorldStateProvider>
+            <ContentProvider>
             <EnvironmentProvider>
               <InteractionProvider>
                 <CreatorProvider>
@@ -46,6 +48,7 @@ export default function RootLayout({
                 </CreatorProvider>
               </InteractionProvider>
             </EnvironmentProvider>
+            </ContentProvider>
           </WorldStateProvider>
         </I18nProvider>
       </body>
