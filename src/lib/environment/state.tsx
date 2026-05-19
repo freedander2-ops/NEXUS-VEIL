@@ -10,7 +10,7 @@ interface EnvironmentState {
   weather: Weather;
   mood: Mood;
   intensity: number; // 0 to 1
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | null;
 }
 
 interface EnvironmentContextType extends EnvironmentState {
@@ -28,13 +28,11 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
   const [weather, setWeather] = useState<Weather>('clear');
   const [mood, setMood] = useState<Mood>('calm');
   const [intensity, setIntensity] = useState(0.2);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
     const storedAuth = localStorage.getItem('nexus_veil_auth');
-    if (storedAuth === 'true') {
-      setIsAuthenticated(true);
-    }
+    setIsAuthenticated(storedAuth === 'true');
 
     setTime(new Date());
     const timer = setInterval(() => {
@@ -50,6 +48,7 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('nexus_veil_auth');
+    document.cookie = "nexus_veil_auth_proxy=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     setMood('calm');
     setIntensity(0.2);
   };

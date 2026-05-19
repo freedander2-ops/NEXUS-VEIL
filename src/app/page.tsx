@@ -8,6 +8,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 export default function Home() {
   const { isAuthenticated } = useEnvironment();
 
+  if (isAuthenticated === null) return null;
+
   return (
     <div className="min-h-screen">
       <AnimatePresence mode="wait">

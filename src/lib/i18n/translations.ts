@@ -30,6 +30,7 @@ export const translations = {
       pulse: 'Pulse',
       alert: 'Alert',
       calm: 'Calm',
+      tense: 'Tense',
       critical: 'Critical',
       loading: 'Loading...'
     },
@@ -98,6 +99,7 @@ export const translations = {
       pulse: 'Пульс',
       alert: 'Тревога',
       calm: 'Спокойствие',
+      tense: 'Напряжение',
       critical: 'Критично',
       loading: 'Загрузка...'
     },

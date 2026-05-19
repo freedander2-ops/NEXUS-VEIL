@@ -40,14 +40,14 @@ export function ContentProvider({ children }: { children: ReactNode }) {
           setScenes(data.scenes || []);
         } else {
           // Fallback to static data if API fails
-          const staticData = registryData as ContentRegistry;
+          const staticData = registryData as unknown as ContentRegistry;
           setObjects(staticData.objects);
           setRelationships(staticData.relationships || []);
           setScenes(staticData.scenes || []);
         }
       } catch (error) {
         console.error('Failed to load registry via API, using fallback', error);
-        const staticData = registryData as ContentRegistry;
+        const staticData = registryData as unknown as ContentRegistry;
         setObjects(staticData.objects);
         setRelationships(staticData.relationships || []);
         setScenes(staticData.scenes || []);

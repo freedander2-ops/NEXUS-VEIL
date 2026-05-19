@@ -14,10 +14,26 @@ export async function GET() {
   }
 }
 
+import { cookies } from 'next/headers';
+
 export async function POST(request: Request) {
   try {
-    // Basic session/auth check would happen here in production
-    // For this atmospheric layer, we ensure the request is well-formed
+    // In production, we'd check a secure cookie.
+    // Here we check for the presence of the auth marker (as a simplified security layer)
+    const cookieStore = await cookies();
+    const hasAuth = cookieStore.get('nexus_veil_auth_proxy');
+
+    if (!hasAuth) {
+      // return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      // Actually, since we're using localStorage for auth in this alpha,
+      // we'll assume the client must send a specific header for now.
+    }
+
+    const authHeader = request.headers.get('x-nexus-auth');
+    if (authHeader !== 'active-operator-session') {
+       return NextResponse.json({ error: 'Unauthorized: Missing Operator Token' }, { status: 401 });
+    }
+
     const newRegistry: ContentRegistry = await request.json();
 
     // Basic validation
@@ -29,7 +45,8 @@ export async function POST(request: Request) {
     await fs.writeFile(REGISTRY_PATH, JSON.stringify({
       version: newRegistry.version,
       objects: newRegistry.objects,
-      relationships: newRegistry.relationships || []
+      relationships: newRegistry.relationships || [],
+      scenes: newRegistry.scenes || []
     }, null, 2), 'utf-8');
 
     return NextResponse.json({ success: true });
