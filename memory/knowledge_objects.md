@@ -12,40 +12,10 @@
 ## Injection
 - The ecosystem supports dynamic injection of these objects into any environment.
 - An object's appearance changes based on the dimension it currently resides in.
+- **Workflow**: Creation via `/operator` -> API Sync -> `registry.json` update -> Runtime rendering.
 
-# Operational Schema
-
-Knowledge Objects are ecosystem entities driven by metadata.
-
-Every object should support:
-
-- id
-- type
-- title
-- mood
-- environmentAffinity
-- signalStrength
-- dangerLevel
-- relationships
-- worldStateInfluence
-- renderProfile
-
----
-
-# Example Object
-
-```json
-{
-  "id": "naiveproxy",
-  "type": "repository",
-  "title": "NaiveProxy",
-  "mood": "engineering",
-  "environmentAffinity": ["github", "osint"],
-  "signalStrength": 7,
-  "dangerLevel": 2,
-  "relationships": [],
-  "worldStateInfluence": {
-    "entropy": 1,
-    "tension": 2
-  }
-}
+## Influence
+Every object carries an `influence` payload that mutates the global `WorldState`:
+- `tension`: Increases atmospheric pressure.
+- `entropy`: Drives system disorder.
+- `anomaly`: Triggers visual glitches and rare states.

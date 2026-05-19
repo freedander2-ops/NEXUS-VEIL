@@ -1,68 +1,18 @@
-# CONTENT WORKFLOW
+# Content Workflow
 
-## Core Principle
+## Overview
+The NEXUS VEIL content pipeline is transitioned from manual JSON editing to a browser-based ingestion system.
 
-Content inside NEXUS VEIL is not static UI data.
+## Ingestion Pipeline
+1. **Creator Layer**: Access `/operator` to open the operational interface.
+2. **Signal Identification**: Paste a GitHub URL for auto-parsing or manually enter entity data.
+3. **Environmental Tuning**: Adjust influence parameters (tension, entropy, anomaly) to define how the object affects the world.
+4. **Validation**: Preview the object in its target dimension via the Live Preview tool.
+5. **Injection**: Execute the protocol to update `registry.json` and inject the object into the runtime ecosystem.
 
-Every entity becomes part of the ecosystem:
-- repository
-- signal
-- investigation
-- anomaly
-- scene
-- world event
-
-Content must remain:
-- modular
-- metadata-driven
-- dynamically renderable
-- environment-aware
-
----
-
-# Content Structure
-
-/content
-│
-├── repositories
-├── osint
-├── investigations
-├── anomalies
-├── scenes
-├── signals
-└── world_events
-
----
-
-# Adding Content
-
-## Recommended Method
-
-Use Creator Mode.
-
-Creator systems should:
-- generate objects automatically
-- validate metadata
-- connect relationships
-- inject entities into environments
-
----
-
-## Manual Method
-
-Objects may also be added manually as JSON files.
-
-Example:
-
-```json
-{
-  "id": "naiveproxy",
-  "type": "repository",
-  "title": "NaiveProxy",
-  "mood": "engineering",
-  "environmentAffinity": ["github", "osint"],
-  "signalStrength": 7,
-  "dangerLevel": 2,
-  "relationships": [],
-  "links": []
-}
+## Knowledge Object Schema
+Objects must adhere to the `src/lib/content/schema.ts` definition:
+- `id`: Unique signal identifier.
+- `affinity`: Target environment (OSINT, Cyber, GitHub, Global).
+- `influence`: Systemic parameters for world-state mutation.
+- `metadata`: Flexible key-value store for dimension-specific rendering.

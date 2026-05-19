@@ -31,6 +31,11 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    const storedAuth = localStorage.getItem('nexus_veil_auth');
+    if (storedAuth === 'true') {
+      setIsAuthenticated(true);
+    }
+
     setTime(new Date());
     const timer = setInterval(() => {
       setTime(new Date());
@@ -38,9 +43,13 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(timer);
   }, []);
 
-  const login = () => setIsAuthenticated(true);
+  const login = () => {
+    setIsAuthenticated(true);
+    localStorage.setItem('nexus_veil_auth', 'true');
+  };
   const logout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem('nexus_veil_auth');
     setMood('calm');
     setIntensity(0.2);
   };
