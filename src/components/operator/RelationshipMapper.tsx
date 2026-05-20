@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link2, Trash2, Plus, Zap, ShieldAlert, Activity, GitBranch } from 'lucide-react';
+import { Link2, Trash2, Plus, Zap, ShieldAlert, Activity, GitBranch, AlertTriangle } from 'lucide-react';
 import { useContent } from '@/lib/content/ContentEngine';
 import { Relationship, RelationshipType } from '@/lib/content/schema';
+import { Tooltip } from '@/components/common/Tooltip';
+import { useAudio } from '@/lib/audio/AudioEngine';
 
 interface RelationshipMapperProps {
   onSave: (rel: Relationship) => void;
@@ -13,6 +15,8 @@ interface RelationshipMapperProps {
 
 export default function RelationshipMapper({ onSave, onDelete }: RelationshipMapperProps) {
   const { objects, relationships } = useContent();
+  const { playFeedback } = useAudio();
+
   const [sourceId, setSourceId] = useState('');
   const [targetId, setTargetId] = useState('');
   const [type, setType] = useState<RelationshipType>('resonance');
@@ -20,7 +24,10 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!sourceId || !targetId || sourceId === targetId) return;
+    if (!sourceId || !targetId || sourceId === targetId) {
+        playFeedback('anomaly');
+        return;
+    }
 
     const newRel: Relationship = {
       id: `rel-${Math.random().toString(36).substr(2, 9)}`,
@@ -32,6 +39,7 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
     onSave(newRel);
     setSourceId('');
     setTargetId('');
+    playFeedback('click');
   };
 
   const getObjectById = (id: string) => objects.find(o => o.id === id);
@@ -56,17 +64,26 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
     }
   };
 
+  // Conflict and Safety Checks
+  const existingRel = relationships.find(r =>
+    (r.sourceId === sourceId && r.targetId === targetId) ||
+    (r.sourceId === targetId && r.targetId === sourceId)
+  );
+
   return (
     <div className="space-y-8 font-mono">
       {/* Creation UI */}
       <form onSubmit={handleSubmit} className="p-6 bg-cyber-blue/5 border border-cyber-blue/20 space-y-6">
-        <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] flex items-center gap-2 opacity-60">
-          <Link2 size={14} /> Establish Neural Link
-        </h3>
+        <div className="flex justify-between items-center">
+            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] flex items-center gap-2 opacity-60">
+                <Link2 size={14} /> Establish Neural Link
+            </h3>
+            <Tooltip content="Links define how environmental influence propagates between entities." />
+        </div>
 
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-[9px] uppercase opacity-40">Source Entity</label>
+            <label className="text-[9px] uppercase opacity-40 font-bold">Origin Node</label>
             <select
               value={sourceId}
               onChange={e => setSourceId(e.target.value)}
@@ -80,7 +97,7 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
           </div>
 
           <div className="space-y-2">
-            <label className="text-[9px] uppercase opacity-40">Target Entity</label>
+            <label className="text-[9px] uppercase opacity-40 font-bold">Destination Node</label>
             <select
               value={targetId}
               onChange={e => setTargetId(e.target.value)}
@@ -94,9 +111,19 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
           </div>
         </div>
 
+        {existingRel && (
+            <div className="flex items-center gap-3 p-3 bg-amber-500/10 border border-amber-500/30 text-amber-500 text-[9px] uppercase">
+                <AlertTriangle size={14} />
+                Conflict: A link already exists between these entities.
+            </div>
+        )}
+
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-[9px] uppercase opacity-40">Link Type</label>
+            <div className="flex items-center gap-2">
+                <label className="text-[9px] uppercase opacity-40 font-bold">Link Type</label>
+                <Tooltip content="Resonance: Mutual amplification. Corruption: Destabilizing influence. Dependency: Child nodes rely on parents." />
+            </div>
             <select
               value={type}
               onChange={e => setType(e.target.value as RelationshipType)}
@@ -112,7 +139,7 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
 
           <div className="space-y-2">
             <div className="flex justify-between text-[9px] uppercase opacity-40">
-              <span>Link Strength</span>
+              <span className="font-bold">Propagation Strength</span>
               <span>{(strength * 100).toFixed(0)}%</span>
             </div>
             <input
@@ -127,7 +154,7 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
 
         <button
           type="submit"
-          disabled={!sourceId || !targetId}
+          disabled={!sourceId || !targetId || !!existingRel}
           className="w-full py-3 bg-cyber-cyan/10 border border-cyber-cyan/40 text-cyber-cyan text-[10px] font-bold uppercase tracking-widest hover:bg-cyber-cyan hover:text-cyber-black transition-all flex items-center justify-center gap-2 disabled:opacity-20 disabled:cursor-not-allowed"
         >
           <Plus size={14} /> Initialize Link Protocol
@@ -163,7 +190,7 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
                       <div className="w-12 h-[1px] bg-cyber-blue/20 relative">
                         <motion.div
                           animate={{ left: ['0%', '100%'] }}
-                          transition={{ duration: 2 / rel.strength, repeat: Infinity, ease: "linear" }}
+                          transition={{ duration: 2 / Math.max(0.1, rel.strength), repeat: Infinity, ease: "linear" }}
                           className="absolute top-[-1px] w-1 h-1 bg-cyber-cyan rounded-full"
                         />
                       </div>
@@ -177,7 +204,10 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
                   </div>
 
                   <button
-                    onClick={() => onDelete(rel.id)}
+                    onClick={() => {
+                        onDelete(rel.id);
+                        playFeedback('click');
+                    }}
                     className="p-2 text-cyber-red/40 hover:text-cyber-red hover:bg-cyber-red/10 transition-all opacity-0 group-hover:opacity-100"
                   >
                     <Trash2 size={14} />

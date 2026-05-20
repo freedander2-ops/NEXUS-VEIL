@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Terminal as TerminalIcon } from 'lucide-react';
+import { Shield, Terminal as TerminalIcon, Activity, Eye, Info } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEnvironment } from '@/lib/environment/state';
 import { useContent } from '@/lib/content/ContentEngine';
@@ -13,10 +13,14 @@ import RelationshipMapper from '@/components/operator/RelationshipMapper';
 import SceneComposer from '@/components/operator/SceneComposer';
 import LivePreview from '@/components/operator/LivePreview';
 import { ObjectList } from '@/components/operator/ObjectList';
+import { SystemMonitor } from '@/components/operator/SystemMonitor';
+ // import { Tooltip } from '@/components/common/Tooltip';
+import { useAudio } from '@/lib/audio/AudioEngine';
 
 export default function OperatorWorkspace() {
   const { isAuthenticated } = useEnvironment();
   const router = useRouter();
+  const { playFeedback } = useAudio();
   const {
     objects,
     relationships,
@@ -29,9 +33,11 @@ export default function OperatorWorkspace() {
     removeScene,
     toggleScene,
   } = useContent();
+
   const [activeTab, setActiveTab] = useState<'registry' | 'create' | 'links' | 'scenes'>('registry');
   const [editingObject, setEditingObject] = useState<KnowledgeObject | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [showDiagnostics, setShowDiagnostics] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated === false) {
@@ -61,15 +67,16 @@ export default function OperatorWorkspace() {
         }),
       });
       if (response.ok) {
-        console.log('Registry updated successfully');
+        playFeedback('click');
       }
     } catch (error) {
       console.error('Failed to save registry', error);
+      playFeedback('anomaly');
     }
   };
 
   const handleCreate = (obj: KnowledgeObject) => {
-    // Check if updating
+    addObject(obj);
     const existingIndex = objects.findIndex(o => o.id === obj.id);
     let updatedObjects;
     if (existingIndex > -1) {
@@ -78,15 +85,8 @@ export default function OperatorWorkspace() {
     } else {
        updatedObjects = [...objects, obj];
     }
-
-    // In-memory update
-    if (existingIndex > -1) {
-       // Manual in-memory update for the list if not using a global store that auto-syncs
-       // ContentEngine's addObject doesn't handle updates, so we might need a replaceObject
-    }
-    addObject(obj);
-
     saveRegistry(updatedObjects, relationships, scenes);
+    setEditingObject(null);
     setActiveTab('registry');
   };
 
@@ -97,6 +97,7 @@ export default function OperatorWorkspace() {
       relationships.filter(r => r.sourceId !== id && r.targetId !== id),
       scenes.map(s => ({ ...s, objectIds: s.objectIds.filter(oid => oid !== id) }))
     );
+    playFeedback('click');
   };
 
   const handleSaveRelationship = (rel: Relationship) => {
@@ -120,6 +121,7 @@ export default function OperatorWorkspace() {
   const handleDeleteScene = (id: string) => {
     removeScene(id);
     saveRegistry(objects, relationships, scenes.filter(s => s.id !== id));
+    playFeedback('click');
   };
 
   const handleToggleScene = (id: string) => {
@@ -130,6 +132,12 @@ export default function OperatorWorkspace() {
   const handleDeleteRelationship = (id: string) => {
     removeRelationship(id);
     saveRegistry(objects, relationships.filter(r => r.id !== id), scenes);
+    playFeedback('click');
+  };
+
+  const handleTabChange = (tab: typeof activeTab) => {
+    setActiveTab(tab);
+    playFeedback('hover');
   };
 
   return (
@@ -141,35 +149,35 @@ export default function OperatorWorkspace() {
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-[0.4em] uppercase">Operator // Workspace</h1>
-            <p className="text-[10px] text-cyber-blue/40 uppercase mt-1">Direct Ecosystem Manipulation Layer</p>
+            <p className="text-[10px] text-cyber-blue/40 uppercase mt-1">Controlled Environmental Manipulation Interface</p>
           </div>
         </div>
 
-        <nav className="flex gap-4">
+        <nav className="flex items-center gap-4">
           <button
-            onClick={() => setActiveTab('registry')}
-            className={`px-6 py-2 text-[10px] uppercase tracking-widest border transition-all ${activeTab === 'registry' ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 hover:border-cyber-blue/50'}`}
+            onClick={() => {
+                setShowDiagnostics(!showDiagnostics);
+                playFeedback('click');
+            }}
+            className={`mr-4 p-2 border transition-all ${showDiagnostics ? 'border-cyber-cyan text-cyber-cyan bg-cyber-cyan/10' : 'border-cyber-blue/20 opacity-40 hover:opacity-100'}`}
           >
-            Entity Registry
+            <Activity size={16} />
           </button>
-          <button
-            onClick={() => { setActiveTab('create'); setEditingObject(null); }}
-            className={`px-6 py-2 text-[10px] uppercase tracking-widest border transition-all ${activeTab === 'create' ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 hover:border-cyber-blue/50'}`}
-          >
-            Create Signal
-          </button>
-          <button
-            onClick={() => setActiveTab('links')}
-            className={`px-6 py-2 text-[10px] uppercase tracking-widest border transition-all ${activeTab === 'links' ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 hover:border-cyber-blue/50'}`}
-          >
-            Neural Links
-          </button>
-          <button
-            onClick={() => setActiveTab('scenes')}
-            className={`px-6 py-2 text-[10px] uppercase tracking-widest border transition-all ${activeTab === 'scenes' ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 hover:border-cyber-blue/50'}`}
-          >
-            Scene Composer
-          </button>
+
+          {[
+            { id: 'registry', label: 'Entity Registry' },
+            { id: 'create', label: 'Injection' },
+            { id: 'links', label: 'Neural Links' },
+            { id: 'scenes', label: 'Composition' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => handleTabChange(tab.id as "registry" | "create" | "links" | "scenes")}
+              className={`px-6 py-2 text-[10px] uppercase tracking-widest border transition-all ${activeTab === tab.id ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 hover:border-cyber-blue/50'}`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </nav>
       </header>
 
@@ -190,11 +198,13 @@ export default function OperatorWorkspace() {
                   onEdit={(obj) => {
                     setEditingObject(obj);
                     setActiveTab('create');
+                    playFeedback('click');
                   }}
                   onDelete={handleDelete}
                   onPreview={(obj) => {
                     setEditingObject(obj);
                     setIsPreviewOpen(true);
+                    playFeedback('click');
                   }}
                 />
               </motion.div>
@@ -205,8 +215,16 @@ export default function OperatorWorkspace() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
               >
-                <AtmosphericPanel title="Injection Protocol" intensity={0.5}>
-                  <KnowledgeObjectForm onSubmit={handleCreate} initialData={editingObject} />
+                <AtmosphericPanel title={editingObject ? "Modification Sequence" : "Injection Protocol"} intensity={0.5}>
+                  <KnowledgeObjectForm
+                    onSubmit={handleCreate}
+                    initialData={editingObject}
+                    onCancel={() => {
+                        setEditingObject(null);
+                        setActiveTab('registry');
+                        playFeedback('click');
+                    }}
+                  />
                 </AtmosphericPanel>
               </motion.div>
             ) : activeTab === 'links' ? (
@@ -241,25 +259,63 @@ export default function OperatorWorkspace() {
 
         {/* Info / Status Sidebar */}
         <div className="col-span-12 lg:col-span-4 space-y-8">
-          <AtmosphericPanel title="System Status" intensity={0.2}>
-            <div className="space-y-4 text-[10px] uppercase tracking-widest">
-              <div className="flex justify-between">
-                <span className="opacity-40">Registry Sync</span>
-                <span className="text-cyber-emerald">Operational</span>
+          <AnimatePresence>
+            {showDiagnostics && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden"
+              >
+                <AtmosphericPanel title="Live Diagnostics" intensity={0.5} className="border-cyber-cyan/20">
+                  <SystemMonitor />
+                </AtmosphericPanel>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AtmosphericPanel title="Operator Guidance" intensity={0.2}>
+            <div className="space-y-4 text-[10px] uppercase tracking-widest leading-relaxed">
+              <div className="p-3 bg-cyber-blue/5 border border-cyber-blue/10">
+                <div className="flex items-center gap-2 mb-2 text-cyber-cyan">
+                  <Info size={14} />
+                  <span className="font-bold font-mono">Current Objective</span>
+                </div>
+                <p className="opacity-60">
+                    Maintain ecosystem stability while expanding knowledge nodes.
+                    Monitor Tension and Entropy levels during injection.
+                </p>
               </div>
-              <div className="flex justify-between">
-                <span className="opacity-40">Active Nodes</span>
-                <span>{objects.length}</span>
+
+              <div className="space-y-3 px-1">
+                <div className="flex justify-between items-center">
+                    <span className="opacity-40">System Status</span>
+                    <span className="text-cyber-emerald font-bold">Operational</span>
+                </div>
+                <div className="flex justify-between items-center">
+                    <span className="opacity-40">Registry Integrity</span>
+                    <span className="text-cyber-cyan font-bold">Verified</span>
+                </div>
+                <div className="flex justify-between items-center">
+                    <span className="opacity-40">Active Sessions</span>
+                    <span className="text-cyber-blue font-bold">1 Operator</span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="opacity-40">Last Injection</span>
-                <span>Just Now</span>
+
+              <div className="pt-4 border-t border-cyber-blue/10">
+                <button
+                    onClick={() => router.push('/weather')}
+                    className="w-full py-2 border border-cyber-blue/20 hover:border-cyber-cyan/50 hover:bg-cyber-cyan/5 transition-all flex items-center justify-center gap-2 group"
+                >
+                    <Eye size={14} className="group-hover:text-cyber-cyan" />
+                    <span>Return to Viewport</span>
+                </button>
               </div>
             </div>
           </AtmosphericPanel>
 
-          <AtmosphericPanel title="Live Buffer" intensity={0.1}>
-            <div className="h-48 border border-cyber-blue/10 bg-cyber-black/40 flex items-center justify-center relative overflow-hidden">
+          <AtmosphericPanel title="Buffer Feed" intensity={0.1}>
+            <div className="h-32 border border-cyber-blue/10 bg-cyber-black/40 flex items-center justify-center relative overflow-hidden">
                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#3b82f6_1px,transparent_1px)] [background-size:10px_10px]" />
                <TerminalIcon className="text-cyber-blue/20" size={48} />
                <motion.div
@@ -274,7 +330,11 @@ export default function OperatorWorkspace() {
 
       <LivePreview
         isOpen={isPreviewOpen}
-        onClose={() => setIsPreviewOpen(false)}
+        onClose={() => {
+            setIsPreviewOpen(false);
+            setEditingObject(null);
+            playFeedback('click');
+        }}
         object={editingObject}
       />
     </div>
