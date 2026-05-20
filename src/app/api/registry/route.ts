@@ -36,14 +36,22 @@ export async function POST(request: Request) {
 
     const newRegistry: ContentRegistry = await request.json();
 
-    // Basic validation
+    // Schema validation
     if (!newRegistry.objects || !Array.isArray(newRegistry.objects)) {
-      return NextResponse.json({ error: 'Invalid registry format' }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid registry format: objects must be an array' }, { status: 400 });
+    }
+
+    // Ensure relationships and scenes are also validated if present
+    if (newRegistry.relationships && !Array.isArray(newRegistry.relationships)) {
+       return NextResponse.json({ error: 'Invalid registry format: relationships must be an array' }, { status: 400 });
+    }
+    if (newRegistry.scenes && !Array.isArray(newRegistry.scenes)) {
+       return NextResponse.json({ error: 'Invalid registry format: scenes must be an array' }, { status: 400 });
     }
 
     // Write to file
     await fs.writeFile(REGISTRY_PATH, JSON.stringify({
-      version: newRegistry.version,
+      version: newRegistry.version || "1.0.0",
       objects: newRegistry.objects,
       relationships: newRegistry.relationships || [],
       scenes: newRegistry.scenes || []

@@ -6,8 +6,14 @@ import { Layers, Plus, Trash2, Power, Settings2, Info } from 'lucide-react';
 import { useContent } from '@/lib/content/ContentEngine';
 import { Scene } from '@/lib/content/schema';
 
-export default function SceneComposer() {
-  const { objects, scenes, addScene, removeScene, toggleScene } = useContent();
+interface SceneComposerProps {
+  onSave: (scene: Scene) => void;
+  onDelete: (id: string) => void;
+  onToggle: (id: string) => void;
+}
+
+export default function SceneComposer({ onSave, onDelete, onToggle }: SceneComposerProps) {
+  const { objects, scenes } = useContent();
   const [isCreating, setIsCreating] = useState(false);
   const [newScene, setNewScene] = useState<Partial<Scene>>({
     label: '',
@@ -22,15 +28,19 @@ export default function SceneComposer() {
     if (!newScene.label) return;
 
     const scene: Scene = {
-      id: `scene-${Math.random().toString(36).substr(2, 9)}`,
+      id: newScene.id || `scene-${Math.random().toString(36).substr(2, 9)}`,
       label: newScene.label,
       description: newScene.description || '',
       objectIds: newScene.objectIds || [],
-      environmentalModifiers: newScene.environmentalModifiers || {},
-      active: false
+      environmentalModifiers: newScene.environmentalModifiers || {
+        tensionMod: 0,
+        entropyMod: 0,
+        anomalyMod: 0
+      },
+      active: newScene.active || false
     };
 
-    addScene(scene);
+    onSave(scene);
     setIsCreating(false);
     setNewScene({
       label: '',
@@ -57,7 +67,16 @@ export default function SceneComposer() {
           <Layers size={14} /> Environmental Clusters
         </h3>
         <button
-          onClick={() => setIsCreating(!isCreating)}
+          onClick={() => {
+            setIsCreating(!isCreating);
+            if (!isCreating) setNewScene({
+              label: '',
+              description: '',
+              objectIds: [],
+              environmentalModifiers: { tensionMod: 0, entropyMod: 0, anomalyMod: 0 },
+              active: false
+            });
+          }}
           className="p-2 bg-cyber-blue/10 border border-cyber-blue/20 hover:bg-cyber-blue/20 transition-all text-cyber-cyan"
         >
           <Plus size={16} />
@@ -151,10 +170,20 @@ export default function SceneComposer() {
                 <p className="text-[9px] opacity-40 mt-1 uppercase italic">{scene.description}</p>
               </div>
               <div className="flex gap-2">
-                <button onClick={() => toggleScene(scene.id)} className={`p-1.5 border transition-all ${scene.active ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 text-cyber-blue/40'}`}>
+                <button
+                  onClick={() => {
+                    setNewScene(scene);
+                    setIsCreating(true);
+                  }}
+                  className="p-1.5 border border-cyber-blue/20 text-cyber-blue/40 hover:text-cyber-blue transition-all"
+                  title="Edit Scene"
+                >
+                  <Settings2 size={12} />
+                </button>
+                <button onClick={() => onToggle(scene.id)} className={`p-1.5 border transition-all ${scene.active ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 text-cyber-blue/40'}`}>
                   <Power size={12} />
                 </button>
-                <button onClick={() => removeScene(scene.id)} className="p-1.5 border border-cyber-red/20 text-cyber-red/40 hover:border-cyber-red hover:text-cyber-red transition-all">
+                <button onClick={() => onDelete(scene.id)} className="p-1.5 border border-cyber-red/20 text-cyber-red/40 hover:border-cyber-red hover:text-cyber-red transition-all">
                   <Trash2 size={12} />
                 </button>
               </div>

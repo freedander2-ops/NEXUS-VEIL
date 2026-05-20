@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Terminal as TerminalIcon, Eye, Trash2 } from 'lucide-react';
+import { Shield, Terminal as TerminalIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEnvironment } from '@/lib/environment/state';
 import { useContent } from '@/lib/content/ContentEngine';
@@ -12,6 +12,7 @@ import KnowledgeObjectForm from '@/components/operator/KnowledgeObjectForm';
 import RelationshipMapper from '@/components/operator/RelationshipMapper';
 import SceneComposer from '@/components/operator/SceneComposer';
 import LivePreview from '@/components/operator/LivePreview';
+import { ObjectList } from '@/components/operator/ObjectList';
 
 export default function OperatorWorkspace() {
   const { isAuthenticated } = useEnvironment();
@@ -24,6 +25,9 @@ export default function OperatorWorkspace() {
     removeObject,
     addRelationship,
     removeRelationship,
+    addScene,
+    removeScene,
+    toggleScene,
   } = useContent();
   const [activeTab, setActiveTab] = useState<'registry' | 'create' | 'links' | 'scenes'>('registry');
   const [editingObject, setEditingObject] = useState<KnowledgeObject | null>(null);
@@ -65,8 +69,24 @@ export default function OperatorWorkspace() {
   };
 
   const handleCreate = (obj: KnowledgeObject) => {
+    // Check if updating
+    const existingIndex = objects.findIndex(o => o.id === obj.id);
+    let updatedObjects;
+    if (existingIndex > -1) {
+       updatedObjects = [...objects];
+       updatedObjects[existingIndex] = obj;
+    } else {
+       updatedObjects = [...objects, obj];
+    }
+
+    // In-memory update
+    if (existingIndex > -1) {
+       // Manual in-memory update for the list if not using a global store that auto-syncs
+       // ContentEngine's addObject doesn't handle updates, so we might need a replaceObject
+    }
     addObject(obj);
-    saveRegistry([...objects, obj], relationships, scenes);
+
+    saveRegistry(updatedObjects, relationships, scenes);
     setActiveTab('registry');
   };
 
@@ -82,6 +102,29 @@ export default function OperatorWorkspace() {
   const handleSaveRelationship = (rel: Relationship) => {
     addRelationship(rel);
     saveRegistry(objects, [...relationships, rel], scenes);
+  };
+
+  const handleSaveScene = (scene: Scene) => {
+    addScene(scene);
+    const existingIndex = scenes.findIndex(s => s.id === scene.id);
+    let updatedScenes;
+    if (existingIndex > -1) {
+       updatedScenes = [...scenes];
+       updatedScenes[existingIndex] = scene;
+    } else {
+       updatedScenes = [...scenes, scene];
+    }
+    saveRegistry(objects, relationships, updatedScenes);
+  };
+
+  const handleDeleteScene = (id: string) => {
+    removeScene(id);
+    saveRegistry(objects, relationships, scenes.filter(s => s.id !== id));
+  };
+
+  const handleToggleScene = (id: string) => {
+    toggleScene(id);
+    saveRegistry(objects, relationships, scenes.map(s => s.id === id ? { ...s, active: !s.active } : s));
   };
 
   const handleDeleteRelationship = (id: string) => {
@@ -142,38 +185,18 @@ export default function OperatorWorkspace() {
                 exit={{ opacity: 0, y: -20 }}
                 className="space-y-6"
               >
-                {objects.map((obj) => (
-                  <div key={obj.id} className="group relative flex items-center justify-between p-4 bg-cyber-dark/40 border border-cyber-blue/10 hover:border-cyber-blue/40 transition-all">
-                    <div className="flex items-center gap-6">
-                      <div className={`w-1 h-12 ${obj.environmentAffinity === 'osint' ? 'bg-blue-500' : obj.environmentAffinity === 'cyber' ? 'bg-red-500' : 'bg-slate-400'}`} />
-                      <div>
-                        <div className="text-[10px] text-cyber-blue/40 uppercase tracking-tighter mb-1">{obj.id} {"//"} {obj.environmentAffinity}</div>
-                        <div className="text-sm font-bold text-white uppercase">{obj.label}</div>
-                        <div className="text-[10px] opacity-60 font-mono mt-1">{obj.value}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        onClick={() => { setEditingObject(obj); setIsPreviewOpen(true); }}
-                        className="p-2 hover:text-cyber-cyan"
-                      >
-                        <Eye size={16} />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(obj.id)}
-                        className="p-2 hover:text-cyber-red"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                {objects.length === 0 && (
-                  <div className="text-center py-20 border border-dashed border-cyber-blue/20 opacity-20 uppercase tracking-[0.5em] text-xs">
-                    Registry Empty // Awaiting Injection
-                  </div>
-                )}
+                <ObjectList
+                  objects={objects}
+                  onEdit={(obj) => {
+                    setEditingObject(obj);
+                    setActiveTab('create');
+                  }}
+                  onDelete={handleDelete}
+                  onPreview={(obj) => {
+                    setEditingObject(obj);
+                    setIsPreviewOpen(true);
+                  }}
+                />
               </motion.div>
             ) : activeTab === 'create' ? (
               <motion.div
@@ -205,7 +228,11 @@ export default function OperatorWorkspace() {
                 exit={{ opacity: 0, y: -20 }}
               >
                 <AtmosphericPanel title="Environment Scene Composition" intensity={0.7}>
-                  <SceneComposer />
+                  <SceneComposer
+                    onSave={handleSaveScene}
+                    onDelete={handleDeleteScene}
+                    onToggle={handleToggleScene}
+                  />
                 </AtmosphericPanel>
               </motion.div>
             )}
