@@ -12,6 +12,7 @@ export default function LoginTerminal() {
   const [password, setPassword] = useState('');
   const [bootText, setBootText] = useState<string[]>([]);
   const [isBooting, setIsBooting] = useState(true);
+  const [hasAgreed, setHasAgreed] = useState(false);
   const { setMood, setIntensity, login } = useEnvironment();
   const { state: worldState, mutateWorldState, emitWorldEvent } = useWorldState();
   const { t } = useI18n();
@@ -35,6 +36,9 @@ export default function LoginTerminal() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if ((username === 'guest' && password === 'guest') || (username === 'admin' && password === 'admin')) {
+      // Set a proxy cookie for API access (simplified alpha security)
+      document.cookie = "nexus_veil_auth_proxy=active; path=/; max-age=3600";
+
       setMood('alert');
       setIntensity(0.5);
 
@@ -121,9 +125,24 @@ export default function LoginTerminal() {
               </div>
             </div>
 
+            <div className="flex items-start gap-3 p-3 bg-cyber-blue/5 border border-cyber-blue/10">
+              <input
+                type="checkbox"
+                id="privacy-consent"
+                checked={hasAgreed}
+                onChange={(e) => setHasAgreed(e.target.checked)}
+                className="mt-1 accent-cyber-cyan"
+              />
+              <label htmlFor="privacy-consent" className="text-[9px] text-cyber-blue/60 leading-relaxed uppercase tracking-tighter">
+                I acknowledge that this ecosystem observes digital patterns for atmospheric simulation.
+                All data is handled according to international privacy principles.
+              </label>
+            </div>
+
             <button
               type="submit"
-              className="w-full bg-cyber-blue/10 border border-cyber-blue/50 p-3 text-cyber-blue font-bold tracking-[0.2em] uppercase text-xs hover:bg-cyber-blue hover:text-cyber-black transition-all group"
+              disabled={!hasAgreed}
+              className="w-full bg-cyber-blue/10 border border-cyber-blue/50 p-3 text-cyber-blue font-bold tracking-[0.2em] uppercase text-xs enabled:hover:bg-cyber-blue enabled:hover:text-cyber-black transition-all group disabled:opacity-20 disabled:cursor-not-allowed"
             >
               {t.terminal.authorize}
             </button>

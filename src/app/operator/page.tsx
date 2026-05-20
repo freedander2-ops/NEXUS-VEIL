@@ -24,21 +24,18 @@ export default function OperatorWorkspace() {
     removeObject,
     addRelationship,
     removeRelationship,
-    addScene,
-    removeScene,
-    toggleScene
   } = useContent();
   const [activeTab, setActiveTab] = useState<'registry' | 'create' | 'links' | 'scenes'>('registry');
   const [editingObject, setEditingObject] = useState<KnowledgeObject | null>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isAuthenticated === false) {
       router.push('/');
     }
   }, [isAuthenticated, router]);
 
-  if (!isAuthenticated) return null;
+  if (isAuthenticated !== true) return null;
 
   const saveRegistry = async (
     updatedObjects: KnowledgeObject[],
@@ -48,7 +45,10 @@ export default function OperatorWorkspace() {
     try {
       const response = await fetch('/api/registry', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-nexus-auth': 'active-operator-session'
+        },
         body: JSON.stringify({
           version: '1.0.0',
           objects: updatedObjects,
@@ -87,21 +87,6 @@ export default function OperatorWorkspace() {
   const handleDeleteRelationship = (id: string) => {
     removeRelationship(id);
     saveRegistry(objects, relationships.filter(r => r.id !== id), scenes);
-  };
-
-  const handleSaveScene = (scene: Scene) => {
-    addScene(scene);
-    saveRegistry(objects, relationships, [...scenes, scene]);
-  };
-
-  const handleDeleteScene = (id: string) => {
-    removeScene(id);
-    saveRegistry(objects, relationships, scenes.filter(s => s.id !== id));
-  };
-
-  const handleToggleScene = (id: string) => {
-    toggleScene(id);
-    saveRegistry(objects, relationships, scenes.map(s => s.id === id ? { ...s, active: !s.active } : s));
   };
 
   return (

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link2, Trash2, Plus, Zap, ShieldAlert, Activity, GitBranch } from 'lucide-react';
 import { useContent } from '@/lib/content/ContentEngine';
-import { Relationship, RelationshipType, KnowledgeObject } from '@/lib/content/schema';
+import { Relationship, RelationshipType } from '@/lib/content/schema';
 
 interface RelationshipMapperProps {
   onSave: (rel: Relationship) => void;
@@ -74,7 +74,7 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
             >
               <option value="">SELECT SOURCE</option>
               {objects.map(obj => (
-                <option key={obj.id} value={obj.id}>{obj.label} // {obj.id}</option>
+                <option key={obj.id} value={obj.id}>{obj.label} {"//"} {obj.id}</option>
               ))}
             </select>
           </div>
@@ -88,7 +88,7 @@ export default function RelationshipMapper({ onSave, onDelete }: RelationshipMap
             >
               <option value="">SELECT TARGET</option>
               {objects.filter(obj => obj.id !== sourceId).map(obj => (
-                <option key={obj.id} value={obj.id}>{obj.label} // {obj.id}</option>
+                <option key={obj.id} value={obj.id}>{obj.label} {"//"} {obj.id}</option>
               ))}
             </select>
           </div>
