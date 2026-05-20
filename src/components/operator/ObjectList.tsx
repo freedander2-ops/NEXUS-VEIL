@@ -4,15 +4,17 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter, Eye, Trash2, Edit3, Globe, ShieldAlert, GitBranch, Terminal } from 'lucide-react';
 import { KnowledgeObject, EnvironmentAffinity } from '@/lib/content/schema';
+import { EmptyState } from '@/components/common/EmptyState';
 
 interface ObjectListProps {
   objects: KnowledgeObject[];
   onEdit: (obj: KnowledgeObject) => void;
   onDelete: (id: string) => void;
   onPreview: (obj: KnowledgeObject) => void;
+  onCreateRequested: () => void;
 }
 
-export const ObjectList = ({ objects, onEdit, onDelete, onPreview }: ObjectListProps) => {
+export const ObjectList = ({ objects, onEdit, onDelete, onPreview, onCreateRequested }: ObjectListProps) => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<EnvironmentAffinity | 'all'>('all');
 
@@ -45,7 +47,7 @@ export const ObjectList = ({ objects, onEdit, onDelete, onPreview }: ObjectListP
             placeholder="Search signals..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-cyber-black border border-cyber-blue/20 p-2 pl-10 text-[10px] uppercase tracking-widest outline-none focus:border-cyber-cyan"
+            className="w-full bg-cyber-black border border-cyber-blue/20 p-2 pl-10 text-[10px] uppercase tracking-widest outline-none focus:border-cyber-cyan transition-all"
           />
         </div>
         <div className="flex items-center gap-2 border border-cyber-blue/20 px-3 bg-cyber-black">
@@ -53,7 +55,7 @@ export const ObjectList = ({ objects, onEdit, onDelete, onPreview }: ObjectListP
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value as EnvironmentAffinity | 'all')}
-            className="bg-transparent text-[10px] uppercase tracking-widest outline-none cursor-pointer"
+            className="bg-transparent text-[10px] uppercase tracking-widest outline-none cursor-pointer py-2"
           >
             <option value="all">All Affinities</option>
             <option value="osint">OSINT</option>
@@ -88,40 +90,42 @@ export const ObjectList = ({ objects, onEdit, onDelete, onPreview }: ObjectListP
                   {obj.id} <span className="mx-2 opacity-20">|</span> {obj.status}
                 </div>
                 <div className="text-sm font-bold text-white uppercase tracking-wider">{obj.label}</div>
-                <div className="text-[10px] opacity-60 font-mono mt-1 text-cyber-cyan">{obj.value}</div>
+                <div className="text-[10px] opacity-60 font-mono mt-1 text-cyber-cyan font-bold">{obj.value}</div>
               </div>
             </div>
 
             <div className="flex gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={() => onPreview(obj)}
-                title="Preview Visual"
-                className="p-2 hover:text-cyber-cyan hover:bg-cyber-cyan/10 transition-colors"
+                title="Preview Manifestation"
+                className="p-3 hover:text-cyber-cyan hover:bg-cyber-cyan/10 transition-colors"
               >
-                <Eye size={16} />
+                <Eye size={18} />
               </button>
               <button
                 onClick={() => onEdit(obj)}
-                title="Edit Object"
-                className="p-2 hover:text-cyber-blue hover:bg-cyber-blue/10 transition-colors"
+                title="Modify Registry"
+                className="p-3 hover:text-cyber-blue hover:bg-cyber-blue/10 transition-colors"
               >
-                <Edit3 size={16} />
+                <Edit3 size={18} />
               </button>
               <button
                 onClick={() => onDelete(obj.id)}
-                title="Delete Object"
-                className="p-2 hover:text-cyber-red hover:bg-cyber-red/10 transition-colors"
+                title="Execute Deletion"
+                className="p-3 hover:text-cyber-red hover:bg-cyber-red/10 transition-colors"
               >
-                <Trash2 size={16} />
+                <Trash2 size={18} />
               </button>
             </div>
           </motion.div>
         ))}
 
         {filtered.length === 0 && (
-          <div className="text-center py-20 border border-dashed border-cyber-blue/10 opacity-20 uppercase tracking-[0.5em] text-[10px]">
-            No matching entities found
-          </div>
+          <EmptyState
+            message={search || filter !== 'all' ? "No entities match the current surveillance filters." : "Registry empty. No knowledge signals detected in the ecosystem."}
+            actionLabel={search || filter !== 'all' ? undefined : "Initiate Injection"}
+            onAction={search || filter !== 'all' ? undefined : onCreateRequested}
+          />
         )}
       </div>
     </div>

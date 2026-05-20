@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Terminal as TerminalIcon, Activity, Eye, Info } from 'lucide-react';
+import { Shield, Terminal as TerminalIcon, Activity, Eye, Info, LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEnvironment } from '@/lib/environment/state';
 import { useContent } from '@/lib/content/ContentEngine';
@@ -14,11 +14,10 @@ import SceneComposer from '@/components/operator/SceneComposer';
 import LivePreview from '@/components/operator/LivePreview';
 import { ObjectList } from '@/components/operator/ObjectList';
 import { SystemMonitor } from '@/components/operator/SystemMonitor';
- // import { Tooltip } from '@/components/common/Tooltip';
 import { useAudio } from '@/lib/audio/AudioEngine';
 
 export default function OperatorWorkspace() {
-  const { isAuthenticated } = useEnvironment();
+  const { isAuthenticated, role, logout } = useEnvironment();
   const router = useRouter();
   const { playFeedback } = useAudio();
   const {
@@ -40,12 +39,12 @@ export default function OperatorWorkspace() {
   const [showDiagnostics, setShowDiagnostics] = useState(true);
 
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (isAuthenticated === false || (isAuthenticated && role !== 'operator')) {
       router.push('/');
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, role, router]);
 
-  if (isAuthenticated !== true) return null;
+  if (isAuthenticated !== true || role !== 'operator') return null;
 
   const saveRegistry = async (
     updatedObjects: KnowledgeObject[],
@@ -149,7 +148,7 @@ export default function OperatorWorkspace() {
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-[0.4em] uppercase">Operator // Workspace</h1>
-            <p className="text-[10px] text-cyber-blue/40 uppercase mt-1">Controlled Environmental Manipulation Interface</p>
+            <p className="text-[10px] text-cyber-blue/40 uppercase mt-1 tracking-widest font-bold font-mono text-glow-cyan">Protocol Level 04 Access</p>
           </div>
         </div>
 
@@ -159,9 +158,10 @@ export default function OperatorWorkspace() {
                 setShowDiagnostics(!showDiagnostics);
                 playFeedback('click');
             }}
-            className={`mr-4 p-2 border transition-all ${showDiagnostics ? 'border-cyber-cyan text-cyber-cyan bg-cyber-cyan/10' : 'border-cyber-blue/20 opacity-40 hover:opacity-100'}`}
+            title="Toggle Live Diagnostics"
+            className={`mr-4 p-2 border transition-all ${showDiagnostics ? 'border-cyber-cyan text-cyber-cyan bg-cyber-cyan/10 shadow-[0_0_10px_rgba(6,182,212,0.2)]' : 'border-cyber-blue/20 opacity-40 hover:opacity-100 hover:border-cyber-blue/50'}`}
           >
-            <Activity size={16} />
+            <Activity size={18} />
           </button>
 
           {[
@@ -173,24 +173,35 @@ export default function OperatorWorkspace() {
             <button
               key={tab.id}
               onClick={() => handleTabChange(tab.id as "registry" | "create" | "links" | "scenes")}
-              className={`px-6 py-2 text-[10px] uppercase tracking-widest border transition-all ${activeTab === tab.id ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan' : 'border-cyber-blue/20 hover:border-cyber-blue/50'}`}
+              className={`px-6 py-3 text-[10px] uppercase tracking-[0.2em] font-bold border transition-all ${activeTab === tab.id ? 'border-cyber-cyan bg-cyber-cyan/10 text-cyber-cyan shadow-[0_0_15px_rgba(6,182,212,0.1)]' : 'border-cyber-blue/20 text-cyber-blue/60 hover:border-cyber-blue/50 hover:text-cyber-blue'}`}
             >
               {tab.label}
             </button>
           ))}
+
+          <button
+            onClick={() => {
+                logout();
+                router.push('/');
+            }}
+            className="ml-6 p-3 border border-cyber-red/20 text-cyber-red/40 hover:bg-cyber-red/5 hover:text-cyber-red hover:border-cyber-red/40 transition-all flex items-center gap-2"
+          >
+            <LogOut size={16} />
+            <span className="text-[9px] font-bold uppercase tracking-widest">Disconnect</span>
+          </button>
         </nav>
       </header>
 
-      <div className="grid grid-cols-12 gap-8">
+      <div className="grid grid-cols-12 gap-10">
         {/* Main Content Area */}
         <div className="col-span-12 lg:col-span-8">
           <AnimatePresence mode="wait">
             {activeTab === 'registry' ? (
               <motion.div
                 key="registry"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: -10 }}
                 className="space-y-6"
               >
                 <ObjectList
@@ -200,7 +211,7 @@ export default function OperatorWorkspace() {
                     setActiveTab('create');
                     playFeedback('click');
                   }}
-                  onDelete={handleDelete}
+                  onDelete={handleDelete} onCreateRequested={() => setActiveTab("create")}
                   onPreview={(obj) => {
                     setEditingObject(obj);
                     setIsPreviewOpen(true);
@@ -211,9 +222,9 @@ export default function OperatorWorkspace() {
             ) : activeTab === 'create' ? (
               <motion.div
                 key="create"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: -10 }}
               >
                 <AtmosphericPanel title={editingObject ? "Modification Sequence" : "Injection Protocol"} intensity={0.5}>
                   <KnowledgeObjectForm
@@ -230,9 +241,9 @@ export default function OperatorWorkspace() {
             ) : activeTab === 'links' ? (
               <motion.div
                 key="links"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: -10 }}
               >
                 <AtmosphericPanel title="Relationship Mapping" intensity={0.6}>
                   <RelationshipMapper onSave={handleSaveRelationship} onDelete={handleDeleteRelationship} />
@@ -241,9 +252,9 @@ export default function OperatorWorkspace() {
             ) : (
               <motion.div
                 key="scenes"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                exit={{ opacity: 0, y: -10 }}
               >
                 <AtmosphericPanel title="Environment Scene Composition" intensity={0.7}>
                   <SceneComposer
@@ -274,55 +285,62 @@ export default function OperatorWorkspace() {
             )}
           </AnimatePresence>
 
-          <AtmosphericPanel title="Operator Guidance" intensity={0.2}>
-            <div className="space-y-4 text-[10px] uppercase tracking-widest leading-relaxed">
-              <div className="p-3 bg-cyber-blue/5 border border-cyber-blue/10">
-                <div className="flex items-center gap-2 mb-2 text-cyber-cyan">
-                  <Info size={14} />
-                  <span className="font-bold font-mono">Current Objective</span>
+          <AtmosphericPanel title="Operator Briefing" intensity={0.2}>
+            <div className="space-y-6 text-[10px] uppercase tracking-widest leading-relaxed">
+              <div className="p-4 bg-cyber-blue/5 border border-cyber-blue/10 relative overflow-hidden">
+                <div className="flex items-center gap-3 mb-3 text-cyber-cyan">
+                  <Info size={16} />
+                  <span className="font-bold font-mono text-[11px]">System Status: Nominal</span>
                 </div>
-                <p className="opacity-60">
-                    Maintain ecosystem stability while expanding knowledge nodes.
-                    Monitor Tension and Entropy levels during injection.
+                <p className="opacity-60 font-mono leading-relaxed">
+                    Ecosystem expansion mode active.
+                    Current objective: Maintain stability thresholds below 0.8 during injection phase.
                 </p>
+                <div className="absolute top-0 right-0 w-16 h-16 bg-cyber-cyan/5 -mr-8 -mt-8 rotate-45 pointer-events-none" />
               </div>
 
-              <div className="space-y-3 px-1">
-                <div className="flex justify-between items-center">
-                    <span className="opacity-40">System Status</span>
-                    <span className="text-cyber-emerald font-bold">Operational</span>
+              <div className="space-y-4 px-2">
+                <div className="flex justify-between items-center border-b border-cyber-blue/5 pb-2">
+                    <span className="opacity-40">Access Role</span>
+                    <span className="text-cyber-cyan font-bold font-mono underline decoration-cyber-cyan/30 underline-offset-4">{role}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                    <span className="opacity-40">Registry Integrity</span>
-                    <span className="text-cyber-cyan font-bold">Verified</span>
+                <div className="flex justify-between items-center border-b border-cyber-blue/5 pb-2">
+                    <span className="opacity-40">Registry Sync</span>
+                    <span className="text-cyber-emerald font-bold font-mono">Persistent</span>
                 </div>
-                <div className="flex justify-between items-center">
-                    <span className="opacity-40">Active Sessions</span>
-                    <span className="text-cyber-blue font-bold">1 Operator</span>
+                <div className="flex justify-between items-center border-b border-cyber-blue/5 pb-2">
+                    <span className="opacity-40">Nodes Active</span>
+                    <span className="text-white font-bold font-mono">{objects.length} UNITS</span>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-cyber-blue/10">
+              <div className="pt-6">
                 <button
-                    onClick={() => router.push('/weather')}
-                    className="w-full py-2 border border-cyber-blue/20 hover:border-cyber-cyan/50 hover:bg-cyber-cyan/5 transition-all flex items-center justify-center gap-2 group"
+                    onClick={() => {
+                        playFeedback('click');
+                        router.push('/weather');
+                    }}
+                    className="w-full py-4 border border-cyber-blue/20 bg-cyber-blue/5 hover:border-cyber-cyan/50 hover:bg-cyber-cyan/5 transition-all flex items-center justify-center gap-3 group"
                 >
-                    <Eye size={14} className="group-hover:text-cyber-cyan" />
-                    <span>Return to Viewport</span>
+                    <Eye size={16} className="group-hover:text-cyber-cyan group-hover:scale-110 transition-transform" />
+                    <span className="font-bold">Enter Public Viewport</span>
                 </button>
               </div>
             </div>
           </AtmosphericPanel>
 
-          <AtmosphericPanel title="Buffer Feed" intensity={0.1}>
-            <div className="h-32 border border-cyber-blue/10 bg-cyber-black/40 flex items-center justify-center relative overflow-hidden">
-               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#3b82f6_1px,transparent_1px)] [background-size:10px_10px]" />
-               <TerminalIcon className="text-cyber-blue/20" size={48} />
+          <AtmosphericPanel title="Core Buffer" intensity={0.1}>
+            <div className="h-40 border border-cyber-blue/10 bg-cyber-black/40 flex items-center justify-center relative overflow-hidden group">
+               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#3b82f6_1px,transparent_1px)] [background-size:12px_12px] group-hover:opacity-20 transition-opacity" />
+               <TerminalIcon className="text-cyber-blue/20 group-hover:text-cyber-cyan/30 transition-colors" size={56} />
                <motion.div
                 animate={{ top: ['0%', '100%', '0%'] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
-                className="absolute left-0 right-0 h-[1px] bg-cyber-cyan/30 shadow-[0_0_10px_cyan]"
+                transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+                className="absolute left-0 right-0 h-[1px] bg-cyber-cyan/40 shadow-[0_0_15px_cyan]"
                />
+               <div className="absolute bottom-2 right-2 text-[7px] opacity-20 font-mono tracking-widest uppercase">
+                   Signal_Buffer_Active
+               </div>
             </div>
           </AtmosphericPanel>
         </div>
