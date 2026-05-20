@@ -14,6 +14,12 @@ interface SceneComposerProps {
   onToggle: (id: string) => void;
 }
 
+const DEFAULT_MODS = {
+  tensionMod: 0,
+  entropyMod: 0,
+  anomalyMod: 0
+};
+
 export default function SceneComposer({ onSave, onDelete, onToggle }: SceneComposerProps) {
   const { objects, scenes } = useContent();
   const { playFeedback } = useAudio();
@@ -23,7 +29,7 @@ export default function SceneComposer({ onSave, onDelete, onToggle }: SceneCompo
     label: '',
     description: '',
     objectIds: [],
-    environmentalModifiers: { tensionMod: 0, entropyMod: 0, anomalyMod: 0 },
+    environmentalModifiers: { ...DEFAULT_MODS },
     active: false
   });
 
@@ -36,14 +42,10 @@ export default function SceneComposer({ onSave, onDelete, onToggle }: SceneCompo
 
     const scene: Scene = {
       id: newScene.id || `scene-${Math.random().toString(36).substr(2, 9)}`,
-      label: newScene.label,
+      label: newScene.label || '',
       description: newScene.description || '',
       objectIds: newScene.objectIds || [],
-      environmentalModifiers: newScene.environmentalModifiers || {
-        tensionMod: 0,
-        entropyMod: 0,
-        anomalyMod: 0
-      },
+      environmentalModifiers: newScene.environmentalModifiers || { ...DEFAULT_MODS },
       active: newScene.active || false
     };
 
@@ -53,7 +55,7 @@ export default function SceneComposer({ onSave, onDelete, onToggle }: SceneCompo
       label: '',
       description: '',
       objectIds: [],
-      environmentalModifiers: { tensionMod: 0, entropyMod: 0, anomalyMod: 0 },
+      environmentalModifiers: { ...DEFAULT_MODS },
       active: false
     });
     playFeedback('click');
@@ -82,7 +84,7 @@ export default function SceneComposer({ onSave, onDelete, onToggle }: SceneCompo
               label: '',
               description: '',
               objectIds: [],
-              environmentalModifiers: { tensionMod: 0, entropyMod: 0, anomalyMod: 0 },
+              environmentalModifiers: { ...DEFAULT_MODS },
               active: false
             });
             playFeedback('click');
@@ -108,7 +110,7 @@ export default function SceneComposer({ onSave, onDelete, onToggle }: SceneCompo
                   <label className="text-[9px] uppercase opacity-40 font-bold">Cluster Label</label>
                   <input
                     type="text"
-                    value={newScene.label}
+                    value={newScene.label || ''}
                     onChange={e => setNewScene({ ...newScene, label: e.target.value })}
                     className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-[10px] text-cyber-blue outline-none focus:border-cyber-cyan"
                     placeholder="E.G. DEEP_RESONANCE_ZONE"
@@ -118,7 +120,7 @@ export default function SceneComposer({ onSave, onDelete, onToggle }: SceneCompo
                   <label className="text-[9px] uppercase opacity-40 font-bold">Context Description</label>
                   <input
                     type="text"
-                    value={newScene.description}
+                    value={newScene.description || ''}
                     onChange={e => setNewScene({ ...newScene, description: e.target.value })}
                     className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-[10px] text-cyber-blue outline-none focus:border-cyber-cyan"
                     placeholder="E.G. ATMOSPHERIC DRIFT REGION"

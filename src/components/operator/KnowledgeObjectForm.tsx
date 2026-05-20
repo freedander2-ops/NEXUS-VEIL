@@ -15,27 +15,42 @@ interface KnowledgeObjectFormProps {
   onCancel?: () => void;
 }
 
+const DEFAULT_METADATA = {
+  type: '',
+  description: '',
+  tags: '',
+  dangerLevel: 1,
+  signalStrength: 1,
+  renderProfile: 'default'
+};
+
+const DEFAULT_INFLUENCE = {
+  tension: 0.1,
+  entropy: 0.1,
+  anomaly: 0
+};
+
 const TEMPLATES = {
   osint: {
     label: 'NODE_ALPHA',
     status: 'MONITORING',
     environmentAffinity: 'osint' as EnvironmentAffinity,
     influence: { tension: 0.1, entropy: 0.05, anomaly: 0 },
-    metadata: { type: 'SIGNAL', description: 'OSINT Data Node', dangerLevel: 1, renderProfile: 'default' }
+    metadata: { ...DEFAULT_METADATA, type: 'SIGNAL', description: 'OSINT Data Node', dangerLevel: 1, renderProfile: 'default' }
   },
   cyber: {
     label: 'THREAT_VECTOR',
     status: 'ACTIVE',
     environmentAffinity: 'cyber' as EnvironmentAffinity,
     influence: { tension: 0.3, entropy: 0.15, anomaly: 0.05 },
-    metadata: { type: 'VULNERABILITY', description: 'System Vulnerability Marker', dangerLevel: 5, renderProfile: 'unstable' }
+    metadata: { ...DEFAULT_METADATA, type: 'VULNERABILITY', description: 'System Vulnerability Marker', dangerLevel: 5, renderProfile: 'unstable' }
   },
   github: {
     label: 'REPO_SYNC',
     status: 'CONNECTED',
     environmentAffinity: 'github' as EnvironmentAffinity,
     influence: { tension: 0.05, entropy: 0.02, anomaly: 0 },
-    metadata: { type: 'REPOSITORY', description: 'Technical Infrastructure Node', dangerLevel: 0, renderProfile: 'high-vis' }
+    metadata: { ...DEFAULT_METADATA, type: 'REPOSITORY', description: 'Technical Infrastructure Node', dangerLevel: 0, renderProfile: 'high-vis' }
   }
 };
 
@@ -49,15 +64,8 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
     value: '',
     status: '',
     environmentAffinity: 'osint',
-    influence: { tension: 0.1, entropy: 0.1, anomaly: 0 },
-    metadata: {
-      type: '',
-      description: '',
-      tags: '',
-      dangerLevel: 1,
-      signalStrength: 1,
-      renderProfile: 'default'
-    },
+    influence: { ...DEFAULT_INFLUENCE },
+    metadata: { ...DEFAULT_METADATA },
     lastObserved: Date.now(),
   });
 
@@ -70,6 +78,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
     setFormData(prev => ({
       ...prev,
       ...template,
+      influence: { ...prev.influence, ...template.influence },
       metadata: { ...prev.metadata, ...template.metadata }
     }));
     playFeedback('click');
@@ -99,7 +108,11 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
 
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData);
+      setFormData({
+          ...initialData,
+          influence: { ...DEFAULT_INFLUENCE, ...initialData.influence },
+          metadata: { ...DEFAULT_METADATA, ...initialData.metadata }
+      });
       const explicitFields = ['type', 'description', 'tags', 'dangerLevel', 'signalStrength', 'renderProfile'];
       const filteredMetadata = Object.entries(initialData.metadata)
         .filter(([k]) => !explicitFields.includes(k))
@@ -162,19 +175,19 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
         </h2>
         <div className="flex gap-2">
           {onCancel && (
-            <button onClick={onCancel} className="p-2 border border-cyber-blue/20 text-cyber-blue/40 hover:text-cyber-blue hover:bg-cyber-blue/10 transition-all">
+            <button type="button" onClick={onCancel} className="p-2 border border-cyber-blue/20 text-cyber-blue/40 hover:text-cyber-blue hover:bg-cyber-blue/10 transition-all">
               <X size={14} />
             </button>
           )}
-          <button onClick={() => {
+          <button type="button" onClick={() => {
               setFormData({
                 id: '',
                 label: '',
                 value: '',
                 status: '',
                 environmentAffinity: 'osint',
-                influence: { tension: 0.1, entropy: 0.1, anomaly: 0 },
-                metadata: { type: '', description: '', tags: '', dangerLevel: 1, signalStrength: 1, renderProfile: 'default' },
+                influence: { ...DEFAULT_INFLUENCE },
+                metadata: { ...DEFAULT_METADATA },
                 lastObserved: Date.now(),
               });
               setMetadataEntries([]);
@@ -249,7 +262,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
           </div>
           <input
             type="text"
-            value={formData.id}
+            value={formData.id || ''}
             onChange={e => setFormData({ ...formData, id: e.target.value })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
             placeholder="AUTO_GENERATE"
@@ -261,7 +274,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
             <Tooltip content="The primary environmental dimension where this entity will manifest." />
           </div>
           <select
-            value={formData.environmentAffinity}
+            value={formData.environmentAffinity || 'osint'}
             onChange={e => setFormData({ ...formData, environmentAffinity: e.target.value as EnvironmentAffinity })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
           >
@@ -279,7 +292,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
           <input
             required
             type="text"
-            value={formData.label}
+            value={formData.label || ''}
             onChange={e => setFormData({ ...formData, label: e.target.value })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
             placeholder="E.G. TARGET_ALPHA"
@@ -290,7 +303,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
           <input
             required
             type="text"
-            value={formData.value}
+            value={formData.value || ''}
             onChange={e => setFormData({ ...formData, value: e.target.value })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
             placeholder="E.G. 192.168.0.1"
@@ -306,7 +319,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
           </div>
           <input
             type="text"
-            value={formData.status}
+            value={formData.status || ''}
             onChange={e => setFormData({ ...formData, status: e.target.value })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
             placeholder="E.G. MONITORING"
@@ -316,7 +329,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
           <label className="opacity-40 font-bold">Type (Metadata)</label>
           <input
             type="text"
-            value={formData.metadata?.type as string}
+            value={(formData.metadata?.type as string) || ''}
             onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, type: e.target.value } })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
             placeholder="E.G. THREAT_ACTOR"
@@ -327,7 +340,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
       <div className="space-y-2">
         <label className="opacity-40 font-bold">Description</label>
         <textarea
-          value={formData.metadata?.description as string}
+          value={(formData.metadata?.description as string) || ''}
           onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, description: e.target.value } })}
           className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none h-20 resize-none font-mono text-[9px]"
           placeholder="DETAILED ENVIRONMENTAL CONTEXT..."
@@ -343,7 +356,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
           <input
             type="number"
             min="1" max="10"
-            value={formData.metadata?.dangerLevel as number}
+            value={(formData.metadata?.dangerLevel as number) || 1}
             onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, dangerLevel: parseInt(e.target.value) } })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
           />
@@ -354,7 +367,7 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
             <Tooltip content="Specific visual shader and interaction logic to apply to this entity." />
           </div>
           <select
-            value={formData.metadata?.renderProfile as string}
+            value={(formData.metadata?.renderProfile as string) || 'default'}
             onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, renderProfile: e.target.value } })}
             className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
           >
@@ -378,30 +391,30 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
                 <span className="font-bold">Tension</span>
                 <span className={(formData.influence?.tension || 0) > 0.8 ? 'text-cyber-red' : 'text-cyber-cyan'}>{(formData.influence?.tension || 0).toFixed(2)}</span>
             </div>
-            <input type="range" min="0" max="1" step="0.01" value={formData.influence?.tension}
+            <input type="range" min="0" max="1" step="0.01" value={formData.influence?.tension || 0}
               onChange={e => setFormData({ ...formData, influence: { ...formData.influence!, tension: parseFloat(e.target.value) } })}
               className="w-full accent-cyber-blue" />
-            <p className="text-[7px] opacity-30 mt-1">STIFFNESS / DAMPING</p>
+            <p className="text-[7px] opacity-30 mt-1 uppercase">Stiffness / Damping</p>
           </div>
           <div className="space-y-2 p-3 bg-cyber-blue/5 border border-cyber-blue/10">
             <div className="flex justify-between text-[9px] mb-2">
                 <span className="font-bold">Entropy</span>
                 <span className="text-cyber-cyan">{(formData.influence?.entropy || 0).toFixed(2)}</span>
             </div>
-            <input type="range" min="0" max="1" step="0.01" value={formData.influence?.entropy}
+            <input type="range" min="0" max="1" step="0.01" value={formData.influence?.entropy || 0}
               onChange={e => setFormData({ ...formData, influence: { ...formData.influence!, entropy: parseFloat(e.target.value) } })}
               className="w-full accent-cyber-blue" />
-            <p className="text-[7px] opacity-30 mt-1">RANDOMNESS / JITTER</p>
+            <p className="text-[7px] opacity-30 mt-1 uppercase">Randomness / Jitter</p>
           </div>
           <div className={`space-y-2 p-3 bg-cyber-blue/5 border ${(formData.influence?.anomaly || 0) > 0.6 ? 'border-cyber-red/40' : 'border-cyber-blue/10'}`}>
             <div className="flex justify-between text-[9px] mb-2">
                 <span className="font-bold">Anomaly</span>
                 <span className={(formData.influence?.anomaly || 0) > 0.6 ? 'text-cyber-red' : 'text-cyber-cyan'}>{(formData.influence?.anomaly || 0).toFixed(2)}</span>
             </div>
-            <input type="range" min="0" max="1" step="0.01" value={formData.influence?.anomaly}
+            <input type="range" min="0" max="1" step="0.01" value={formData.influence?.anomaly || 0}
               onChange={e => setFormData({ ...formData, influence: { ...formData.influence!, anomaly: parseFloat(e.target.value) } })}
               className="w-full accent-cyber-blue" />
-            <p className="text-[7px] opacity-30 mt-1">RARE EVENTS / FLASHES</p>
+            <p className="text-[7px] opacity-30 mt-1 uppercase">Rare Events / Flashes</p>
           </div>
         </div>
       </div>
@@ -418,9 +431,9 @@ export default function KnowledgeObjectForm({ onSubmit, initialData, onCancel }:
         <div className="space-y-2">
           {metadataEntries.map(([k, v], i) => (
             <div key={i} className="flex gap-2">
-              <input type="text" value={k} onChange={e => updateMetadata(i, e.target.value, v)}
+              <input type="text" value={k || ''} onChange={e => updateMetadata(i, e.target.value, v)}
                 className="flex-1 bg-cyber-black border border-cyber-blue/10 p-2 text-cyber-blue outline-none focus:border-cyber-cyan" placeholder="KEY" />
-              <input type="text" value={v} onChange={e => updateMetadata(i, k, e.target.value)}
+              <input type="text" value={v || ''} onChange={e => updateMetadata(i, k, e.target.value)}
                 className="flex-1 bg-cyber-black border border-cyber-blue/10 p-2 text-cyber-blue outline-none focus:border-cyber-cyan" placeholder="VALUE" />
               <button type="button" onClick={() => removeMetadata(i)} className="p-2 text-cyber-red/40 hover:text-cyber-red transition-colors"><Trash2 size={14} /></button>
             </div>
