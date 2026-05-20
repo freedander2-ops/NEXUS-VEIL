@@ -12,7 +12,6 @@ interface KnowledgeObjectFormProps {
 }
 
 export default function KnowledgeObjectForm({ onSubmit, initialData }: KnowledgeObjectFormProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { objects } = useContent();
   const [formData, setFormData] = useState<Partial<KnowledgeObject>>({
     id: '',
@@ -21,7 +20,14 @@ export default function KnowledgeObjectForm({ onSubmit, initialData }: Knowledge
     status: '',
     environmentAffinity: 'osint',
     influence: { tension: 0.1, entropy: 0.1, anomaly: 0 },
-    metadata: {},
+    metadata: {
+      type: '',
+      description: '',
+      tags: '',
+      dangerLevel: 1,
+      signalStrength: 1,
+      renderProfile: 'default'
+    },
     lastObserved: Date.now(),
   });
 
@@ -55,7 +61,23 @@ export default function KnowledgeObjectForm({ onSubmit, initialData }: Knowledge
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const metadata = Object.fromEntries(metadataEntries.filter(([k]) => k.trim() !== ''));
+
+    // Validation
+    if (!formData.label || !formData.value) {
+      alert('Label and Value are required.');
+      return;
+    }
+
+    if (!initialData && objects.some(o => o.id === formData.id)) {
+      alert('An object with this ID already exists.');
+      return;
+    }
+
+    const metadata = {
+      ...formData.metadata,
+      ...Object.fromEntries(metadataEntries.filter(([k]) => k.trim() !== ''))
+    };
+
     onSubmit({
       ...formData as KnowledgeObject,
       id: formData.id || `obj-${Math.random().toString(36).substr(2, 9)}`,
@@ -151,15 +173,63 @@ export default function KnowledgeObjectForm({ onSubmit, initialData }: Knowledge
         </div>
       </div>
 
+      <div className="grid grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label className="opacity-40 font-bold">Status Marker</label>
+          <input
+            type="text"
+            value={formData.status}
+            onChange={e => setFormData({ ...formData, status: e.target.value })}
+            className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
+            placeholder="e.g. MONITORING"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="opacity-40 font-bold">Type (Metadata)</label>
+          <input
+            type="text"
+            value={formData.metadata?.type as string}
+            onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, type: e.target.value } })}
+            className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
+            placeholder="e.g. THREAT_ACTOR"
+          />
+        </div>
+      </div>
+
       <div className="space-y-2">
-        <label className="opacity-40 font-bold">Status Marker</label>
-        <input
-          type="text"
-          value={formData.status}
-          onChange={e => setFormData({ ...formData, status: e.target.value })}
-          className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
-          placeholder="e.g. MONITORING"
+        <label className="opacity-40 font-bold">Description</label>
+        <textarea
+          value={formData.metadata?.description as string}
+          onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, description: e.target.value } })}
+          className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none h-20 resize-none font-mono text-[10px]"
+          placeholder="Detailed environmental context..."
         />
+      </div>
+
+      <div className="grid grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label className="opacity-40 font-bold">Danger Level (1-10)</label>
+          <input
+            type="number"
+            min="1" max="10"
+            value={formData.metadata?.dangerLevel as number}
+            onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, dangerLevel: parseInt(e.target.value) } })}
+            className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="opacity-40 font-bold">Render Profile</label>
+          <select
+            value={formData.metadata?.renderProfile as string}
+            onChange={e => setFormData({ ...formData, metadata: { ...formData.metadata!, renderProfile: e.target.value } })}
+            className="w-full bg-cyber-black border border-cyber-blue/20 p-2 text-cyber-blue focus:border-cyber-cyan outline-none"
+          >
+            <option value="default">Default Atmospheric</option>
+            <option value="high-vis">High Visibility</option>
+            <option value="stealth">Stealth / Minimal</option>
+            <option value="unstable">Unstable / Glitch</option>
+          </select>
+        </div>
       </div>
 
       {/* Influence Parameters */}

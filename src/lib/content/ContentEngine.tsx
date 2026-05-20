@@ -58,7 +58,15 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addObject = (obj: KnowledgeObject) => {
-    setObjects(prev => [...prev, obj]);
+    setObjects(prev => {
+      const existing = prev.findIndex(o => o.id === obj.id);
+      if (existing > -1) {
+        const updated = [...prev];
+        updated[existing] = obj;
+        return updated;
+      }
+      return [...prev, obj];
+    });
   };
 
   const removeObject = (id: string) => {
@@ -75,7 +83,15 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   };
 
   const addScene = (scene: Scene) => {
-    setScenes(prev => [...prev, scene]);
+    setScenes(prev => {
+      const existing = prev.findIndex(s => s.id === scene.id);
+      if (existing > -1) {
+        const updated = [...prev];
+        updated[existing] = scene;
+        return updated;
+      }
+      return [...prev, scene];
+    });
   };
 
   const removeScene = (id: string) => {
