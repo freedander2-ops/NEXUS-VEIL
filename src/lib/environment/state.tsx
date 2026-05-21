@@ -32,8 +32,10 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
   const [intensity, setIntensity] = useState(0.2);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [role, setRole] = useState<UserRole | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     const storedAuth = localStorage.getItem('nexus_veil_auth');
     const storedRole = localStorage.getItem('nexus_veil_role') as UserRole;
 
@@ -71,7 +73,7 @@ export function EnvironmentProvider({ children }: { children: ReactNode }) {
   return (
     <EnvironmentContext.Provider
       value={{
-        time: time || new Date(0), // Fallback for initial SSR
+        time: time || (isClient ? new Date() : new Date(0)),
         weather,
         mood,
         intensity,

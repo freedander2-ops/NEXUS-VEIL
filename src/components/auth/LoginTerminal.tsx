@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Shield, ChevronRight, User, Key, Eye } from 'lucide-react';
 import { useEnvironment } from '@/lib/environment/state';
@@ -14,6 +14,8 @@ export default function LoginTerminal() {
   const [bootText, setBootText] = useState<string[]>([]);
   const [isBooting, setIsBooting] = useState(true);
   const [hasAgreed, setHasAgreed] = useState(false);
+
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const { setMood, setIntensity, login } = useEnvironment();
   const { state: worldState, mutateWorldState, emitWorldEvent } = useWorldState();
@@ -31,7 +33,7 @@ export default function LoginTerminal() {
         setIsBooting(false);
         clearInterval(interval);
       }
-    }, 50);
+    }, 30);
     return () => clearInterval(interval);
   }, [t.terminal.boot]);
 
@@ -50,12 +52,12 @@ export default function LoginTerminal() {
       emitWorldEvent({ type: 'system_sync' });
       mutateWorldState({ synchronization: worldState.synchronization + 0.1 });
       login('operator');
-      playFeedback('click');
+      playFeedback('success');
     } else if (username === 'guest' && password === 'guest') {
       setMood('calm');
       setIntensity(0.3);
       login('guest');
-      playFeedback('click');
+      playFeedback('success');
     } else {
       setMood('critical');
       setIntensity(0.8);
@@ -79,7 +81,6 @@ export default function LoginTerminal() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md bg-cyber-dark/80 border border-cyber-blue/30 p-8 backdrop-blur-md shadow-[0_0_50px_rgba(59,130,246,0.1)] relative overflow-hidden"
       >
-        {/* Decorative corner elements */}
         <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-cyber-cyan" />
         <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-cyber-cyan" />
         <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-cyber-cyan" />
@@ -96,7 +97,7 @@ export default function LoginTerminal() {
         </div>
 
         {isBooting ? (
-          <div className="space-y-3 h-48 font-mono text-[10px] text-cyber-cyan/60">
+          <div className="space-y-3 h-48 font-mono text-[10px] text-cyber-cyan/60 overflow-hidden">
             {bootText.map((line, i) => (
               <motion.div
                 key={i}
@@ -126,10 +127,17 @@ export default function LoginTerminal() {
                 </div>
                 <div className="relative">
                   <input
+                    autoFocus
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    onFocus={() => playFeedback('hover')}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            passwordRef.current?.focus();
+                            playFeedback('hover');
+                        }
+                    }}
                     className="w-full bg-cyber-black border border-cyber-blue/20 p-3 text-[10px] text-cyber-blue focus:outline-none focus:border-cyber-cyan transition-all font-mono uppercase tracking-widest"
                     placeholder={t.terminal.placeholder_id}
                   />
@@ -145,10 +153,10 @@ export default function LoginTerminal() {
                 </div>
                 <div className="relative">
                   <input
+                    ref={passwordRef}
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    onFocus={() => playFeedback('hover')}
                     className="w-full bg-cyber-black border border-cyber-blue/20 p-3 text-[10px] text-cyber-blue focus:outline-none focus:border-cyber-cyan transition-all font-mono tracking-widest"
                     placeholder={t.terminal.placeholder_pass}
                   />
@@ -162,7 +170,7 @@ export default function LoginTerminal() {
                 playFeedback('hover');
             }}>
               <div className={`w-4 h-4 mt-0.5 border flex items-center justify-center transition-all ${hasAgreed ? 'border-cyber-cyan bg-cyber-cyan/20' : 'border-cyber-blue/30 group-hover:border-cyber-blue'}`}>
-                  {hasAgreed && <div className="w-1.5 h-1.5 bg-cyber-cyan" />}
+                  {hasAgreed && <div className="w-1.5 h-1.5 bg-cyber-cyan shadow-[0_0_5px_cyan]" />}
               </div>
               <label className="text-[8px] text-cyber-blue/50 leading-relaxed uppercase tracking-widest cursor-pointer select-none">
                 I acknowledge that this ecosystem observes digital patterns for atmospheric simulation.

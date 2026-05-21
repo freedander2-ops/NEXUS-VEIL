@@ -18,10 +18,18 @@ export function InteractionProvider({ children }: { children: React.ReactNode })
   });
 
   const lastPos = useRef({ x: 0, y: 0 });
-  const lastTime = useRef(Date.now());
+  const lastTime = useRef(0);
   const disturbanceLevel = useRef(0);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+    lastTime.current = Date.now();
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
@@ -57,7 +65,7 @@ export function InteractionProvider({ children }: { children: React.ReactNode })
       window.removeEventListener('mousemove', handleMouseMove);
       clearInterval(decayInterval);
     };
-  }, []);
+  }, [isClient]);
 
   return (
     <InteractionContext.Provider value={state}>

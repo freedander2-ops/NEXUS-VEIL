@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Cloud,
@@ -26,7 +26,7 @@ import { OsintSection } from '@/components/sections/osint/OsintSection';
 import { GithubSection } from '@/components/sections/github/GithubSection';
 import { CreatorPanel } from '@/components/environment/CreatorPanel';
 import { DimensionalMorph } from '@/components/environment/DimensionalMorph';
-import {  } from '@/components/common/Tooltip';
+import { StatusLayer } from '@/components/environment/StatusLayer';
 
 type Section = 'weather' | 'cyber' | 'github' | 'osint';
 
@@ -41,6 +41,11 @@ export default function MainInterface() {
   const [isMorphing, setIsMorphing] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showGuidance, setShowGuidance] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const navItems = [
     { id: 'weather', label: t.nav.weather, icon: Cloud, description: 'Global atmospheric core monitoring planetary digital pulse.' },
@@ -65,6 +70,8 @@ export default function MainInterface() {
 
     setTimeout(() => setIsMorphing(false), 1200);
   };
+
+  if (!isClient) return null;
 
   return (
     <motion.div
@@ -162,7 +169,7 @@ export default function MainInterface() {
           })}
         </nav>
 
-        <div className="p-4 border-t border-cyber-blue/10 space-y-4">
+        <div className="p-4 border-t border-cyber-blue/10 space-y-4 mb-10">
           <div className="flex items-center gap-4 px-2 py-1">
             <Activity size={14} className="text-cyber-cyan animate-pulse" />
             {isSidebarOpen && (
@@ -176,6 +183,7 @@ export default function MainInterface() {
             onClick={() => {
                 logout();
                 playFeedback('click');
+                window.location.href = '/';
             }}
             className="w-full flex items-center gap-4 p-3 text-cyber-red/60 hover:bg-cyber-red/10 hover:text-cyber-red transition-all border border-transparent hover:border-cyber-red/20"
           >
@@ -186,7 +194,7 @@ export default function MainInterface() {
       </motion.aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 relative overflow-auto">
+      <main className="flex-1 relative flex flex-col min-h-screen">
         <header className={cn(
           "h-16 flex items-center px-8 border-b backdrop-blur-sm sticky top-0 z-10 transition-colors duration-1000",
           isCyberDimension ? "border-cyber-red/10 bg-cyber-red/5" : "border-cyber-blue/5 bg-cyber-dark/20"
@@ -260,76 +268,83 @@ export default function MainInterface() {
           </div>
         </header>
 
-        <AnimatePresence>
-            {showGuidance && (
-                <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="bg-cyber-cyan/5 border-b border-cyber-cyan/20 overflow-hidden"
-                >
-                    <div className="p-8 max-w-4xl">
-                        <div className="flex items-start gap-6">
-                            <div className="p-3 bg-cyber-cyan/10 border border-cyber-cyan/30 mt-1">
-                                <Info className="text-cyber-cyan" size={20} />
-                            </div>
-                            <div className="space-y-4">
-                                <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-cyber-cyan">Dimensional Context: {navItems.find(i => i.id === activeSection)?.label}</h3>
-                                <p className="text-[11px] uppercase tracking-widest leading-relaxed text-white/60 font-mono">
-                                    {navItems.find(i => i.id === activeSection)?.description}
-                                </p>
-                                <div className="grid grid-cols-2 gap-6 pt-2">
-                                    <div className="space-y-2">
-                                        <h4 className="text-[9px] font-bold text-cyber-cyan/40 uppercase tracking-widest flex items-center gap-2">
-                                            <ChevronRight size={10} /> Atmospheric Profile
-                                        </h4>
-                                        <p className="text-[9px] text-white/40 uppercase leading-relaxed font-mono">
-                                            Motion profiles, shader complexity, and pulse frequencies are uniquely tuned for this dimension.
-                                        </p>
+        <div className="flex-1 relative overflow-auto pb-20 custom-scrollbar">
+            <AnimatePresence>
+                {showGuidance && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="bg-cyber-cyan/5 border-b border-cyber-cyan/20 overflow-hidden"
+                    >
+                        <div className="p-8 max-w-4xl">
+                            <div className="flex items-start gap-6">
+                                <div className="p-3 bg-cyber-cyan/10 border border-cyber-cyan/30 mt-1">
+                                    <Info className="text-cyber-cyan" size={20} />
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center">
+                                        <h3 className="text-xs font-bold uppercase tracking-[0.3em] text-cyber-cyan">Dimensional Context: {navItems.find(i => i.id === activeSection)?.label}</h3>
+                                        <button onClick={() => setShowGuidance(false)} className="text-white/20 hover:text-white/60"><X size={14} /></button>
                                     </div>
-                                    <div className="space-y-2">
-                                        <h4 className="text-[9px] font-bold text-cyber-cyan/40 uppercase tracking-widest flex items-center gap-2">
-                                            <ChevronRight size={10} /> Entity Manifestation
-                                        </h4>
-                                        <p className="text-[9px] text-white/40 uppercase leading-relaxed font-mono">
-                                            Only entities with affinity for this dimension or global affinity will be rendered here.
-                                        </p>
+                                    <p className="text-[11px] uppercase tracking-widest leading-relaxed text-white/60 font-mono">
+                                        {navItems.find(i => i.id === activeSection)?.description}
+                                    </p>
+                                    <div className="grid grid-cols-2 gap-6 pt-2">
+                                        <div className="space-y-2">
+                                            <h4 className="text-[9px] font-bold text-cyber-cyan/40 uppercase tracking-widest flex items-center gap-2">
+                                                <ChevronRight size={10} /> Atmospheric Profile
+                                            </h4>
+                                            <p className="text-[9px] text-white/40 uppercase leading-relaxed font-mono">
+                                                Motion profiles, shader complexity, and pulse frequencies are uniquely tuned for this dimension.
+                                            </p>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <h4 className="text-[9px] font-bold text-cyber-cyan/40 uppercase tracking-widest flex items-center gap-2">
+                                                <ChevronRight size={10} /> Entity Manifestation
+                                            </h4>
+                                            <p className="text-[9px] text-white/40 uppercase leading-relaxed font-mono">
+                                                Only entities with affinity for this dimension or global affinity will be rendered here.
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </motion.div>
-            )}
-        </AnimatePresence>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-        <div className="p-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeSection}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              {activeSection === 'weather' && (
-                <WeatherSection
-                  title={t.nav.weather}
-                  description={t.nav.weather_desc}
-                />
-              )}
-              {activeSection === 'cyber' && (
-                <CyberSection />
-              )}
-              {activeSection === 'github' && (
-                <GithubSection />
-              )}
-              {activeSection === 'osint' && (
-                <OsintSection />
-              )}
-            </motion.div>
-          </AnimatePresence>
+            <div className="p-8">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSection}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {activeSection === 'weather' && (
+                    <WeatherSection
+                      title={t.nav.weather}
+                      description={t.nav.weather_desc}
+                    />
+                  )}
+                  {activeSection === 'cyber' && (
+                    <CyberSection />
+                  )}
+                  {activeSection === 'github' && (
+                    <GithubSection />
+                  )}
+                  {activeSection === 'osint' && (
+                    <OsintSection />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </div>
         </div>
+
+        <StatusLayer />
       </main>
 
       <DimensionalMorph isActive={isMorphing} />
