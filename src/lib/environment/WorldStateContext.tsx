@@ -45,9 +45,10 @@ const STORAGE_KEY = 'nexus_veil_world_state';
 export function WorldStateProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<WorldState>(DEFAULT_STATE);
   const [lastEvent, setLastEvent] = useState<WorldEvent | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
-  // Initialize from localStorage
   useEffect(() => {
+    setIsClient(true);
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
@@ -58,13 +59,16 @@ export function WorldStateProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Persist to localStorage
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+    if (isClient) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+  }, [state, isClient]);
 
   // Decay mechanism
   useEffect(() => {
+    if (!isClient) return;
+
     const decayTimer = setInterval(() => {
       setState(prev => ({
         tension: prev.tension + (DEFAULT_STATE.tension - prev.tension) * 0.05,
@@ -78,7 +82,7 @@ export function WorldStateProvider({ children }: { children: ReactNode }) {
     }, 5000); // Decay every 5 seconds
 
     return () => clearInterval(decayTimer);
-  }, []);
+  }, [isClient]);
 
   const mutateWorldState = useCallback((mutation: Partial<WorldState>) => {
     setState(prev => {

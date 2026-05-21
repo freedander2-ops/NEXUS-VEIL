@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { EnvironmentProvider } from "@/lib/environment/state";
-import { CreatorProvider } from "@/lib/environment/creatorState";
-import { InteractionProvider } from "@/lib/environment/InteractionReactor";
 import { WorldStateProvider } from "@/lib/environment/WorldStateContext";
-import { AudioEngineProvider } from "@/lib/audio/AudioEngine";
-import { I18nProvider } from "@/lib/i18n/I18nContext";
 import { ContentProvider } from "@/lib/content/ContentEngine";
-import BackgroundCanvas from "@/components/environment/BackgroundCanvas";
+import { InteractionProvider } from "@/lib/environment/InteractionReactor";
+import { I18nProvider } from "@/lib/i18n/I18nContext";
+import { AudioEngineProvider } from "@/lib/audio/AudioEngine";
+import { CreatorProvider } from "@/lib/environment/creatorState";
+import { WeatherEffects } from "@/components/environment/WeatherEffects";
+import { SystemWhispers } from "@/components/environment/SystemWhispers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "NEXUS VEIL",
-  description: "Adaptive digital environment",
+  description: "Adaptive Digital Environment",
 };
 
 export default function RootLayout({
@@ -31,24 +32,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className="bg-black">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden selection:bg-cyber-cyan/30 selection:text-white`}>
         <I18nProvider>
           <WorldStateProvider>
-            <ContentProvider>
             <EnvironmentProvider>
-              <InteractionProvider>
-                <CreatorProvider>
-                  <BackgroundCanvas />
-                  <AudioEngineProvider>
-                  <main className="relative z-0">
-                    {children}
-                  </main>
-                  </AudioEngineProvider>
-                </CreatorProvider>
-              </InteractionProvider>
+              <CreatorProvider>
+                <InteractionProvider>
+                  <ContentProvider>
+                    <AudioEngineProvider>
+                      <WeatherEffects />
+                      <SystemWhispers />
+                      {children}
+                    </AudioEngineProvider>
+                  </ContentProvider>
+                </InteractionProvider>
+              </CreatorProvider>
             </EnvironmentProvider>
-            </ContentProvider>
           </WorldStateProvider>
         </I18nProvider>
       </body>
