@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Terminal, Activity, ChevronRight, } from 'lucide-react';
+import { Shield, Terminal, Activity, ChevronRight } from 'lucide-react';
 import { TactileButton } from '@/components/common/TactileButton';
+import { useAudio } from '@/lib/audio/AudioEngine';
 
 interface OnboardingBriefingProps {
   onComplete: () => void;
@@ -11,6 +12,12 @@ interface OnboardingBriefingProps {
 
 export const OnboardingBriefing = ({ onComplete }: OnboardingBriefingProps) => {
   const [step, setStep] = useState(0);
+  const { playFeedback } = useAudio();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const steps = [
     {
@@ -46,6 +53,8 @@ export const OnboardingBriefing = ({ onComplete }: OnboardingBriefingProps) => {
       ]
     }
   ];
+
+  if (!isClient) return null;
 
   const currentStep = steps[step];
 
@@ -97,6 +106,7 @@ export const OnboardingBriefing = ({ onComplete }: OnboardingBriefingProps) => {
 
             <TactileButton
               onClick={() => {
+                playFeedback('click');
                 if (step < steps.length - 1) setStep(step + 1);
                 else onComplete();
               }}

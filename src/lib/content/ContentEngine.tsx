@@ -5,6 +5,7 @@ import { KnowledgeObject, Relationship, Scene, ContentRegistry } from './schema'
 import registryData from '@/content/registry.json';
 import { useWorldState } from '@/lib/environment/WorldStateContext';
 import { calculatePropagatedInfluence } from '../environment/propagation';
+import { useAudio } from '@/lib/audio/AudioEngine';
 
 interface ContentContextType {
   objects: KnowledgeObject[];
@@ -19,6 +20,7 @@ interface ContentContextType {
   toggleScene: (id: string) => void;
   triggerObjectInfluence: (id: string) => void;
   refreshRegistry: () => Promise<void>;
+  isSynchronizing: boolean;
 }
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
@@ -27,7 +29,9 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   const [objects, setObjects] = useState<KnowledgeObject[]>([]);
   const [relationships, setRelationships] = useState<Relationship[]>([]);
   const [scenes, setScenes] = useState<Scene[]>([]);
+  const [isSynchronizing, setIsSynchronizing] = useState(false);
   const { state: worldState, mutateWorldState, emitWorldEvent } = useWorldState();
+  const { playFeedback } = useAudio();
 
   useEffect(() => {
     const loadRegistry = async () => {
@@ -39,7 +43,6 @@ export function ContentProvider({ children }: { children: ReactNode }) {
           setRelationships(data.relationships || []);
           setScenes(data.scenes || []);
         } else {
-          // Fallback to static data if API fails
           const staticData = registryData as unknown as ContentRegistry;
           setObjects(staticData.objects);
           setRelationships(staticData.relationships || []);
@@ -75,6 +78,12 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   };
 
   const addRelationship = (rel: Relationship) => {
+    const source = objects.find(o => o.id === rel.sourceId);
+    const target = objects.find(o => o.id === rel.targetId);
+    if (!source || !target) {
+      console.warn('Attempted to create relationship between orphaned entities', rel);
+      return;
+    }
     setRelationships(prev => [...prev, rel]);
   };
 
@@ -103,6 +112,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
   };
 
   const refreshRegistry = async () => {
+    setIsSynchronizing(true);
     try {
       const response = await fetch('/api/registry');
       if (response.ok) {
@@ -110,35 +120,40 @@ export function ContentProvider({ children }: { children: ReactNode }) {
         setObjects(data.objects);
         setRelationships(data.relationships || []);
         setScenes(data.scenes || []);
+        playFeedback('success');
       }
     } catch (error) {
       console.error('Failed to refresh registry', error);
+      playFeedback('anomaly');
+    } finally {
+      setIsSynchronizing(false);
     }
   };
 
-  // Scene-based World State Influence
   useEffect(() => {
     const activeScenes = scenes.filter(s => s.active);
     if (activeScenes.length === 0) return;
 
     const interval = setInterval(() => {
       activeScenes.forEach(scene => {
+        const validObjects = scene.objectIds.filter(id => objects.some(o => o.id === id));
+        if (validObjects.length === 0 && scene.objectIds.length > 0) return;
+
         mutateWorldState({
-          tension: worldState.tension + (scene.environmentalModifiers.tensionMod || 0) * 0.01,
-          entropy: worldState.entropy + (scene.environmentalModifiers.entropyMod || 0) * 0.01,
-          anomalyLevel: worldState.anomalyLevel + (scene.environmentalModifiers.anomalyMod || 0) * 0.01
+          tension: worldState.tension + (scene.environmentalModifiers.tensionMod || 0) * 0.005,
+          entropy: worldState.entropy + (scene.environmentalModifiers.entropyMod || 0) * 0.005,
+          anomalyLevel: worldState.anomalyLevel + (scene.environmentalModifiers.anomalyMod || 0) * 0.005
         });
       });
-    }, 10000);
+    }, 15000);
 
     return () => clearInterval(interval);
-  }, [scenes, worldState.tension, worldState.entropy, worldState.anomalyLevel, mutateWorldState]);
+  }, [scenes, objects, worldState.tension, worldState.entropy, worldState.anomalyLevel, mutateWorldState]);
 
   const triggerObjectInfluence = (id: string) => {
     const obj = objects.find(o => o.id === id);
     if (!obj) return;
 
-    // Calculate propagation
     const propagationUpdates = calculatePropagatedInfluence(objects, relationships);
     const targetUpdate = propagationUpdates[id] || { tension: 0, entropy: 0, anomaly: 0 };
 
@@ -166,7 +181,8 @@ export function ContentProvider({ children }: { children: ReactNode }) {
       removeScene,
       toggleScene,
       triggerObjectInfluence,
-      refreshRegistry
+      refreshRegistry,
+      isSynchronizing
     }}>
       {children}
     </ContentContext.Provider>

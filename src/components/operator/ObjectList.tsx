@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, Eye, Trash2, Edit3, Globe, ShieldAlert, GitBranch, Terminal } from 'lucide-react';
 import { KnowledgeObject, EnvironmentAffinity } from '@/lib/content/schema';
 import { EmptyState } from '@/components/common/EmptyState';
+import { useAudio } from '@/lib/audio/AudioEngine';
 
 interface ObjectListProps {
   objects: KnowledgeObject[];
@@ -17,6 +18,7 @@ interface ObjectListProps {
 export const ObjectList = ({ objects, onEdit, onDelete, onPreview, onCreateRequested }: ObjectListProps) => {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<EnvironmentAffinity | 'all'>('all');
+  const { playFeedback } = useAudio();
 
   const filtered = objects.filter(obj => {
     const matchesSearch = obj.label.toLowerCase().includes(search.toLowerCase()) ||
@@ -54,7 +56,10 @@ export const ObjectList = ({ objects, onEdit, onDelete, onPreview, onCreateReque
           <Filter size={14} className="opacity-20" />
           <select
             value={filter}
-            onChange={(e) => setFilter(e.target.value as EnvironmentAffinity | 'all')}
+            onChange={(e) => {
+                setFilter(e.target.value as EnvironmentAffinity | 'all');
+                playFeedback('hover');
+            }}
             className="bg-transparent text-[10px] uppercase tracking-widest outline-none cursor-pointer py-2"
           >
             <option value="all">All Affinities</option>
@@ -68,57 +73,61 @@ export const ObjectList = ({ objects, onEdit, onDelete, onPreview, onCreateReque
       </div>
 
       {/* List Container */}
-      <div className="grid gap-2">
-        {filtered.map((obj) => (
-          <motion.div
-            key={obj.id}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="group relative flex items-center justify-between p-4 bg-cyber-dark/40 border border-cyber-blue/10 hover:border-cyber-blue/40 transition-all"
-          >
-            <div className="flex items-center gap-6">
-              <div className="flex flex-col items-center gap-2">
-                {getAffinityIcon(obj.environmentAffinity)}
-                <div className={`w-[2px] h-8 ${
-                  obj.environmentAffinity === 'osint' ? 'bg-blue-500/40' :
-                  obj.environmentAffinity === 'cyber' ? 'bg-red-500/40' :
-                  obj.environmentAffinity === 'github' ? 'bg-purple-500/40' : 'bg-slate-500/40'
-                }`} />
-              </div>
-              <div>
-                <div className="text-[9px] text-cyber-blue/40 uppercase tracking-tighter mb-1 font-mono">
-                  {obj.id} <span className="mx-2 opacity-20">|</span> {obj.status}
+      <div className="grid gap-2 overflow-y-auto max-h-[600px] custom-scrollbar pr-2">
+        <AnimatePresence mode="popLayout">
+          {filtered.map((obj) => (
+            <motion.div
+              layout
+              key={obj.id}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              className="group relative flex items-center justify-between p-4 bg-cyber-dark/40 border border-cyber-blue/10 hover:border-cyber-blue/40 transition-all"
+            >
+              <div className="flex items-center gap-6">
+                <div className="flex flex-col items-center gap-2">
+                  {getAffinityIcon(obj.environmentAffinity)}
+                  <div className={`w-[2px] h-8 ${
+                    obj.environmentAffinity === 'osint' ? 'bg-blue-500/40' :
+                    obj.environmentAffinity === 'cyber' ? 'bg-red-500/40' :
+                    obj.environmentAffinity === 'github' ? 'bg-purple-500/40' : 'bg-slate-500/40'
+                  }`} />
                 </div>
-                <div className="text-sm font-bold text-white uppercase tracking-wider">{obj.label}</div>
-                <div className="text-[10px] opacity-60 font-mono mt-1 text-cyber-cyan font-bold">{obj.value}</div>
+                <div>
+                  <div className="text-[9px] text-cyber-blue/40 uppercase tracking-tighter mb-1 font-mono">
+                    {obj.id} <span className="mx-2 opacity-20">|</span> {obj.status}
+                  </div>
+                  <div className="text-sm font-bold text-white uppercase tracking-wider">{obj.label}</div>
+                  <div className="text-[10px] opacity-60 font-mono mt-1 text-cyber-cyan font-bold">{obj.value}</div>
+                </div>
               </div>
-            </div>
 
-            <div className="flex gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
-              <button
-                onClick={() => onPreview(obj)}
-                title="Preview Manifestation"
-                className="p-3 hover:text-cyber-cyan hover:bg-cyber-cyan/10 transition-colors"
-              >
-                <Eye size={18} />
-              </button>
-              <button
-                onClick={() => onEdit(obj)}
-                title="Modify Registry"
-                className="p-3 hover:text-cyber-blue hover:bg-cyber-blue/10 transition-colors"
-              >
-                <Edit3 size={18} />
-              </button>
-              <button
-                onClick={() => onDelete(obj.id)}
-                title="Execute Deletion"
-                className="p-3 hover:text-cyber-red hover:bg-cyber-red/10 transition-colors"
-              >
-                <Trash2 size={18} />
-              </button>
-            </div>
-          </motion.div>
-        ))}
+              <div className="flex gap-2 opacity-40 group-hover:opacity-100 transition-opacity">
+                <button
+                  onClick={() => onPreview(obj)}
+                  title="Preview Manifestation"
+                  className="p-3 hover:text-cyber-cyan hover:bg-cyber-cyan/10 transition-colors"
+                >
+                  <Eye size={18} />
+                </button>
+                <button
+                  onClick={() => onEdit(obj)}
+                  title="Modify Registry"
+                  className="p-3 hover:text-cyber-blue hover:bg-cyber-blue/10 transition-colors"
+                >
+                  <Edit3 size={18} />
+                </button>
+                <button
+                  onClick={() => onDelete(obj.id)}
+                  title="Execute Deletion"
+                  className="p-3 hover:text-cyber-red hover:bg-cyber-red/10 transition-colors"
+                >
+                  <Trash2 size={18} />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
 
         {filtered.length === 0 && (
           <EmptyState

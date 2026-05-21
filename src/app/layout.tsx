@@ -39,13 +39,13 @@ export default function RootLayout({
             <EnvironmentProvider>
               <CreatorProvider>
                 <InteractionProvider>
-                  <ContentProvider>
-                    <AudioEngineProvider>
+                  <AudioEngineProvider>
+                    <ContentProvider>
                       <WeatherEffects />
                       <SystemWhispers />
                       {children}
-                    </AudioEngineProvider>
-                  </ContentProvider>
+                    </ContentProvider>
+                  </AudioEngineProvider>
                 </InteractionProvider>
               </CreatorProvider>
             </EnvironmentProvider>
